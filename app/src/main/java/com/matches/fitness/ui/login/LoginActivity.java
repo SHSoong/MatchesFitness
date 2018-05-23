@@ -6,13 +6,14 @@ import android.widget.EditText;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
+import com.matches.fitness.base.BaseEntity;
+import com.matches.fitness.entity.LoginEntity;
 import com.matches.fitness.retrofit.ApiService;
-import com.matches.fitness.utils.RetrofitManager;
+import com.matches.fitness.retrofit.manager.BaseObserver;
+import com.matches.fitness.retrofit.manager.RetrofitManager;
+import com.matches.fitness.retrofit.manager.RxSchedulers;
 
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
 
@@ -48,12 +49,20 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void callApi(String userName, String userPwd) {
-        Disposable disposable = RetrofitManager.getInstance().getRetrofit()
+        RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
                 .doLogin(userName, userPwd)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();//TODO
-        addSubscription(disposable);
+                .compose(RxSchedulers.<BaseEntity<LoginEntity>>io_main())
+                .subscribe(new BaseObserver<LoginEntity>() {
+                    @Override
+                    protected void onHandleSuccess(LoginEntity loginModel) {
+
+                    }
+
+                    @Override
+                    protected void onHandleError(String msg) {
+
+                    }
+                });
     }
 }

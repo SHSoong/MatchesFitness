@@ -1,6 +1,7 @@
 package com.matches.fitness.retrofit;
 
-import com.matches.fitness.datamodel.LoginModel;
+import com.matches.fitness.base.BaseEntity;
+import com.matches.fitness.entity.LoginEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -11,6 +12,6 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("user/login")
-    Observable<LoginModel> doLogin(@Field("userName") String userName, @Field("userPwd") String userPwd);
+    Observable<BaseEntity<LoginEntity>> doLogin(@Field("userName") String userName, @Field("userPwd") String userPwd);
 
 }
