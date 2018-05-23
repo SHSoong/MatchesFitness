@@ -1,4 +1,4 @@
-package com.matches.fitness.utils;
+package com.matches.fitness.retrofit.manager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.matches.fitness.config.BuildConfig;
@@ -13,8 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManager {
 
     private static RetrofitManager instance;
-    private Retrofit mRetrofit;
-    private OkHttpClient mOkHttpClient;
 
     public static RetrofitManager getInstance() {
         if (instance == null) {
@@ -27,18 +25,11 @@ public class RetrofitManager {
         return instance;
     }
 
-    private RetrofitManager() {
-        synchronized (RetrofitManager.class) {
-            initHttpClient();
-            initRetrofit();
-        }
-    }
-
-    private void initRetrofit() {
+    private OkHttpClient httpClient() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        mOkHttpClient = new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(20L, TimeUnit.SECONDS)
                 .readTimeout(20L, TimeUnit.SECONDS)
@@ -46,17 +37,17 @@ public class RetrofitManager {
                 .build();
     }
 
-    private void initHttpClient() {
-        mRetrofit = new Retrofit.Builder()
+    private Retrofit retrofit() {
+        return new Retrofit.Builder()
                 .baseUrl(BuildConfig.baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(mOkHttpClient)
+                .client(httpClient())
                 .build();
     }
 
     public Retrofit getRetrofit() {
-        return mRetrofit;
+        return retrofit();
     }
 
 }

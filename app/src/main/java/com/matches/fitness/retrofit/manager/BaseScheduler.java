@@ -1,4 +1,4 @@
-package com.matches.fitness.utils;
+package com.matches.fitness.retrofit.manager;
 
 import org.reactivestreams.Publisher;
 
