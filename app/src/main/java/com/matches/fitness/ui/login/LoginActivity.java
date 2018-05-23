@@ -1,5 +1,6 @@
 package com.matches.fitness.ui.login;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +13,10 @@ import com.matches.fitness.retrofit.ApiService;
 import com.matches.fitness.retrofit.manager.BaseObserver;
 import com.matches.fitness.retrofit.manager.RetrofitManager;
 import com.matches.fitness.retrofit.manager.RxSchedulers;
+import com.matches.fitness.ui.MainActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
 
@@ -31,9 +34,13 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onInit() {
+        ButterKnife.bind(this);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
                 String userName = etUserName.getText().toString().trim();
                 String userPwd = etUserPwd.getText().toString().trim();
                 if (userName.isEmpty()) {
@@ -42,8 +49,7 @@ public class LoginActivity extends BaseActivity {
                 if (userPwd.isEmpty()) {
                     return;
                 }
-
-                callApi(userName, userPwd);
+//                callApi(userName, userPwd);
             }
         });
     }

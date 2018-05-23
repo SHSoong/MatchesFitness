@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity {
     @BindString(R.string.app_name)
     public String appName;
 
+
     @Override
     protected void onInitBinding() {
         setContentView(R.layout.activity_main);
