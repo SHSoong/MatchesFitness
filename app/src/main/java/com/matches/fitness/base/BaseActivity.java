@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.matches.fitness.utils.StatusBarUtil;
+import com.gyf.barlibrary.ImmersionBar;
+import com.matches.fitness.R;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -18,9 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onInitBinding();
         onInit();
-        setTranslucentStatus();
-        setTranslucentStatusPadding();
-        setStausBarTextDeep(true);
+        setStatusBarColor(R.color.white);
     }
 
     @Override
@@ -31,41 +30,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /**
-     * 设置状态栏文字高亮显示
-     *
-     * @param isDark
-     */
-    public void setStausBarTextDeep(boolean isDark) {
-        if (isDark == true) {
-            StatusBarUtil.setStatusBarTextColor(this, true);
-        } else {
-            StatusBarUtil.setStatusBarTextColor(this, false);
-        }
-
-    }
-    /**
-     * 设置状态栏颜色
-     *
-     * @param color
-     */
-
-    public void setStatusColor(int color) {
-        StatusBarUtil.setColor(this, color);
-    }
-
-    /**
-     * 设置全屏模式透明
-     */
-    public void setTranslucentStatus() {
-        StatusBarUtil.setTranslucentStatus(this, true);
-    }
-
-    /**
-     * 设置全屏模式透明内容padding
-     */
-    public void setTranslucentStatusPadding() {
-        StatusBarUtil.setTransparent(this);
+    public void setStatusBarColor(int colorPrimary){
+        ImmersionBar.with(this)
+                .transparentStatusBar()
+                .statusBarColor(colorPrimary)
+                .statusBarDarkFont(true)
+                .fitsSystemWindows(true)
+                .init();
     }
 
     protected abstract void onInitBinding();
