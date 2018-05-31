@@ -31,7 +31,7 @@ public class MeiziAdapter extends BaseCardAdapter {
 
     @Override
     public int getCardLayoutId() {
-        return R.layout.item;
+        return R.layout.itemview_swipe_cards;
     }
 
     @Override
