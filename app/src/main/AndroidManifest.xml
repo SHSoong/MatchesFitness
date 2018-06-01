@@ -9,10 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name="com.matches.fitness.ui.login.LoginActivity">
 
         </activity>
-        <activity android:name="com.matches.fitness.ui.MainActivity"
+        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".ui.settings.AccountsActivity" />
+        <activity android:name=".ui.settings.ChangePwdActivity" />
+
+        <activity
+            android:name="com.matches.fitness.ui.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
     <color name="red">#FF4081</color>
     <color name="gray">#dddddd</color>
+
+    <color name="grayLine">#dddddd</color>
 </resources>

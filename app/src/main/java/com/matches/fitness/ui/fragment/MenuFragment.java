@@ -1,5 +1,6 @@
 package com.matches.fitness.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,10 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.ViewPagerAdapter;
+import com.matches.fitness.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,8 @@ public class MenuFragment extends BaseFragment {
     public TabLayout tabLayout;
     @BindView(R.id.viewPager)
     public ViewPager viewPager;
+    @BindView(R.id.tvSettings)
+    public TextView tvSettings;
 
     private List<String> tabList = new ArrayList<>();
 
@@ -40,6 +45,16 @@ public class MenuFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initTabLayout();
+        init();
+    }
+
+    private void init(){
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
     }
 
     private void initTabLayout() {

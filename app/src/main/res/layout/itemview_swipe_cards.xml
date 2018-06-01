@@ -7,76 +7,72 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/shape_white_solid"
-        android:gravity="center"
         android:layout_margin="20dp"
+        android:background="@drawable/shape_gray_solid"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <com.matches.fitness.customview.RoundCornerImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_avatar_01" />
 
-            <com.matches.fitness.customview.RoundCornerImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_margin="1dp"
-                android:src="@mipmap/img_avatar_01" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="15dp">
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="小姐姐"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_age"
-                android:gravity="center"
-                android:text="♀ 23"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小姐姐"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_constellation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/tv_age"
-                android:background="@drawable/shape_constellation"
-                android:gravity="center"
-                android:text="狮子座"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_age"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="IT/互联网"
-                android:textColor="#cbcbcb" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="健身房"
+                    android:textColor="#cbcbcb" />
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="24* 广州"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="明天10点"
+                    android:textColor="#cbcbcb" />
+
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
