@@ -58,7 +58,6 @@ public class MenuFragment extends BaseFragment {
     }
 
     private void initTabLayout() {
-
         tabList.add("健身配对");
         tabList.add("通知");
         for (int i = 0; i < tabList.size(); i++) {
@@ -67,8 +66,8 @@ public class MenuFragment extends BaseFragment {
 
         // 创建一个集合,装填Fragment
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(PairFragment.newInstance());
-        fragments.add(NoticeFragment.newInstance());
+        fragments.add(MenuPairFragment.newInstance());
+        fragments.add(MenuNoticeFragment.newInstance());
         //viewpager
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments, tabList);
         viewPager.setAdapter(viewPagerAdapter);

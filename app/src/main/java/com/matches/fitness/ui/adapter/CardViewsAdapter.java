@@ -10,12 +10,12 @@ import com.matches.fitness.R;
 import java.util.List;
 
 
-public class MeiziAdapter extends BaseCardAdapter {
+public class CardViewsAdapter extends BaseCardAdapter {
 
     private List<Integer> datas;
     private Context context;
 
-    public MeiziAdapter(Context context, List<Integer> datas) {
+    public CardViewsAdapter(Context context, List<Integer> datas) {
         this.datas = datas;
         this.context = context;
     }

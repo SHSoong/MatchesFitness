@@ -3,6 +3,7 @@ package com.matches.fitness.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.matches.fitness.R;
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         onInitBinding();
         onInit();
         setStatusBarColor(R.color.white);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     @Override
@@ -36,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .statusBarColor(colorPrimary)
                 .statusBarDarkFont(true)
                 .fitsSystemWindows(true)
+                .navigationBarColor(colorPrimary)
                 .init();
     }
 

@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/tvAccounts"
+                android:id="@+id/rlAccounts"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingEnd="15dp"
@@ -70,7 +70,7 @@
                 android:background="@color/grayLine" />
 
             <RelativeLayout
-                android:id="@+id/tvChangePwd"
+                android:id="@+id/rlChangePwd"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingEnd="15dp"

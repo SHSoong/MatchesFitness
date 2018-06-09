@@ -12,16 +12,16 @@ import com.matches.fitness.base.BaseFragment;
 
 import butterknife.ButterKnife;
 
-public class PairFragment extends BaseFragment {
+public class HomeAppointFragment extends BaseFragment {
 
     public static Fragment newInstance() {
-        return new PairFragment();
+        return new HomeAppointFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pair, container, false);
+        View view = inflater.inflate(R.layout.fragment_homeappoint, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -30,5 +30,4 @@ public class PairFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
 }

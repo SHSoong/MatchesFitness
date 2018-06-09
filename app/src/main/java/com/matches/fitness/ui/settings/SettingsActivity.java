@@ -2,7 +2,7 @@ package com.matches.fitness.ui.settings;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
@@ -12,10 +12,10 @@ import butterknife.ButterKnife;
 
 public class SettingsActivity extends BaseActivity {
 
-    @BindView(R.id.tvAccounts)
-    public TextView tvAccounts;
-    @BindView(R.id.tvChangePwd)
-    public TextView tvChangePwd;
+    @BindView(R.id.rlAccounts)
+    public RelativeLayout rlAccounts;
+    @BindView(R.id.rlChangePwd)
+    public RelativeLayout rlChangePwd;
 
     @Override
     protected void onInitBinding() {
@@ -25,13 +25,13 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        tvAccounts.setOnClickListener(new View.OnClickListener() {
+        rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingsActivity.this, AccountsActivity.class));
             }
         });
-        tvChangePwd.setOnClickListener(new View.OnClickListener() {
+        rlChangePwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
