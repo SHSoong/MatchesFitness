@@ -51,7 +51,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/anim_avitor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

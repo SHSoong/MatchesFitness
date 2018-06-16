@@ -21,7 +21,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="@drawable/shape_white_solid"
+            android:background="@drawable/shape_white_oval"
+            android:elevation="2dp"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/icon_home_other" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/shape_white_oval"
             android:elevation="2dp"
             android:padding="20dp">
 
@@ -35,28 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="@drawable/shape_white_solid"
+            android:background="@drawable/shape_white_oval"
             android:elevation="2dp"
             android:padding="20dp">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/icon_red_heart" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@drawable/shape_white_solid"
-            android:elevation="2dp"
-            android:padding="20dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/icon_red_heart" />
+                android:src="@mipmap/icon_home_notice" />
         </RelativeLayout>
     </LinearLayout>
 

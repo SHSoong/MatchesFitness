@@ -29,12 +29,12 @@
                     android:layout_centerVertical="true"
                     android:text="账号管理" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text=">" />
+                    android:src="@mipmap/arrow_table_right" />
             </RelativeLayout>
 
             <View
@@ -55,12 +55,12 @@
                     android:layout_centerVertical="true"
                     android:text="编辑个人资料" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text=">" />
+                    android:src="@mipmap/arrow_table_right" />
             </RelativeLayout>
 
             <View
@@ -82,12 +82,12 @@
                     android:layout_centerVertical="true"
                     android:text="修改密码" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text=">" />
+                    android:src="@mipmap/arrow_table_right" />
             </RelativeLayout>
 
             <View
@@ -108,12 +108,12 @@
                     android:layout_centerVertical="true"
                     android:text="关于" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text=">" />
+                    android:src="@mipmap/arrow_table_right" />
             </RelativeLayout>
 
             <View
@@ -134,12 +134,12 @@
                     android:layout_centerVertical="true"
                     android:text="帮助与反馈" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text=">" />
+                    android:src="@mipmap/arrow_table_right" />
             </RelativeLayout>
 
             <View
@@ -151,7 +151,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="150dp"
                 android:layout_marginBottom="50dp"
                 android:orientation="vertical">
 

@@ -5,14 +5,15 @@
     android:layout_height="wrap_content"
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
-    android:paddingTop="20dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
     android:layout_gravity="center_horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/anim_avitor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +25,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/circleImageView"
+        app:layout_constraintRight_toLeftOf="@+id/ivYes"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -48,6 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/ivNo"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="10dp"
         android:src="@mipmap/icon_menu_y"/>
 
     <ImageView

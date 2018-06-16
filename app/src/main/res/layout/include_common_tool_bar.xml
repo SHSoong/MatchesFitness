@@ -9,17 +9,23 @@
         android:id="@+id/rlMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/rlBack"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="返回" />
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/nav_arrow_left" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -27,6 +33,14 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="15dp">
+        </RelativeLayout>
 
     </RelativeLayout>
 

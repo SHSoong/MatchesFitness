@@ -57,7 +57,7 @@ public class MenuNoticeFragment extends BaseFragment {
 
     private List<String> getItemDatas() {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             list.add("item" + i);
         }
         return list;
