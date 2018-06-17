@@ -1,16 +1,19 @@
-package com.matches.fitness.ui.fragment;
+package com.matches.fitness.ui.home.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.huxq17.swipecardsview.SwipeCardsView;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.CardViewsAdapter;
+import com.matches.fitness.ui.home.activity.FilterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +23,15 @@ import butterknife.ButterKnife;
 
 public class HomePairFragment extends BaseFragment {
 
-     @BindView(R.id.swipeCardsView)
-     SwipeCardsView swipeCardsView;
+    @BindView(R.id.swipeCardsView)
+    SwipeCardsView swipeCardsView;
+
+    @BindView(R.id.rlFilter)
+    RelativeLayout rlFilter;
+    @BindView(R.id.rlYes)
+    RelativeLayout rlYes;
+    @BindView(R.id.rlNotice)
+    RelativeLayout rlNotice;
 
     private List<Integer> list = new ArrayList<>();
     private CardViewsAdapter adapter;
@@ -47,9 +57,30 @@ public class HomePairFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initView();
         initData();
         initSwipeCards();
         showSwipeCards();
+    }
+
+    private void initView() {
+        rlFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), FilterActivity.class));
+            }
+        });
+        rlYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doRightOut();
+            }
+        });
+        rlNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
     private void initData() {

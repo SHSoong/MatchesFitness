@@ -18,6 +18,7 @@
         android:gravity="center_horizontal">
 
         <RelativeLayout
+            android:id="@+id/rlFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -26,12 +27,13 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@mipmap/icon_home_other" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -40,12 +42,13 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@mipmap/icon_red_heart" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlNotice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -54,8 +57,8 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@mipmap/icon_home_notice" />
         </RelativeLayout>
     </LinearLayout>

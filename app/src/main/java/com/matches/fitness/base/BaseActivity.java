@@ -20,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onInitBinding();
         onInit();
-        setStatusBarColor(R.color.white);
+        setStatusBarColor(R.color.graySolBg);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
