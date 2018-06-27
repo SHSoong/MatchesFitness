@@ -13,7 +13,7 @@ import com.matches.fitness.retrofit.ApiService;
 import com.matches.fitness.retrofit.manager.BaseObserver;
 import com.matches.fitness.retrofit.manager.RetrofitManager;
 import com.matches.fitness.retrofit.manager.RxSchedulers;
-import com.matches.fitness.ui.MainActivity;
+import com.matches.fitness.ui.home.activity.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
