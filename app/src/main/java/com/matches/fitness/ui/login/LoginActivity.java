@@ -20,12 +20,12 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.etUserName)
-    public EditText etUserName;
-    @BindView(R.id.etUserPwd)
-    public EditText etUserPwd;
-    @BindView(R.id.btnLogin)
-    public Button btnLogin;
+    @BindView(R.id.edt_phone)
+    EditText etUserName;
+    @BindView(R.id.edt_password)
+    EditText etUserPwd;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
 
     @Override
     protected void onInitBinding() {
@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity {
                 if (userPwd.isEmpty()) {
                     return;
                 }
-//                callApi(userName, userPwd);
+                callApi(userName, userPwd);
             }
         });
     }
