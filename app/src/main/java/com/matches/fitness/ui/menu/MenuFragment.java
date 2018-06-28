@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.fragment;
+package com.matches.fitness.ui.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.ViewPagerAdapter;
+import com.matches.fitness.ui.redpacket.activity.RedPacketActivity;
 import com.matches.fitness.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class MenuFragment extends BaseFragment {
     public ViewPager viewPager;
     @BindView(R.id.tvSettings)
     public TextView tvSettings;
+    @BindView(R.id.tvRedPacket)
+    public TextView tvRedPacket;
 
     private List<String> tabList = new ArrayList<>();
 
@@ -53,6 +56,12 @@ public class MenuFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
+        tvRedPacket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), RedPacketActivity.class));
             }
         });
     }

@@ -10,15 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.matches.fitness.ui.login.LoginActivity">
-
-        </activity>
-        <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".ui.settings.AccountsActivity" />
-        <activity android:name=".ui.settings.ChangePwdActivity" />
-        <activity android:name=".ui.home.activity.SearchActivity" />
-        <activity android:name=".ui.home.activity.FilterActivity" />
-
         <activity
             android:name="com.matches.fitness.ui.home.activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -28,6 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".ui.settings.AccountsActivity" />
+        <activity android:name=".ui.settings.ChangePwdActivity" />
+        <activity android:name=".ui.home.activity.SearchActivity" />
+        <activity android:name=".ui.home.activity.FilterActivity" />
+        <activity android:name=".ui.redpacket.activity.BalanceActivity" />
+        <activity android:name=".ui.redpacket.activity.CashPledgeActivity" />
+        <activity android:name=".ui.redpacket.activity.RedPacketActivity" />
+        <activity android:name=".ui.redpacket.activity.RoomCardActivity" />
     </application>
 
 </manifest>

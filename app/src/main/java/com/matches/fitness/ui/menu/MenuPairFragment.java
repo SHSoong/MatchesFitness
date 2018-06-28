@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.fragment;
+package com.matches.fitness.ui.menu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
