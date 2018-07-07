@@ -42,9 +42,9 @@ public class MainActivity extends SlidingFragmentActivity {
         initSlidingMenu();
         initView();
         initDefFragment();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setStatusBarColor(R.color.graySolBg);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     public void setStatusBarColor(int colorPrimary) {
