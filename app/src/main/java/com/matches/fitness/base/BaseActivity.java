@@ -23,9 +23,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onInitBinding();
         onInit();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setStatusBarColor(R.color.graySolBg);
         mContext = this;
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     @Override
@@ -36,6 +37,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    protected abstract void onInitBinding();
+
+    protected abstract void onInit();
+
+    public void addSubscription(Disposable disposable) {
+        disposables.add(disposable);
+    }
+
     public void setStatusBarColor(int colorPrimary) {
         ImmersionBar.with(this)
                 .transparentStatusBar()
@@ -44,13 +53,5 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .fitsSystemWindows(true)
                 .navigationBarColor(colorPrimary)
                 .init();
-    }
-
-    protected abstract void onInitBinding();
-
-    protected abstract void onInit();
-
-    public void addSubscription(Disposable disposable) {
-        disposables.add(disposable);
     }
 }
