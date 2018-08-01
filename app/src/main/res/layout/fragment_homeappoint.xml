@@ -98,6 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/llNotice">
 
         <LinearLayout
+            android:id="@+id/llSelectGym"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -120,6 +121,7 @@
             android:background="@color/gray" />
 
         <LinearLayout
+            android:id="@+id/llSelectDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

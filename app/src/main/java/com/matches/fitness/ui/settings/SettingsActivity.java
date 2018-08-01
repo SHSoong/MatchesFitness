@@ -3,19 +3,25 @@ package com.matches.fitness.ui.settings;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
+import com.matches.fitness.ui.login.InfoPrefectActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SettingsActivity extends BaseActivity {
 
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.rlAccounts)
-    public RelativeLayout rlAccounts;
+    RelativeLayout rlAccounts;
     @BindView(R.id.rlChangePwd)
-    public RelativeLayout rlChangePwd;
+    RelativeLayout rlChangePwd;
+    @BindView(R.id.rlPersonalInfo)
+    RelativeLayout rlPersonalInfo;
 
     @Override
     protected void onInitBinding() {
@@ -25,6 +31,9 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+
+        tvTitle.setText("设置");
+
         rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,6 +44,12 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
+            }
+        });
+        rlPersonalInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, InfoPrefectActivity.class));
             }
         });
     }

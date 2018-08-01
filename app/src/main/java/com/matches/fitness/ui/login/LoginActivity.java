@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
@@ -26,6 +27,10 @@ public class LoginActivity extends BaseActivity {
     EditText etUserPwd;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    @BindView(R.id.tv_register)
+    TextView tv_register;
+    @BindView(R.id.tvForgotPwd)
+    TextView tvForgotPwd;
 
     @Override
     protected void onInitBinding() {
@@ -50,6 +55,20 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
                 callApi(userName, userPwd);
+            }
+        });
+
+        tv_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        tvForgotPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, PasswordResetActivity.class));
             }
         });
     }

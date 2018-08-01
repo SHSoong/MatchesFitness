@@ -19,16 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.home.activity.MainActivity" />
-        <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".ui.settings.AccountsActivity" />
-        <activity android:name=".ui.settings.ChangePwdActivity" />
         <activity android:name=".ui.home.activity.SearchActivity" />
         <activity android:name=".ui.home.activity.FilterActivity" />
+        <activity android:name=".ui.home.activity.SelectGymActivity" />
         <activity android:name=".ui.redpacket.activity.BalanceActivity" />
         <activity android:name=".ui.redpacket.activity.CashPledgeActivity" />
         <activity android:name=".ui.redpacket.activity.RedPacketActivity" />
         <activity android:name=".ui.redpacket.activity.RoomCardActivity" />
+        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".ui.settings.AccountsActivity" />
+        <activity android:name=".ui.settings.ChangePwdActivity" />
+        <activity android:name=".ui.login.RegisterActivity" />
+        <activity android:name=".ui.login.InfoPrefectActivity" />
+        <activity android:name=".ui.login.PasswordResetActivity" />
     </application>
 
 </manifest>

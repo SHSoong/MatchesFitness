@@ -1,9 +1,26 @@
 package com.matches.fitness.ui.redpacket.activity;
 
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
+import com.matches.fitness.ui.login.LoginActivity;
+import com.matches.fitness.ui.login.RegisterActivity;
 
-public class RedPacketActivity extends BaseActivity{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class RedPacketActivity extends BaseActivity {
+
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.tvBuy)
+    TextView tvBuy;
+    @BindView(R.id.tvPut)
+    TextView tvPut;
 
     @Override
     protected void onInitBinding() {
@@ -12,6 +29,22 @@ public class RedPacketActivity extends BaseActivity{
 
     @Override
     protected void onInit() {
+        ButterKnife.bind(this);
 
+        tvTitle.setText("我的钱包");
+
+        tvBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RedPacketActivity.this, RoomCardActivity.class));
+            }
+        });
+
+        tvPut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RedPacketActivity.this, BalanceActivity.class));
+            }
+        });
     }
 }

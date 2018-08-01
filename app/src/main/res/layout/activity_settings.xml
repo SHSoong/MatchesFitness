@@ -53,6 +53,7 @@
                 android:background="@color/grayLine" />
 
             <RelativeLayout
+                android:id="@+id/rlPersonalInfo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingEnd="15dp"

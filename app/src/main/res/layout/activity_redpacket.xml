@@ -53,6 +53,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -90,6 +91,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvPut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

@@ -20,8 +20,8 @@ import butterknife.ButterKnife;
  */
 
 public class PasswordResetActivity extends BaseActivity {
-    @BindView(R.id.rlBack)
-    RelativeLayout rlBack;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.edt_phone)

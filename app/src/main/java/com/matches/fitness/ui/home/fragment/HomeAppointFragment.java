@@ -1,5 +1,6 @@
 package com.matches.fitness.ui.home.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
+import com.matches.fitness.ui.home.activity.SelectGymActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +23,10 @@ public class HomeAppointFragment extends BaseFragment {
 
     @BindView(R.id.iv_anim)
     ImageView iv_anim;
-
+    @BindView(R.id.llSelectGym)
+    LinearLayout llSelectGym;
+    @BindView(R.id.llSelectDate)
+    LinearLayout llSelectDate;
 
     public static Fragment newInstance() {
         return new HomeAppointFragment();
@@ -43,6 +49,20 @@ public class HomeAppointFragment extends BaseFragment {
     private void init() {
         Animation rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.appoint_anim);
         iv_anim.startAnimation(rotate);
+
+        llSelectGym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SelectGymActivity.class));
+            }
+        });
+
+        llSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(getActivity(), SelectGymActivity.class));
+            }
+        });
     }
 
 }
