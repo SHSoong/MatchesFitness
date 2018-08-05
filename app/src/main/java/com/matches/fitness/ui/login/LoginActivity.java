@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
@@ -48,14 +49,20 @@ public class LoginActivity extends BaseActivity {
                 String userName = etUserName.getText().toString().trim();
                 String userPwd = etUserPwd.getText().toString().trim();
                 if (userName.isEmpty()) {
-                    ToastUtils.showToast(LoginActivity.this,"请输入账号");
+                    ToastUtils.showToast(LoginActivity.this, "请输入账号");
                     return;
                 }
                 if (userPwd.isEmpty()) {
-                    ToastUtils.showToast(LoginActivity.this,"请输入密码");
+                    ToastUtils.showToast(LoginActivity.this, "请输入密码");
                     return;
                 }
-                callApi(userName, userPwd);
+
+                B001Request request = new B001Request();
+                request.setLoginName(userName);
+                request.setPassword(userPwd);
+                request.setDeviceType("android");
+
+                callApi(request);
             }
         });
 
@@ -74,10 +81,10 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void callApi(String userName, String userPwd) {
+    private void callApi(B001Request request) {
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
-                .doLogin("B001", userName, userPwd, "android")
+                .doLogin(request)
                 .compose(RxSchedulers.<BaseEntity<B001Response>>io_main())
                 .subscribe(new BaseObserver<B001Response>() {
                     @Override
@@ -87,12 +94,7 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     protected void onHandleError(String msg) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
+                        ToastUtils.showToast(LoginActivity.this, msg);
                     }
                 });
     }

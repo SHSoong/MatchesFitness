@@ -6,5 +6,5 @@ package com.matches.fitness.config;
 
 public interface BuildConfig {
     //请求的 url
-    String baseUrl = "http://120.79.161.46:8080/";
+    String baseUrl = "http://120.79.161.46:8080/match-app/";
 }

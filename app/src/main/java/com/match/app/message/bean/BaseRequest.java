@@ -12,7 +12,7 @@ public class BaseRequest {
 	private String token = "";
 	
 	/**md5签名串*/
-	private String encryptCode = "";	
+	private String encryptCode = "android";
 	
 	/**请求时间*/
 	private long time;	

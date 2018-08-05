@@ -10,7 +10,7 @@ public class B001Request extends BaseRequest {
 
     private String loginName = "";    //登录名
     private String password = "";    //密码
-    private String deviceType = "";    //android,ios
+    private String deviceType = "android";    //android,ios
 
     public B001Request() {
         setActionCode("B001");
