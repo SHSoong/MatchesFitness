@@ -6,15 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.match.app.message.bean.B001Response;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
 import com.matches.fitness.base.BaseEntity;
-import com.matches.fitness.entity.LoginEntity;
 import com.matches.fitness.retrofit.ApiService;
 import com.matches.fitness.retrofit.manager.BaseObserver;
 import com.matches.fitness.retrofit.manager.RetrofitManager;
 import com.matches.fitness.retrofit.manager.RxSchedulers;
 import com.matches.fitness.ui.home.activity.MainActivity;
+import com.matches.fitness.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,14 +45,14 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
                 String userName = etUserName.getText().toString().trim();
                 String userPwd = etUserPwd.getText().toString().trim();
                 if (userName.isEmpty()) {
+                    ToastUtils.showToast(LoginActivity.this,"请输入账号");
                     return;
                 }
                 if (userPwd.isEmpty()) {
+                    ToastUtils.showToast(LoginActivity.this,"请输入密码");
                     return;
                 }
                 callApi(userName, userPwd);
@@ -76,17 +77,22 @@ public class LoginActivity extends BaseActivity {
     private void callApi(String userName, String userPwd) {
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
-                .doLogin(userName, userPwd)
-                .compose(RxSchedulers.<BaseEntity<LoginEntity>>io_main())
-                .subscribe(new BaseObserver<LoginEntity>() {
+                .doLogin("B001", userName, userPwd, "android")
+                .compose(RxSchedulers.<BaseEntity<B001Response>>io_main())
+                .subscribe(new BaseObserver<B001Response>() {
                     @Override
-                    protected void onHandleSuccess(LoginEntity loginModel) {
-
+                    protected void onHandleSuccess(B001Response loginModel) {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
 
                     @Override
                     protected void onHandleError(String msg) {
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
                     }
                 });
     }

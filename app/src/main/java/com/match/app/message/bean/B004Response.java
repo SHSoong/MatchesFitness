@@ -1,15 +1,15 @@
 package com.match.app.message.bean;
 
 
-public class B004Response extends BaseResponse {
-	
-	private String userId = "";// userId
+public class B004Response {
 
-	public String getUserId() {
-		return userId;
-	}
+    private String userId = "";// userId
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

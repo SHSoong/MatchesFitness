@@ -25,7 +25,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
             T t = value.getResult();
             onHandleSuccess(t);
         } else {
-            onHandleError(value.getMsg());
+            onHandleError(value.getMessage());
         }
     }
 

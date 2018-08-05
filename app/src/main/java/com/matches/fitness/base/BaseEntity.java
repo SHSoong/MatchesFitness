@@ -6,25 +6,25 @@ import java.io.Serializable;
 
 public class BaseEntity<T> implements Serializable {
 
-    @SerializedName("code")
-    private int code;
+    @SerializedName("success")
+    private boolean success;
 
-    @SerializedName("msg")
-    private String msg;
+    @SerializedName("message")
+    private String message;
 
     @SerializedName("result")
     private T result;
 
     public boolean isSuccess() {
-        return code == 0;
+        return success;
     }
 
     public T getResult(){
         return result;
     }
 
-    public String getMsg(){
-        return msg;
+    public String getMessage(){
+        return message;
     }
 
 }
