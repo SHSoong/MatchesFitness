@@ -11,6 +11,6 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     @POST("android/")
-    Observable<BaseEntity<B001Response>> doLogin(@Body B001Request request);
+    Observable<B001Response> doLogin(@Body B001Request request);
 
 }

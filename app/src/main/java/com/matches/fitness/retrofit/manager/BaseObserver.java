@@ -2,17 +2,14 @@ package com.matches.fitness.retrofit.manager;
 
 import android.util.Log;
 
-import com.matches.fitness.base.BaseEntity;
+import com.match.app.message.bean.BaseResponse;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
+public abstract class BaseObserver<T> implements Observer<T> {
 
     private static final String TAG = "BaseObserver";
-
-    protected BaseObserver() {
-    }
 
     @Override
     public void onSubscribe(Disposable d) {
@@ -20,12 +17,11 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     }
 
     @Override
-    public void onNext(BaseEntity<T> value) {
-        if (value.isSuccess()) {
-            T t = value.getResult();
+    public void onNext(T t) {
+        if (((BaseResponse) t).isSuccess()) {
             onHandleSuccess(t);
         } else {
-            onHandleError(value.getMessage());
+            onHandleError(((BaseResponse) t).getMessage());
         }
     }
 
@@ -42,5 +38,5 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     protected abstract void onHandleSuccess(T t);
 
-    protected abstract  void onHandleError(String msg);
+    protected abstract void onHandleError(String msg);
 }
