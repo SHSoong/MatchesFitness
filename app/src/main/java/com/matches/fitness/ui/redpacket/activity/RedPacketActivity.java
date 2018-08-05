@@ -19,8 +19,8 @@ public class RedPacketActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tvBuy)
     TextView tvBuy;
-    @BindView(R.id.tvPut)
-    TextView tvPut;
+    @BindView(R.id.tvCash)
+    TextView tvCash;
 
     @Override
     protected void onInitBinding() {
@@ -40,7 +40,7 @@ public class RedPacketActivity extends BaseActivity {
             }
         });
 
-        tvPut.setOnClickListener(new View.OnClickListener() {
+        tvCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RedPacketActivity.this, BalanceActivity.class));
