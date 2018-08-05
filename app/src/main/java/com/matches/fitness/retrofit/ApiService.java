@@ -2,7 +2,6 @@ package com.matches.fitness.retrofit;
 
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
-import com.matches.fitness.base.BaseEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;

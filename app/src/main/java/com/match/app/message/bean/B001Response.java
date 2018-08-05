@@ -1,26 +1,14 @@
 package com.match.app.message.bean;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
-
 public class B001Response extends BaseResponse {
 
-    @SerializedName("token")
     private String token = "";//user id
-    @SerializedName("loginName")
     private String loginName;//登录名，同mobile(废弃)
-    @SerializedName("name")
     private String name;    // 昵称
-    @SerializedName("birthday")
     private String birthday; //  出生日期
-    @SerializedName("sex")
     private Integer sex;        //性别 0:男 1:女
-    @SerializedName("hasExp")
     private Integer hasExp;  //是否有经验1有， 0或者null其它无
-    @SerializedName("logo")
     private String logo;        //头像
-    @SerializedName("lastLoginDate")
     private String lastLoginDate;// 更新时间，上次登录时间
 
     public String getToken() {
