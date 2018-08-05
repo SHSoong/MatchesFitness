@@ -13,7 +13,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-
+        Log.d(TAG, "onSubscribe");
     }
 
     @Override
