@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grayBg"
-    android:padding="20dp">
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="150dp"
+        android:src="@mipmap/img_room_banner" />
 
 </android.support.constraint.ConstraintLayout>

@@ -35,7 +35,6 @@ public class BalanceActivity extends BaseActivity {
         tvCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BalanceActivity.this, CashPledgeActivity.class));
             }
         });
     }

@@ -49,7 +49,6 @@ public class SettingsActivity extends BaseActivity {
         rlPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, InfoPrefectActivity.class));
             }
         });
     }

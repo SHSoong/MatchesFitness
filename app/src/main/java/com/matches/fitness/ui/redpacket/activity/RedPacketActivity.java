@@ -19,6 +19,8 @@ public class RedPacketActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tvBuy)
     TextView tvBuy;
+    @BindView(R.id.tvBalance)
+    TextView tvBalance;
     @BindView(R.id.tvCash)
     TextView tvCash;
 
@@ -39,11 +41,16 @@ public class RedPacketActivity extends BaseActivity {
                 startActivity(new Intent(RedPacketActivity.this, RoomCardActivity.class));
             }
         });
-
-        tvCash.setOnClickListener(new View.OnClickListener() {
+        tvBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RedPacketActivity.this, BalanceActivity.class));
+            }
+        });
+        tvCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RedPacketActivity.this, CashPledgeActivity.class));
             }
         });
     }
