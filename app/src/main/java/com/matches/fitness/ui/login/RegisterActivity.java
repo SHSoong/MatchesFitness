@@ -43,6 +43,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     EditText edtPassword;
     @BindView(R.id.btn_register)
     Button btnRegister;
+    @BindView(R.id.tv_agreement)
+    TextView tvAgreement;
 
     // 是否获取过短信验证码
     private boolean isGetCode = false;
@@ -60,6 +62,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         initTile(R.string.register, true);
         tvValidate.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
+        tvAgreement.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +78,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     ToastUtils.showToast(mContext, "请先获取短信验证吗");
                 }
                 register();
+                break;
+            case R.id.tv_agreement:
+                startActivity(new Intent(mContext, AgreementActivity.class));
                 break;
         }
     }

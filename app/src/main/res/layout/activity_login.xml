@@ -17,8 +17,8 @@
         android:orientation="vertical">
 
 
-        <ImageView
-            android:id="@+id/img_login_icon"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_login"
             android:layout_width="100dip"
             android:layout_height="100dip" />
 
