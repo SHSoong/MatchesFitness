@@ -42,6 +42,14 @@ public class LoginActivity extends BaseActivity {
     TextView tv_register;
     @BindView(R.id.tvForgotPwd)
     TextView tvForgotPwd;
+    @BindView(R.id.tv_wb)
+    TextView tvWb;
+    @BindView(R.id.tv_wx)
+    TextView tvWx;
+    @BindView(R.id.tv_tw)
+    TextView tvTw;
+    @BindView(R.id.tv_fc)
+    TextView tvFc;
     private User user;
 
     @Override
@@ -100,6 +108,30 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 startActivityForResult(new Intent(LoginActivity.this, PasswordResetActivity.class),
                         RESET_PASSWORD_CODE);
+            }
+        });
+        tvWb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvWx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvTw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvFc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
             }
         });
     }

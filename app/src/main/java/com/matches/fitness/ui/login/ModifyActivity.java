@@ -18,17 +18,25 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
+import com.matches.fitness.common.User;
+import com.matches.fitness.ui.info.Person;
+import com.matches.fitness.ui.info.RecordListAdapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +53,7 @@ public class ModifyActivity extends BaseActivity {
     @BindView(R.id.img_bg_colum)
     ImageView imgBgColum;
     @BindView(R.id.tv_name)
-    TextView textView;
+    TextView tvName;
     @BindView(R.id.tv_age_position)
     TextView tvAgePosition;
     @BindView(R.id.tv_credit_score)
@@ -54,10 +62,18 @@ public class ModifyActivity extends BaseActivity {
     GridView gvCurrentRecord;
     @BindView(R.id.gv_past_record)
     GridView gvPastRecord;
+    @BindView(R.id.img_back)
+    ImageView imgBack;
 
     private Uri cropImageUri;
     private Uri imageUri;
     private int action;
+    private String bgUrl;
+    private User user;
+    private List<Person> currents;
+    private List<Person> befores;
+    private RecordListAdapter currentAdapter;
+    private RecordListAdapter beforeAdapter;
 
     @Override
     protected void onInitBinding() {
@@ -67,6 +83,19 @@ public class ModifyActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+        getData();
+        user = User.getInstance();
+        tvName.setText(user.getName());
+        tvAgePosition.setText("24.广州");
+        tvCreditScore.setText("信用值：72分");
+        Glide.with(mContext)
+                .load(bgUrl)
+                .placeholder(R.mipmap.anim_avitor)
+                .error(R.mipmap.anim_avitor)
+                .dontAnimate()
+                .into(imgBgColum);
+        tvName.setText(User.getInstance().getName());
+
         imgBgColum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +141,66 @@ public class ModifyActivity extends BaseActivity {
                         }).create();
             }
         });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    /****
+     * 获取数据
+     */
+    private void getData() {
+        currents = new ArrayList<>();
+        befores = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            currents.add(new Person("测试" + i, ""));
+            befores.add(new Person("测试" + i, ""));
+        }
+        gvCurrentRecord.setNumColumns(4);
+        gvPastRecord.setNumColumns(4);
+        currentAdapter = new RecordListAdapter(mContext, currents);
+        beforeAdapter = new RecordListAdapter(mContext, befores);
+        gvCurrentRecord.setAdapter(currentAdapter);
+        gvPastRecord.setAdapter(beforeAdapter);
+
+        setListViewHeightBasedOnChildren(gvCurrentRecord);
+        currentAdapter.notifyDataSetChanged();
+        setListViewHeightBasedOnChildren(gvPastRecord);
+        beforeAdapter.notifyDataSetChanged();
+    }
+
+    public void setListViewHeightBasedOnChildren(GridView view) {
+        // 获取listview的adapter
+        ListAdapter listAdapter = view.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        // 固定列宽，有多少列
+        int col = 4;// listView.getNumColumns();
+        int totalHeight = 0;
+        // i每次加4，相当于listAdapter.getCount()小于等于4时 循环一次，计算一次item的高度，
+        // listAdapter.getCount()小于等于8时计算两次高度相加
+        for (int i = 0; i < listAdapter.getCount(); i += col) {
+            // 获取listview的每一个item
+            View listItem = listAdapter.getView(i, null, view);
+            listItem.measure(0, 0);
+            // 获取item的高度和
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        // 获取listview的布局参数
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        // 设置高度
+        params.height = totalHeight;
+        // 设置margin
+        ((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10);
+        // 设置参数
+        view.setLayoutParams(params);
+        currentAdapter.notifyDataSetChanged();
     }
 
     private void photo() {
