@@ -1,6 +1,12 @@
 package com.matches.fitness.ui.info;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
+import com.matches.fitness.ui.login.ImageChoiceDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +49,8 @@ public class OtherPersonInfoActivity extends BaseActivity {
     TextView tvRecord;
     @BindView(R.id.gv_record)
     GridView gvRecord;
+    @BindView(R.id.ll_share)
+    LinearLayout llShare;
     private Person person;
     private List<Person> records;
     private RecordListAdapter adapter;
@@ -60,6 +69,7 @@ public class OtherPersonInfoActivity extends BaseActivity {
             if (person.isFriend()) {
                 llAdd.setVisibility(View.GONE);
                 llRecord.setVisibility(View.VISIBLE);
+                llShare.setVisibility(View.VISIBLE);
             } else {
                 llAdd.setVisibility(View.VISIBLE);
                 llRecord.setVisibility(View.GONE);
@@ -80,6 +90,22 @@ public class OtherPersonInfoActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        llShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ShareDialog.Builder(mContext)
+                        .setCancelable(false)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                switch (view.getId()) {
+
+                                }
+                            }
+                        }).create();
             }
         });
     }

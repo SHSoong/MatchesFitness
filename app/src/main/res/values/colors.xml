@@ -13,4 +13,5 @@
     <color name="grayLine">#686868</color>
     <color name="grayBg">#F3F3F3</color>
     <color name="graySolBg">#F7F7F8</color>
+    <color name="shareBg">#3C3C3C</color>
 </resources>
