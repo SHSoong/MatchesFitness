@@ -4,15 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.matches.fitness.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    protected final static String PHONE = "phone";
 
     public CompositeDisposable disposables = new CompositeDisposable();
 
@@ -27,6 +35,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setStatusBarColor(R.color.graySolBg);
         mContext = this;
+    }
+
+    /*******
+     * 初始化标题栏
+     * @param resid
+     *         标题
+     * @param isBack
+     *         是否显示后退键
+     */
+    protected void initTile(int resid, boolean isBack) {
+        TextView textView = findViewById(R.id.tvTitle);
+        textView.setText(resid);
+        RelativeLayout rlLeftBack = findViewById(R.id.rlLeftBack);
+        if (!isBack) {
+            rlLeftBack.setVisibility(View.GONE);
+            return;
+        }
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

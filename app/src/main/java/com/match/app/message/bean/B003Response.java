@@ -1,6 +1,6 @@
 package com.match.app.message.bean;
 
-public class B002Response extends BaseResponse{
+public class B003Response extends BaseResponse{
 
     private String userId = "";// userId
 
