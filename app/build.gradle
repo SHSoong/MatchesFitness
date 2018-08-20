@@ -60,5 +60,4 @@ dependencies {
     implementation 'com.huxq17.android:SwipeCardsView:1.3.5'
     //圆形图片
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation project(':lib')
 }
