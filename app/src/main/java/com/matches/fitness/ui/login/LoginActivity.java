@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
 import com.matches.fitness.R;
@@ -22,11 +24,14 @@ import com.matches.fitness.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LoginActivity extends BaseActivity {
 
     private final static int REGISTER_CODE = 10001;
     private final static int RESET_PASSWORD_CODE = 10002;
+    @BindView(R.id.img_login)
+    ImageView imgLogin;
     @BindView(R.id.edt_phone)
     EditText etUserName;
     @BindView(R.id.edt_password)
@@ -37,6 +42,14 @@ public class LoginActivity extends BaseActivity {
     TextView tv_register;
     @BindView(R.id.tvForgotPwd)
     TextView tvForgotPwd;
+    @BindView(R.id.tv_wb)
+    TextView tvWb;
+    @BindView(R.id.tv_wx)
+    TextView tvWx;
+    @BindView(R.id.tv_tw)
+    TextView tvTw;
+    @BindView(R.id.tv_fc)
+    TextView tvFc;
     private User user;
 
     @Override
@@ -51,7 +64,14 @@ public class LoginActivity extends BaseActivity {
         user = User.getInstance();
         if (!TextUtils.isEmpty(user.getLoginName())) {
             etUserName.setText(user.getLoginName());
+
         }
+        Glide.with(mContext)
+                .load(user.getLogo())
+                .placeholder(R.mipmap.anim_avitor)
+                .error(R.mipmap.anim_avitor)
+                .dontAnimate()
+                .into(imgLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +108,30 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View view) {
                 startActivityForResult(new Intent(LoginActivity.this, PasswordResetActivity.class),
                         RESET_PASSWORD_CODE);
+            }
+        });
+        tvWb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvWx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvTw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
+            }
+        });
+        tvFc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showToast(mContext, "开发中...");
             }
         });
     }
