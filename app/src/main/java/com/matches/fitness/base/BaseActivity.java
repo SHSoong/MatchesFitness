@@ -60,6 +60,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
+    /*******
+     * 初始化标题栏
+     * @param resid
+     *         标题
+     * @param isBack
+     *         是否显示后退键
+     */
+    protected void initTile(String resid, boolean isBack) {
+        TextView textView = findViewById(R.id.tvTitle);
+        textView.setText(resid);
+        RelativeLayout rlLeftBack = findViewById(R.id.rlLeftBack);
+        if (!isBack) {
+            rlLeftBack.setVisibility(View.GONE);
+            return;
+        }
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         if (!disposables.isDisposed()) {

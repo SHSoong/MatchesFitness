@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.ViewPagerAdapter;
+import com.matches.fitness.ui.im.ConversationListActivity;
 import com.matches.fitness.ui.info.ModifyActivity;
 import com.matches.fitness.ui.redpacket.activity.RedPacketActivity;
 import com.matches.fitness.ui.settings.SettingsActivity;
@@ -74,7 +75,7 @@ public class MenuFragment extends BaseFragment {
         llModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity,ModifyActivity.class));
+                startActivity(new Intent(mActivity,ConversationListActivity.class));
             }
         });
     }
