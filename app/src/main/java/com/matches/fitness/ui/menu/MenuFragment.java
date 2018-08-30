@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.ViewPagerAdapter;
-import com.matches.fitness.ui.login.ModifyActivity;
+import com.matches.fitness.ui.im.ConversationListActivity;
+import com.matches.fitness.ui.info.ModifyActivity;
 import com.matches.fitness.ui.redpacket.activity.RedPacketActivity;
 import com.matches.fitness.ui.settings.SettingsActivity;
 

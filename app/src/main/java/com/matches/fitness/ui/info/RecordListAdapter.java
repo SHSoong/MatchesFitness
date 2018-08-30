@@ -17,11 +17,17 @@ import java.util.List;
 public class RecordListAdapter extends BaseAdapter {
     private Context context;
     private List<Person> lists;
-
+    private boolean isBig =false;
     public RecordListAdapter(Context context, List<Person> lists) {
         this.context = context;
         this.lists = lists;
     }
+    public RecordListAdapter(Context context, List<Person> lists,boolean isBig) {
+        this.context = context;
+        this.lists = lists;
+        this.isBig = isBig;
+    }
+
 
     @Override
     public int getCount() {
@@ -43,7 +49,11 @@ public class RecordListAdapter extends BaseAdapter {
         final Holder holder;
         if (convertView == null) {
             holder = new Holder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.itemview_person, null);
+            if(isBig){
+                convertView = LayoutInflater.from(context).inflate(R.layout.itemview_person1, null);
+            }else{
+                convertView = LayoutInflater.from(context).inflate(R.layout.itemview_person, null);
+            }
             holder.mImageView = convertView.findViewById(R.id.img_icon);
             holder.mTextView = convertView.findViewById(R.id.tv_name);
             convertView.setTag(holder);
@@ -52,7 +62,7 @@ public class RecordListAdapter extends BaseAdapter {
         }
         Person person = lists.get(position);
         Glide.with(context)
-                .load(person.getLoginUrl())
+                .load(person.getLogUrl())
                 .placeholder(R.mipmap.anim_avitor)
                 .error(R.mipmap.anim_avitor)
                 .dontAnimate()

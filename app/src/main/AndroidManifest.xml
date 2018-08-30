@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.MyApp"
@@ -39,7 +39,10 @@
         <activity android:name=".ui.login.InfoPrefectActivity" />
         <activity android:name=".ui.login.PasswordResetActivity" />
         <activity android:name=".ui.login.AgreementActivity" />
-        <activity android:name=".ui.login.ModifyActivity" />
+        <activity android:name=".ui.info.ModifyActivity" />
+        <activity android:name=".ui.info.OtherPersonInfoActivity" />
+        <activity android:name=".ui.im.ConversationListActivity" />
+        <activity android:name=".ui.im.ChatActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -48,8 +51,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
 

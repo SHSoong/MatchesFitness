@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/shareBg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/tv_wx"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:drawableTop="@mipmap/login_wx_icon"
+            android:gravity="center"
+            android:text="微信"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_pyq"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:drawableTop="@mipmap/login_wx_icon"
+            android:gravity="center"
+            android:text="朋友圈"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_wb"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:drawableTop="@mipmap/login_wx_icon"
+            android:gravity="center"
+            android:text="微博"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_copy"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:drawableTop="@mipmap/login_wx_icon"
+            android:gravity="center"
+            android:text="复制链接"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_jb"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:drawableTop="@mipmap/login_wx_icon"
+            android:gravity="center"
+            android:text="举报"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/gray"
+        android:textSize="20sp" />
+</LinearLayout>

@@ -14,6 +14,7 @@ import com.matches.fitness.R;
 import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.CardViewsAdapter;
 import com.matches.fitness.ui.home.activity.FilterActivity;
+import com.matches.fitness.ui.im.ConversationListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class HomePairFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mActivity = getActivity();
         View view = inflater.inflate(R.layout.fragment_homepair, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -79,6 +81,7 @@ public class HomePairFragment extends BaseFragment {
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(mActivity, ConversationListActivity.class));
             }
         });
     }

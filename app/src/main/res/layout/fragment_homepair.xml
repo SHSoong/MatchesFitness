@@ -10,7 +10,7 @@
         card:scaleOffsetStep="0.06"
         card:yOffsetStep="20dp"
         android:layout_width="match_parent"
-        android:layout_height="530dp" />
+        android:layout_height="430dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.matches.fitness.ui.info;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -31,6 +33,7 @@ import com.matches.fitness.base.BaseActivity;
 import com.matches.fitness.common.User;
 import com.matches.fitness.ui.info.Person;
 import com.matches.fitness.ui.info.RecordListAdapter;
+import com.matches.fitness.ui.login.ImageChoiceDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -148,6 +151,29 @@ public class ModifyActivity extends BaseActivity {
                 finish();
             }
         });
+        gvCurrentRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Person person = (Person) currentAdapter.getItem(i);
+                Intent intent = new Intent(mContext, OtherPersonInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OtherPersonInfoActivity.INFO_KEY, person);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        gvPastRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Person person = (Person) beforeAdapter.getItem(i);
+                Intent intent = new Intent(mContext, OtherPersonInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OtherPersonInfoActivity.INFO_KEY, person);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /****
@@ -158,7 +184,7 @@ public class ModifyActivity extends BaseActivity {
         befores = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             currents.add(new Person("测试" + i, ""));
-            befores.add(new Person("测试" + i, ""));
+            befores.add(new Person("测试" + i, "", true));
         }
         gvCurrentRecord.setNumColumns(4);
         gvPastRecord.setNumColumns(4);

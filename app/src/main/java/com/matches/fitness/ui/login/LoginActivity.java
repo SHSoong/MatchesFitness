@@ -62,10 +62,15 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTile(R.string.login, false);
         user = User.getInstance();
-        if (!TextUtils.isEmpty(user.getLoginName())) {
-            etUserName.setText(user.getLoginName());
-
+        if(user.isLogin()){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+            return;
         }
+//        if (!TextUtils.isEmpty(user.getLoginName())) {
+//            etUserName.setText(user.getLoginName());
+//
+//        }
         Glide.with(mContext)
                 .load(user.getLogo())
                 .placeholder(R.mipmap.anim_avitor)
