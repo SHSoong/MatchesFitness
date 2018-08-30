@@ -52,7 +52,7 @@ public class ConversationListActivity extends BaseActivity {
         lstConversation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Conversation conversation = (Conversation) listAdapter.getItem(i);
+                Conversation conversation =  lists.get(i -1);
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
