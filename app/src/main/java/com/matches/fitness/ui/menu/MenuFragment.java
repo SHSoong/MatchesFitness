@@ -75,7 +75,7 @@ public class MenuFragment extends BaseFragment {
         llModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity,ConversationListActivity.class));
+                startActivity(new Intent(mActivity,ModifyActivity.class));
             }
         });
     }
