@@ -2,6 +2,8 @@ package com.matches.fitness.ui.im;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -43,6 +45,17 @@ public class ChatActivity extends BaseActivity {
             initTile(conversation.getHisName(), true);
         }
         initData();
+        lstMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String message = stringList.get(i);
+                // int id, int conversation, String speaker, String speakerName, String content, int time, int status
+                messageList.add(new Message(0, conversation.getId(), conversation.getHim(),
+                        conversation.getHisName(), message, (int) System.currentTimeMillis() / 1000, 0));
+                adapter.notifyDataSetChanged();
+                rcvConversation.scrollToPosition(messageList.size() - 1);
+            }
+        });
     }
 
     private void initData() {
@@ -59,14 +72,14 @@ public class ChatActivity extends BaseActivity {
         rcvConversation.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ChatAdapter(messageList, mContext);
         rcvConversation.setAdapter(adapter);
-        rcvConversation.scrollToPosition(messageList.size()-1);
+        rcvConversation.scrollToPosition(messageList.size() - 1);
 
         stringList = new ArrayList<>();
         stringList.add("你好，你到达指定健身房了吗？");
         stringList.add("你好，我已经到达指定健身房了");
         stringList.add("到了");
         stringList.add("约到你好开心");
-        ArrayAdapter<String> adapter = new ArrayAdapter(mContext, R.layout.itemview_message,R.id.tv_message, stringList);
+        ArrayAdapter<String> adapter = new ArrayAdapter(mContext, R.layout.itemview_message, R.id.tv_message, stringList);
         lstMessage.setAdapter(adapter);
     }
 }
