@@ -43,6 +43,8 @@
         <activity android:name=".ui.info.OtherPersonInfoActivity" />
         <activity android:name=".ui.im.ConversationListActivity" />
         <activity android:name=".ui.im.ChatActivity" />
+        <activity android:name=".ui.im.ContactsListActivity"
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

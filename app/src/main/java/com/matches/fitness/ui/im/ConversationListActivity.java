@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
 
@@ -22,7 +23,7 @@ public class ConversationListActivity extends BaseActivity {
 
     private List<Conversation> lists;
     @BindView(R.id.lst_conversation)
-    PullToRefreshListView lstConversation;
+    ListView lstConversation;
     @BindView(R.id.img_right)
     ImageView imgRight;
     private ConversationListAdapter listAdapter;
@@ -52,7 +53,7 @@ public class ConversationListActivity extends BaseActivity {
         lstConversation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Conversation conversation =  lists.get(i -1);
+                Conversation conversation = lists.get(i - 1);
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
@@ -60,7 +61,7 @@ public class ConversationListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        lstConversation.getRefreshableView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lstConversation.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int position, long l) {
                 new AlertDialog.Builder(mContext)
@@ -68,11 +69,17 @@ public class ConversationListActivity extends BaseActivity {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                lists.remove(position -1);
+                                lists.remove(position - 1);
                                 listAdapter.notifyDataSetChanged();
                             }
                         }).setNegativeButton("取消", null).create().show();
                 return true;
+            }
+        });
+        imgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, ContactsListActivity.class));
             }
         });
     }
