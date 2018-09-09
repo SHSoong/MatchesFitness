@@ -2,6 +2,8 @@ package com.matches.fitness.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +50,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     // 是否获取过短信验证码
     private boolean isGetCode = false;
-
     private String phone;
 
     @Override
@@ -65,13 +66,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         tvAgreement.setOnClickListener(this);
     }
 
+    private int times = 60;
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_validate:
                 // 请求短信验证码
-                getValidate();
-                isGetCode = true;
+                if (tvValidate.isClickable()) {
+
+                    getValidate();
+                }
                 break;
             case R.id.btn_register: // 注册
                 if (!isGetCode) {
@@ -94,7 +99,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             ToastUtils.showToast(mContext, "请输入正确的手机号码！");
             return;
         }
-
+        ToastUtils.showToast(mContext,"获取成功！");
+        tvValidate.setClickable(false);
+        handler.sendEmptyMessage(0);
         isGetCode = true;
     }
 
@@ -149,5 +156,25 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    if (times != 0) {
+                        tvValidate.setText(times + "S");
+                        times -= 1;
+                        handler.sendEmptyMessageDelayed(0, 1000);
+                    } else {
+                        tvValidate.setText("重新获取");
+                        tvValidate.setClickable(true);
+                        times = 60;
+                    }
+                    break;
+            }
+        }
+    };
 
 }
