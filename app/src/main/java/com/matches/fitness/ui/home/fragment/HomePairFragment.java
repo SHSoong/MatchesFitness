@@ -15,6 +15,7 @@ import com.matches.fitness.base.BaseFragment;
 import com.matches.fitness.ui.adapter.CardViewsAdapter;
 import com.matches.fitness.ui.home.activity.FilterActivity;
 import com.matches.fitness.ui.im.ConversationListActivity;
+import com.matches.fitness.ui.login.DateChoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class HomePairFragment extends BaseFragment {
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity, ConversationListActivity.class));
+                startActivity(new Intent(mActivity, DateChoiceActivity.class));
             }
         });
     }
