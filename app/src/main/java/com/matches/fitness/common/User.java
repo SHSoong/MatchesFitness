@@ -1,7 +1,5 @@
 package com.matches.fitness.common;
 
-import android.app.Application;
-
 import com.matches.fitness.app.MyApp;
 
 import java.io.File;

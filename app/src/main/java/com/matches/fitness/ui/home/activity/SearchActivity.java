@@ -1,6 +1,5 @@
 package com.matches.fitness.ui.home.activity;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -11,7 +10,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.matches.fitness.R;
 import com.matches.fitness.base.BaseActivity;
 import com.matches.fitness.ui.home.RecyclerItemDecoration;
-import com.matches.fitness.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
