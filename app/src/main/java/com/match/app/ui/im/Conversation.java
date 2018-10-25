@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
 import android.os.Parcel;
 import android.os.Parcelable;

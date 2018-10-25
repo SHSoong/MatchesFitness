@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.home.activity;
+package com.match.app.ui.home.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.matches.fitness.R;
-import com.matches.fitness.ui.home.fragment.HomeAppointFragment;
-import com.matches.fitness.ui.home.fragment.HomePairFragment;
-import com.matches.fitness.ui.menu.MenuFragment;
+import com.match.app.ui.home.fragment.HomeAppointFragment;
+import com.match.app.ui.home.fragment.HomePairFragment;
+import com.match.app.ui.menu.MenuFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

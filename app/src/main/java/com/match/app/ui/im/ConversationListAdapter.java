@@ -1,21 +1,17 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
-import com.matches.fitness.ui.info.Person;
-import com.matches.fitness.utils.DateUtils;
+import com.match.app.utils.DateUtils;
 
 import java.util.List;
 

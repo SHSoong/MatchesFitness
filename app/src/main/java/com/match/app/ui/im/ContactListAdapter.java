@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ContactListAdapter extends BaseAdapter {
     private Context mContext;

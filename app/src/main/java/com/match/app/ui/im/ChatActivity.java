@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
-import com.matches.fitness.common.User;
+import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

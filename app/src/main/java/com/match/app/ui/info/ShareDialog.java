@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.info;
+package com.match.app.ui.info;
 
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;

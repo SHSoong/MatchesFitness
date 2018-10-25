@@ -1,11 +1,10 @@
-package com.matches.fitness.ui.redpacket.activity;
+package com.match.app.ui.redpacket.activity;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

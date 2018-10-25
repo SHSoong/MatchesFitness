@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.adapter;
+package com.match.app.ui.adapter;
 
 import android.content.Context;
 import android.view.View;

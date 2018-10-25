@@ -1,6 +1,5 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.View;

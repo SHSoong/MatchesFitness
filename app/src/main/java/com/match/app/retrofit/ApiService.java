@@ -1,4 +1,4 @@
-package com.matches.fitness.retrofit;
+package com.match.app.retrofit;
 
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;

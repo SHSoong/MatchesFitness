@@ -1,7 +1,7 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 import com.paradoxie.autoscrolltextview.VerticalTextview;
 
 import butterknife.BindView;

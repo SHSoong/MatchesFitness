@@ -1,11 +1,11 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

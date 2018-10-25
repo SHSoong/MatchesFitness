@@ -1,7 +1,7 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
-import com.matches.fitness.ui.info.Person;
-import com.matches.fitness.utils.PinYinUtils;
+import com.match.app.ui.info.Person;
+import com.match.app.utils.PinYinUtils;
 
 public class Contact extends Person {
     private String pinyin;

@@ -1,9 +1,9 @@
-package com.matches.fitness.ui.settings;
+package com.match.app.ui.settings;
 
 import android.widget.TextView;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

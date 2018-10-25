@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.home.fragment;
+package com.match.app.ui.home.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseFragment;
-import com.matches.fitness.ui.home.activity.SelectGymActivity;
+import com.match.app.base.BaseFragment;
+import com.match.app.ui.home.activity.SelectGymActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

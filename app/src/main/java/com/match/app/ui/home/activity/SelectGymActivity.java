@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.home.activity;
+package com.match.app.ui.home.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

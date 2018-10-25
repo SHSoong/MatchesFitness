@@ -1,4 +1,4 @@
-package com.matches.fitness.app;
+package com.match.app;
 
 import android.app.Application;
 import android.content.Context;

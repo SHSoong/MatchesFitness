@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matches.fitness.utils.DisplayUtils;
+import com.match.app.utils.DisplayUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

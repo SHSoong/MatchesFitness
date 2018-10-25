@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
+import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;

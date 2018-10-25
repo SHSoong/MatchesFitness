@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.menu;
+package com.match.app.ui.menu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseFragment;
+import com.match.app.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

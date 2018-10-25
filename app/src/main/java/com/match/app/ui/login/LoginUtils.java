@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 /**
  * Created by user on 2018/6/28.

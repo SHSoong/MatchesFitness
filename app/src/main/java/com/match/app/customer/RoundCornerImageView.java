@@ -1,4 +1,4 @@
-package com.matches.fitness.customview;
+package com.match.app.customer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

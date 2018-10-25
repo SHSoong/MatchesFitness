@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.home;
+package com.match.app.ui.home;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

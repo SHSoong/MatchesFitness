@@ -1,4 +1,4 @@
-package com.matches.fitness.config;
+package com.match.app.config;
 
 /**
  * Created by Administrator on 2018/5/22 0022.

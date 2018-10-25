@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.adapter;
+package com.match.app.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

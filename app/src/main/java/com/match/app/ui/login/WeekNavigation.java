@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,10 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
-import com.matches.fitness.utils.DisplayUtils;
+import com.match.app.utils.DisplayUtils;
 
 public class WeekNavigation extends View {
     private String weeks[] = {"一", "二", "三", "四", "五", "六", "天"};

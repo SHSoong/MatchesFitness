@@ -1,12 +1,6 @@
-package com.matches.fitness.ui.info;
+package com.match.app.ui.info;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,8 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
-import com.matches.fitness.ui.login.ImageChoiceDialog;
+import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

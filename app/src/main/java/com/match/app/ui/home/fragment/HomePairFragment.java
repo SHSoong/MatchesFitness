@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.home.fragment;
+package com.match.app.ui.home.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,10 @@ import android.widget.RelativeLayout;
 
 import com.huxq17.swipecardsview.SwipeCardsView;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseFragment;
-import com.matches.fitness.ui.adapter.CardViewsAdapter;
-import com.matches.fitness.ui.home.activity.FilterActivity;
-import com.matches.fitness.ui.im.ConversationListActivity;
-import com.matches.fitness.ui.login.DateChoiceActivity;
+import com.match.app.base.BaseFragment;
+import com.match.app.ui.adapter.CardViewsAdapter;
+import com.match.app.ui.home.activity.FilterActivity;
+import com.match.app.ui.login.DateChoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;

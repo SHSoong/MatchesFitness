@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".app.MyApp"
+        android:name="com.match.app.MyApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.matches.fitness.ui.login.LoginActivity"
+            android:name="com.match.app.ui.login.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,28 +24,28 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.home.activity.MainActivity" />
-        <activity android:name=".ui.home.activity.SearchActivity" />
-        <activity android:name=".ui.home.activity.FilterActivity" />
-        <activity android:name=".ui.home.activity.SelectGymActivity" />
-        <activity android:name=".ui.redpacket.activity.BalanceActivity" />
-        <activity android:name=".ui.redpacket.activity.CashPledgeActivity" />
-        <activity android:name=".ui.redpacket.activity.RedPacketActivity" />
-        <activity android:name=".ui.redpacket.activity.RoomCardActivity" />
-        <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".ui.settings.AccountsActivity" />
-        <activity android:name=".ui.settings.ChangePwdActivity" />
-        <activity android:name=".ui.login.RegisterActivity" />
-        <activity android:name=".ui.login.InfoPrefectActivity" />
-        <activity android:name=".ui.login.PasswordResetActivity" />
-        <activity android:name=".ui.login.AgreementActivity" />
-        <activity android:name=".ui.info.ModifyActivity" />
-        <activity android:name=".ui.info.OtherPersonInfoActivity" />
-        <activity android:name=".ui.im.ConversationListActivity" />
-        <activity android:name=".ui.im.ChatActivity" />
-        <activity android:name=".ui.im.ContactsListActivity"
+        <activity android:name="com.match.app.ui.home.activity.MainActivity" />
+        <activity android:name="com.match.app.ui.home.activity.SearchActivity" />
+        <activity android:name="com.match.app.ui.home.activity.FilterActivity" />
+        <activity android:name="com.match.app.ui.home.activity.SelectGymActivity" />
+        <activity android:name="com.match.app.ui.redpacket.activity.BalanceActivity" />
+        <activity android:name="com.match.app.ui.redpacket.activity.CashPledgeActivity" />
+        <activity android:name="com.match.app.ui.redpacket.activity.RedPacketActivity" />
+        <activity android:name="com.match.app.ui.redpacket.activity.RoomCardActivity" />
+        <activity android:name="com.match.app.ui.settings.SettingsActivity" />
+        <activity android:name="com.match.app.ui.settings.AccountsActivity" />
+        <activity android:name="com.match.app.ui.settings.ChangePwdActivity" />
+        <activity android:name="com.match.app.ui.login.RegisterActivity" />
+        <activity android:name="com.match.app.ui.login.InfoPrefectActivity" />
+        <activity android:name="com.match.app.ui.login.PasswordResetActivity" />
+        <activity android:name="com.match.app.ui.login.AgreementActivity" />
+        <activity android:name="com.match.app.ui.info.ModifyActivity" />
+        <activity android:name="com.match.app.ui.info.OtherPersonInfoActivity" />
+        <activity android:name="com.match.app.ui.im.ConversationListActivity" />
+        <activity android:name="com.match.app.ui.im.ChatActivity" />
+        <activity android:name="com.match.app.ui.im.ContactsListActivity"
             />
-        <activity android:name=".ui.login.DateChoiceActivity"/>
+        <activity android:name="com.match.app.ui.login.DateChoiceActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

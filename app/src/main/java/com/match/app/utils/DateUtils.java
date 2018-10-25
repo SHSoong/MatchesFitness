@@ -1,4 +1,4 @@
-package com.matches.fitness.utils;
+package com.match.app.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

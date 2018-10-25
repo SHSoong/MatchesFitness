@@ -63,7 +63,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <com.matches.fitness.ui.login.WeekNavigation
+    <com.match.app.message.ui.login.WeekNavigation
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"

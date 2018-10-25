@@ -1,7 +1,7 @@
-package com.matches.fitness.retrofit.manager;
+package com.match.app.retrofit.manager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.matches.fitness.config.BuildConfig;
+import com.match.app.config.BuildConfig;
 
 import java.util.concurrent.TimeUnit;
 

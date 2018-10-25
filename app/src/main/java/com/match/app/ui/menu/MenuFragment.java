@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.menu;
+package com.match.app.ui.menu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseFragment;
-import com.matches.fitness.ui.adapter.ViewPagerAdapter;
-import com.matches.fitness.ui.im.ConversationListActivity;
-import com.matches.fitness.ui.info.ModifyActivity;
-import com.matches.fitness.ui.redpacket.activity.RedPacketActivity;
-import com.matches.fitness.ui.settings.SettingsActivity;
+import com.match.app.base.BaseFragment;
+import com.match.app.ui.adapter.ViewPagerAdapter;
+import com.match.app.ui.info.ModifyActivity;
+import com.match.app.ui.redpacket.activity.RedPacketActivity;
+import com.match.app.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

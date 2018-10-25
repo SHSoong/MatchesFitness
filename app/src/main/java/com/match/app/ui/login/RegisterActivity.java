@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,18 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.match.app.message.bean.B001Request;
-import com.match.app.message.bean.B001Response;
 import com.match.app.message.bean.B002Request;
 import com.match.app.message.bean.B002Response;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
-import com.matches.fitness.retrofit.ApiService;
-import com.matches.fitness.retrofit.manager.BaseObserver;
-import com.matches.fitness.retrofit.manager.RetrofitManager;
-import com.matches.fitness.retrofit.manager.RxSchedulers;
-import com.matches.fitness.ui.home.activity.MainActivity;
-import com.matches.fitness.utils.ToastUtils;
+import com.match.app.base.BaseActivity;
+import com.match.app.retrofit.ApiService;
+import com.match.app.retrofit.manager.BaseObserver;
+import com.match.app.retrofit.manager.RetrofitManager;
+import com.match.app.retrofit.manager.RxSchedulers;
+import com.match.app.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

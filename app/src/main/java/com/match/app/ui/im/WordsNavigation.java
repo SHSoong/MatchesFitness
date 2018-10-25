@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.im;
+package com.match.app.ui.im;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.matches.fitness.utils.DisplayUtils;
+import com.match.app.utils.DisplayUtils;
 
 public class WordsNavigation extends View {
     private String words[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",

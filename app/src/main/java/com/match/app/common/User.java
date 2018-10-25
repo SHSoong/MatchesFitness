@@ -1,6 +1,6 @@
-package com.matches.fitness.common;
+package com.match.app.common;
 
-import com.matches.fitness.app.MyApp;
+import com.match.app.MyApp;
 
 import java.io.File;
 import java.io.FileInputStream;

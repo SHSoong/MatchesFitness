@@ -81,7 +81,7 @@
             android:divider="@null"
             android:scrollbars="none" />
 
-        <com.matches.fitness.ui.im.WordsNavigation
+        <com.match.app.message.ui.im.WordsNavigation
             android:id="@+id/words_view"
             android:layout_width="30dp"
             android:layout_height="match_parent"

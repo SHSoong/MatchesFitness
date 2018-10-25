@@ -1,4 +1,4 @@
-package com.matches.fitness.base;
+package com.match.app.base;
 
 import android.app.Activity;
 import android.os.Bundle;

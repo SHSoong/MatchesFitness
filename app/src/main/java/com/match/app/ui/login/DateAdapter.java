@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.login;
+package com.match.app.ui.login;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package com.matches.fitness.ui.info;
+package com.match.app.ui.info;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,13 +11,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,11 +27,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.matches.fitness.R;
-import com.matches.fitness.base.BaseActivity;
-import com.matches.fitness.common.User;
-import com.matches.fitness.ui.info.Person;
-import com.matches.fitness.ui.info.RecordListAdapter;
-import com.matches.fitness.ui.login.ImageChoiceDialog;
+import com.match.app.base.BaseActivity;
+import com.match.app.common.User;
+import com.match.app.ui.login.ImageChoiceDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
