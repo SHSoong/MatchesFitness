@@ -4,20 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/shape_white_rectangle"
-        android:gravity="center"
         android:orientation="vertical">
 
         <com.match.app.customer.RoundCornerImageView
             android:id="@+id/iv_avatar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="1dp"
-            android:layout_weight="1"
             android:scaleType="centerCrop"
             android:src="@mipmap/img_avatar_01" />
 
@@ -26,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_below="@+id/iv_avatar"
             android:padding="15dp">
 
             <RelativeLayout
@@ -73,6 +72,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
