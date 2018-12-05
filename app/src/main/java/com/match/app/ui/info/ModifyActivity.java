@@ -26,10 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.match.app.message.entity.Person;
+import com.match.app.ui.adapter.RecordListAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
-import com.match.app.ui.login.ImageChoiceDialog;
+import com.match.app.utils.ImageChoiceDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -11,6 +11,9 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.match.app.message.entity.Person;
+import com.match.app.ui.adapter.RecordListAdapter;
+import com.match.app.utils.ShareDialog;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 

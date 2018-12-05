@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.match.app.ui.adapter.DateAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 

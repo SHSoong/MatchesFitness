@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -13,8 +12,6 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.matches.fitness.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
