@@ -146,8 +146,8 @@ public class LoginActivity extends BaseActivity {
                 .compose(RxSchedulers.<B001Response>io_main())
                 .subscribe(new BaseObserver<B001Response>() {
                     @Override
-                    protected void onHandleSuccess(B001Response b001Response) {
-                        saveUserInfo(b001Response);
+                    protected void onHandleSuccess(B001Response res) {
+                        saveUserInfo(res);
 //                        ToastUtils.showToast(LoginActivity.this, "" + b001Response.getLoginName());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();

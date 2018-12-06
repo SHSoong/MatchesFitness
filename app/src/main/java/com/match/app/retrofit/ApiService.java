@@ -6,6 +6,8 @@ import com.match.app.message.bean.B002Request;
 import com.match.app.message.bean.B002Response;
 import com.match.app.message.bean.B003Request;
 import com.match.app.message.bean.B003Response;
+import com.match.app.message.bean.B301Request;
+import com.match.app.message.bean.B301Response;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -21,5 +23,8 @@ public interface ApiService {
 
     @POST("android/")
     Observable<B003Response> doRestPassword(@Body B003Request request);
+
+    @POST("android/")
+    Observable<B301Response> getFitnessList(@Body B301Request request);
 
 }

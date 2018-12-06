@@ -16,7 +16,10 @@
 
         <activity
             android:name="com.match.app.ui.login.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +27,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.match.app.ui.home.activity.MainActivity" />
-        <activity android:name="com.match.app.ui.home.activity.SearchActivity" />
-        <activity android:name="com.match.app.ui.home.activity.FilterActivity" />
+        <activity
+            android:name="com.match.app.ui.home.activity.MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.match.app.ui.home.activity.SearchActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.match.app.ui.home.activity.FilterActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.match.app.ui.home.activity.SelectGymActivity" />
         <activity android:name="com.match.app.ui.redpacket.activity.BalanceActivity" />
         <activity android:name="com.match.app.ui.redpacket.activity.CashPledgeActivity" />
@@ -43,9 +58,8 @@
         <activity android:name="com.match.app.ui.info.OtherPersonInfoActivity" />
         <activity android:name="com.match.app.ui.im.ConversationListActivity" />
         <activity android:name="com.match.app.ui.im.ChatActivity" />
-        <activity android:name="com.match.app.ui.im.ContactsListActivity"
-            />
-        <activity android:name="com.match.app.ui.login.DateChoiceActivity"/>
+        <activity android:name="com.match.app.ui.im.ContactsListActivity" />
+        <activity android:name="com.match.app.ui.login.DateChoiceActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

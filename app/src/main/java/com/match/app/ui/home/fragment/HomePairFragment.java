@@ -1,5 +1,6 @@
 package com.match.app.ui.home.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +11,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.match.app.base.BaseFragment;
+import com.match.app.message.bean.B301Request;
+import com.match.app.message.bean.B301Response;
+import com.match.app.retrofit.ApiService;
+import com.match.app.retrofit.manager.BaseObserver;
+import com.match.app.retrofit.manager.RetrofitManager;
+import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
 import com.match.app.ui.login.DateChoiceActivity;
+import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
 import java.util.ArrayList;
@@ -33,7 +41,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     @BindView(R.id.rlNotice)
     RelativeLayout rlNotice;
 
-    private List<Integer> list = new ArrayList<>();
+    private List<B301Response.FitnessCenterBean> list = new ArrayList<>();
     private SwipeStackAdapter adapter;
 
     public static Fragment newInstance() {
@@ -84,18 +92,32 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     }
 
     private void initData() {
-        list.clear();
-        list.add(R.mipmap.img_avatar_01);
-        list.add(R.mipmap.img_avatar_02);
-        list.add(R.mipmap.img_avatar_03);
-        list.add(R.mipmap.img_avatar_04);
-        list.add(R.mipmap.img_avatar_05);
-        list.add(R.mipmap.img_avatar_06);
-        list.add(R.mipmap.img_avatar_07);
+        callApi(getActivity(), new B301Request());
+    }
+
+    private void callApi(final Context context, B301Request request) {
+        RetrofitManager.getInstance().getRetrofit()
+                .create(ApiService.class)
+                .getFitnessList(request)
+                .compose(RxSchedulers.<B301Response>io_main())
+                .subscribe(new BaseObserver<B301Response>() {
+                    @Override
+                    protected void onHandleSuccess(B301Response res) {
+                        list.clear();
+                        list.addAll(res.getBeans());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    protected void onHandleError(String msg) {
+                        ToastUtils.showToast(context, msg);
+                    }
+                });
     }
 
     private void initSwipeCards() {
-        adapter = new SwipeStackAdapter(getActivity(), list);
+        adapter = new SwipeStackAdapter(getActivity());
+        adapter.setData(list);
         swipeStack.setAdapter(adapter);
         swipeStack.setListener(this);
     }
