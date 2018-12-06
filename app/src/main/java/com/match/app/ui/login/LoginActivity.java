@@ -156,6 +156,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(LoginActivity.this, msg);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }

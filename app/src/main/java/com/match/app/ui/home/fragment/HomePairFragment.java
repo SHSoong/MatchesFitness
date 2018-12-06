@@ -9,24 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.huxq17.swipecardsview.SwipeCardsView;
-import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
-import com.match.app.ui.adapter.CardViewsAdapter;
+import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
 import com.match.app.ui.login.DateChoiceActivity;
+import com.matches.fitness.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import link.fls.swipestack.SwipeStack;
 
 public class HomePairFragment extends BaseFragment {
 
-    @BindView(R.id.swipeCardsView)
-    SwipeCardsView swipeCardsView;
-
+    @BindView(R.id.swipeStack)
+    SwipeStack swipeStack;
     @BindView(R.id.rlFilter)
     RelativeLayout rlFilter;
     @BindView(R.id.rlYes)
@@ -35,7 +34,7 @@ public class HomePairFragment extends BaseFragment {
     RelativeLayout rlNotice;
 
     private List<Integer> list = new ArrayList<>();
-    private CardViewsAdapter adapter;
+    private SwipeStackAdapter adapter;
     private int curIndex = 0;
 
     public static Fragment newInstance() {
@@ -75,7 +74,7 @@ public class HomePairFragment extends BaseFragment {
         rlYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                doRightOut();
+                swipeStack.swipeTopViewToRight();
             }
         });
         rlNotice.setOnClickListener(new View.OnClickListener() {
@@ -98,54 +97,41 @@ public class HomePairFragment extends BaseFragment {
     }
 
     private void initSwipeCards() {
-        swipeCardsView.retainLastCard(true);
-        swipeCardsView.enableSwipe(true);
-        swipeCardsView.getTouchscreenBlocksFocus();
-        //设置滑动监听
-        swipeCardsView.setCardsSlideListener(new SwipeCardsView.CardsSlideListener() {
 
-            @Override
-            public void onShow(int index) {
-                curIndex = index;
-            }
 
-            @Override
-            public void onCardVanish(int index, SwipeCardsView.SlideType type) {
-                switch (type) {
-                    case LEFT:
-                        break;
-                    case RIGHT:
-                        break;
-                }
-            }
+//        swipeCardsView.retainLastCard(true);
+//        swipeCardsView.enableSwipe(true);
+//        swipeCardsView.getTouchscreenBlocksFocus();
+//        //设置滑动监听
+//        swipeCardsView.setCardsSlideListener(new SwipeCardsView.CardsSlideListener() {
+//
+//            @Override
+//            public void onShow(int index) {
+//                curIndex = index;
+//            }
+//
+//            @Override
+//            public void onCardVanish(int index, SwipeCardsView.SlideType type) {
+//                switch (type) {
+//                    case LEFT:
+//                        break;
+//                    case RIGHT:
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onItemClick(View cardImageView, int index) {
+//            }
+//        });
 
-            @Override
-            public void onItemClick(View cardImageView, int index) {
-            }
-        });
-
-    }
-
-    /**
-     * 点击：卡片向左边飞出
-     */
-    public void doLeftOut() {
-        swipeCardsView.slideCardOut(SwipeCardsView.SlideType.LEFT);
-    }
-
-    /**
-     * 点击：卡片向右边飞出
-     */
-    public void doRightOut() {
-        swipeCardsView.slideCardOut(SwipeCardsView.SlideType.RIGHT);
     }
 
     /**
      * 显示cardsview
      */
     private void showSwipeCards() {
-        adapter = new CardViewsAdapter(getActivity(), list);
-        swipeCardsView.setAdapter(adapter);
+        swipeStack.setAdapter(new SwipeStackAdapter(getActivity(), list));
     }
 
 }
