@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import link.fls.swipestack.SwipeStack;
 
-public class HomePairFragment extends BaseFragment {
+public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeStackListener {
 
     @BindView(R.id.swipeStack)
     SwipeStack swipeStack;
@@ -35,7 +35,6 @@ public class HomePairFragment extends BaseFragment {
 
     private List<Integer> list = new ArrayList<>();
     private SwipeStackAdapter adapter;
-    private int curIndex = 0;
 
     public static Fragment newInstance() {
         return new HomePairFragment();
@@ -61,7 +60,6 @@ public class HomePairFragment extends BaseFragment {
         initView();
         initData();
         initSwipeCards();
-        showSwipeCards();
     }
 
     private void initView() {
@@ -97,41 +95,23 @@ public class HomePairFragment extends BaseFragment {
     }
 
     private void initSwipeCards() {
+        adapter = new SwipeStackAdapter(getActivity(), list);
+        swipeStack.setAdapter(adapter);
+        swipeStack.setListener(this);
+    }
 
-
-//        swipeCardsView.retainLastCard(true);
-//        swipeCardsView.enableSwipe(true);
-//        swipeCardsView.getTouchscreenBlocksFocus();
-//        //设置滑动监听
-//        swipeCardsView.setCardsSlideListener(new SwipeCardsView.CardsSlideListener() {
-//
-//            @Override
-//            public void onShow(int index) {
-//                curIndex = index;
-//            }
-//
-//            @Override
-//            public void onCardVanish(int index, SwipeCardsView.SlideType type) {
-//                switch (type) {
-//                    case LEFT:
-//                        break;
-//                    case RIGHT:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onItemClick(View cardImageView, int index) {
-//            }
-//        });
+    @Override
+    public void onViewSwipedToLeft(int position) {
 
     }
 
-    /**
-     * 显示cardsview
-     */
-    private void showSwipeCards() {
-        swipeStack.setAdapter(new SwipeStackAdapter(getActivity(), list));
+    @Override
+    public void onViewSwipedToRight(int position) {
+
     }
 
+    @Override
+    public void onStackEmpty() {
+        swipeStack.resetStack();
+    }
 }

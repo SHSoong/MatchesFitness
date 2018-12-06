@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(B001Response b001Response) {
                         saveUserInfo(b001Response);
-                        ToastUtils.showToast(LoginActivity.this, "" + b001Response.getLoginName());
+//                        ToastUtils.showToast(LoginActivity.this, "" + b001Response.getLoginName());
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
@@ -156,7 +156,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(LoginActivity.this, msg);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }
