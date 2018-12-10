@@ -8,6 +8,8 @@ import com.match.app.message.bean.B003Request;
 import com.match.app.message.bean.B003Response;
 import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
+import com.match.app.message.bean.B332Request;
+import com.match.app.message.bean.B332Response;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -26,5 +28,8 @@ public interface ApiService {
 
     @POST("android/")
     Observable<B301Response> getFitnessList(@Body B301Request request);
+
+    @POST("android/")
+    Observable<B332Response> getSearchResultList(@Body B332Request request);
 
 }
