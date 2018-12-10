@@ -20,7 +20,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public void onNext(T t) {
         if (((BaseResponse) t).isSuccess()) {
             onHandleSuccess(t);
-            Log.d(TAG, "Success" + t);
         } else {
             onHandleError(((BaseResponse) t).getMessage());
         }

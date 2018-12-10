@@ -30,6 +30,8 @@ public class SearchActivity extends BaseActivity {
 
     private Integer LOAD_MORE_SIZE = 1;   // 页号大小，0或者null为不分页
 
+    private long totalSize = 0;
+
     @BindView(R.id.tvLeft)
     TextView tvLeft;
 
@@ -39,7 +41,8 @@ public class SearchActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     BaseQuickAdapter mAdapter;
-    private Integer page = 0;       // 页号
+    //    List<B332Response.UserBean> list = new ArrayList<>();
+    private Integer page = 1;       // 页号
     private Integer pageSize = 0;   // 页号大小，0或者null为不分页
     private String keyword;
 
@@ -64,13 +67,17 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B332Response.UserBean, BaseViewHolder>(R.layout.itemview_search) {
             @Override
             protected void convert(BaseViewHolder helper, B332Response.UserBean item) {
+
             }
         });
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
+//        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
+                if (mAdapter.getItemCount() >= totalSize) {
+                    mAdapter.loadMoreEnd();
+                }
                 initRequest();
             }
         }, recyclerView);
@@ -83,7 +90,7 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                page = 0;       // 页号
+                page = 1;       // 页号
                 pageSize = 0;
                 keyword = charSequence.toString();
                 initRequest();
@@ -94,6 +101,7 @@ public class SearchActivity extends BaseActivity {
 
             }
         });
+
     }
 
     private void initRequest() {
@@ -112,14 +120,17 @@ public class SearchActivity extends BaseActivity {
                 .subscribe(new BaseObserver<B332Response>() {
                     @Override
                     protected void onHandleSuccess(B332Response res) {
+                        totalSize = res.getPageCount();
+                        ToastUtils.showToast(SearchActivity.this, "" + totalSize);
                         if (mAdapter.isLoading()) {
                             mAdapter.addData(res.getBeans());
-                            mAdapter.loadMoreComplete();
                         } else {
                             mAdapter.setNewData(res.getBeans());
                         }
-                        if (mAdapter.getItemCount() >= res.getPageCount()) {
-                            mAdapter.loadMoreEnd(true);
+                        if (mAdapter.getItemCount() >= totalSize) {
+                            mAdapter.loadMoreEnd();
+                        } else {
+                            mAdapter.loadMoreComplete();
                         }
                     }
 

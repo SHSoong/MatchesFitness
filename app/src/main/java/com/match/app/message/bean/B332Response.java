@@ -40,7 +40,7 @@ public class B332Response extends BaseResponse {
 
         private String name;	// 昵称
 
-        private Date birthday; //  出生日期
+        private String birthday; //  出生日期
 
         private Integer sex;		//性别 0:男 1:女
 
@@ -48,7 +48,7 @@ public class B332Response extends BaseResponse {
 
         private String logo;		//头像
 
-        private Date lastLoginDate;// 更新时间，上次登录时间
+        private String lastLoginDate;// 更新时间，上次登录时间
 
         public String getId() {
             return id;
@@ -74,11 +74,11 @@ public class B332Response extends BaseResponse {
             this.name = name;
         }
 
-        public Date getBirthday() {
+        public String getBirthday() {
             return birthday;
         }
 
-        public void setBirthday(Date birthday) {
+        public void setBirthday(String birthday) {
             this.birthday = birthday;
         }
 
@@ -106,11 +106,11 @@ public class B332Response extends BaseResponse {
             this.logo = logo;
         }
 
-        public Date getLastLoginDate() {
+        public String getLastLoginDate() {
             return lastLoginDate;
         }
 
-        public void setLastLoginDate(Date lastLoginDate) {
+        public void setLastLoginDate(String lastLoginDate) {
             this.lastLoginDate = lastLoginDate;
         }
     }
