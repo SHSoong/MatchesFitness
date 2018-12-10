@@ -56,17 +56,27 @@
                 android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:text="1" />
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/view_01"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_phone"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
 
         <LinearLayout
             android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_below="@+id/ll_phone"
+            android:layout_below="@+id/view_01"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
 
             android:gravity="center_vertical"
@@ -94,8 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="1"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="1" />
             </LinearLayout>
 
             <TextView
@@ -109,6 +119,15 @@
 
 
         </LinearLayout>
+
+        <View
+            android:id="@+id/view_02"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_password"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
 
 
         <Button

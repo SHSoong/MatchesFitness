@@ -20,5 +20,6 @@ public class InfoPrefectActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+        initTile(R.string.register_user, true);
     }
 }

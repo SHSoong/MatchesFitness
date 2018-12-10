@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_login_icon"
             android:layout_width="100dip"
             android:layout_height="100dip" />
@@ -61,12 +61,21 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/view_01"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_phone"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
+
 
         <LinearLayout
             android:id="@+id/ll_validate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_below="@id/ll_phone"
+            android:layout_below="@id/view_01"
             android:layout_marginStart="8dp"
             android:background="@color/white"
             android:gravity="center_vertical"
@@ -111,11 +120,20 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/view_02"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_validate"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
+
         <LinearLayout
             android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_below="@id/ll_validate"
+            android:layout_below="@id/view_02"
             android:layout_marginStart="8dp"
             android:background="@color/white"
 
@@ -149,6 +167,16 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/view_03"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_password"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
+
+
 
         <Button
             android:id="@+id/btn_register"
@@ -174,22 +202,75 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:layout_marginTop="40dip"
             android:gravity="center"
-            android:lines="1"
-            android:text="----------------------------  或  -------------------------------" />
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="0.1dp"
+                android:layout_weight="1"
+                android:background="@color/grayLine" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  或  " />
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="0.1dp"
+                android:layout_weight="1"
+                android:background="@color/grayLine" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tv_wb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/login_wb_icon"
+                android:gravity="center"
+                android:text="微博" />
 
+            <TextView
+                android:id="@+id/tv_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:drawableTop="@mipmap/login_wx_icon"
+                android:gravity="center"
+                android:text="微信" />
+
+            <TextView
+                android:id="@+id/tv_tw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:drawableTop="@mipmap/login_twitter_icon"
+                android:gravity="center"
+                android:text="Twitter" />
+
+            <TextView
+                android:id="@+id/tv_fc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:drawableTop="@mipmap/login_facebook_icon"
+                android:gravity="center"
+                android:text="Facebook" />
         </LinearLayout>
 
         <LinearLayout
@@ -197,19 +278,33 @@
             android:layout_height="0dip"
             android:layout_weight="1"
             android:gravity="center_horizontal|bottom"
+            android:orientation="vertical"
             android:paddingBottom="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/grayLine" />
 
-            <TextView
-                android:id="@+id/tv_agreement"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="用户协议"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击注册表示同意" />
+
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户协议"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
         </LinearLayout>
 

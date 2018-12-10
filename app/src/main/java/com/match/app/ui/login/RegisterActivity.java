@@ -76,10 +76,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.btn_register: // 注册
-                if (!isGetCode) {
-                    ToastUtils.showToast(mContext, "请先获取短信验证吗");
-                }
-                register();
+
+                startActivity(new Intent(this, InfoPrefectActivity.class));
+
+//                if (!isGetCode) {
+//                    ToastUtils.showToast(mContext, "请先获取短信验证吗");
+//                    return;
+//                }
+                // register();
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));
@@ -96,7 +100,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             ToastUtils.showToast(mContext, "请输入正确的手机号码！");
             return;
         }
-        ToastUtils.showToast(mContext,"获取成功！");
+        ToastUtils.showToast(mContext, "获取成功！");
         tvValidate.setClickable(false);
         handler.sendEmptyMessage(0);
         isGetCode = true;
@@ -106,6 +110,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 注册
      */
     private void register() {
+
 
         String phone = edtPhone.getText().toString().trim();
         String validte = edtValidate.getText().toString().trim();
