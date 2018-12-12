@@ -28,8 +28,6 @@ import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
 
-    private Integer LOAD_MORE_SIZE = 10;   // 页号大小，0或者null为不分页
-
     private long totalSize = 0;
 
     @BindView(R.id.tvLeft)
@@ -41,9 +39,8 @@ public class SearchActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     BaseQuickAdapter mAdapter;
-    //    List<B332Response.UserBean> list = new ArrayList<>();
     private Integer page = 1;       // 页号
-//    private Integer pageSize = 0;   // 页号大小，0或者null为不分页
+    private Integer pageSize = 10;   // 页号大小，0或者null为不分页
     private String keyword;
 
     @Override
@@ -91,7 +88,6 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 page = 1;       // 页号
-//                pageSize = 0;
                 keyword = charSequence.toString();
                 initRequest();
             }
@@ -101,14 +97,14 @@ public class SearchActivity extends BaseActivity {
 
             }
         });
-
+        initRequest();
     }
 
     private void initRequest() {
         B332Request request = new B332Request();
         request.setKeyword(keyword);
         request.setPage(page++);
-        request.setPageSize(LOAD_MORE_SIZE);
+        request.setPageSize(pageSize);
         callApi(SearchActivity.this, request);
     }
 

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.match.app.message.bean.B336Response;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +23,7 @@ public class MenuPairFragment extends BaseFragment {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    BaseQuickAdapter mAdapter;
+    private BaseQuickAdapter mAdapter;
 
     public static Fragment newInstance() {
         return new MenuPairFragment();
@@ -48,19 +46,12 @@ public class MenuPairFragment extends BaseFragment {
     private void init() {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.itemview_menupair, getItemDatas()) {
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B336Response.MatchApplyBean, BaseViewHolder>(R.layout.itemview_menupair) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
+            protected void convert(BaseViewHolder helper, B336Response.MatchApplyBean item) {
+
             }
         });
-    }
-
-    private List<String> getItemDatas() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add("item" + i);
-        }
-        return list;
     }
 
 }

@@ -10,6 +10,10 @@ import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
 import com.match.app.message.bean.B332Request;
 import com.match.app.message.bean.B332Response;
+import com.match.app.message.bean.B336Request;
+import com.match.app.message.bean.B336Response;
+import com.match.app.message.bean.B337Request;
+import com.match.app.message.bean.BaseResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -31,5 +35,11 @@ public interface ApiService {
 
     @POST("android/")
     Observable<B332Response> getSearchResultList(@Body B332Request request);
+
+    @POST("android/")
+    Observable<B336Response> getPairList(@Body B336Request request);
+
+    @POST("android/")
+    Observable<BaseResponse> doAgreeOrRefusePair(@Body B337Request request);
 
 }
