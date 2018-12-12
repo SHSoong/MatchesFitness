@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
 
-    private Integer LOAD_MORE_SIZE = 1;   // 页号大小，0或者null为不分页
+    private Integer LOAD_MORE_SIZE = 10;   // 页号大小，0或者null为不分页
 
     private long totalSize = 0;
 
@@ -43,7 +43,7 @@ public class SearchActivity extends BaseActivity {
     BaseQuickAdapter mAdapter;
     //    List<B332Response.UserBean> list = new ArrayList<>();
     private Integer page = 1;       // 页号
-    private Integer pageSize = 0;   // 页号大小，0或者null为不分页
+//    private Integer pageSize = 0;   // 页号大小，0或者null为不分页
     private String keyword;
 
     @Override
@@ -61,7 +61,7 @@ public class SearchActivity extends BaseActivity {
                 finish();
             }
         });
-        recyclerView.setPadding(10, 10, 10, 10);
+        recyclerView.setPadding(20, 20, 20, 20);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.addItemDecoration(new RecyclerItemDecoration(10));
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B332Response.UserBean, BaseViewHolder>(R.layout.itemview_search) {
@@ -91,7 +91,7 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 page = 1;       // 页号
-                pageSize = 0;
+//                pageSize = 0;
                 keyword = charSequence.toString();
                 initRequest();
             }
@@ -108,7 +108,7 @@ public class SearchActivity extends BaseActivity {
         B332Request request = new B332Request();
         request.setKeyword(keyword);
         request.setPage(page++);
-        request.setPageSize(pageSize += LOAD_MORE_SIZE);
+        request.setPageSize(LOAD_MORE_SIZE);
         callApi(SearchActivity.this, request);
     }
 
@@ -121,16 +121,18 @@ public class SearchActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(B332Response res) {
                         totalSize = res.getPageCount();
-                        ToastUtils.showToast(SearchActivity.this, "" + totalSize);
+//                        ToastUtils.showToast(SearchActivity.this, "" + totalSize);
                         if (mAdapter.isLoading()) {
                             mAdapter.addData(res.getBeans());
                         } else {
                             mAdapter.setNewData(res.getBeans());
                         }
-                        if (mAdapter.getItemCount() >= totalSize) {
+                        if (page >= totalSize) {
                             mAdapter.loadMoreEnd();
+                            ToastUtils.showToast(SearchActivity.this, "结束");
                         } else {
                             mAdapter.loadMoreComplete();
+                            ToastUtils.showToast(SearchActivity.this, "完成");
                         }
                     }
 

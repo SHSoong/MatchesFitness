@@ -5,15 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@color/grayBg">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/img_avatar_01"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <com.match.app.customer.XCRoundRectImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_rectangle"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@mipmap/img_avatar_01" />
 
 </android.support.constraint.ConstraintLayout>

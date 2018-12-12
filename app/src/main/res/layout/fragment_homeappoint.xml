@@ -14,13 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="60dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/anim_00000"
-        android:layout_marginBottom="10dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/llNotice" />
 
     <ImageView
