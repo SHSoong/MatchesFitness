@@ -62,6 +62,8 @@ public class MenuNoticeFragment extends BaseFragment {
             protected void convert(final BaseViewHolder helper, String item) {
             }
         });
+
+        callApiB336(getActivity(), new B336Request());
     }
 
     private void callApiB336(final Context context, B336Request request) {

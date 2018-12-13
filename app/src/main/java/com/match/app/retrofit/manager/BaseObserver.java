@@ -2,6 +2,7 @@ package com.match.app.retrofit.manager;
 
 import android.util.Log;
 
+import com.match.app.manager.LoadingManager;
 import com.match.app.message.bean.BaseResponse;
 
 import io.reactivex.Observer;
@@ -18,6 +19,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
+        LoadingManager.cansel();
         if (((BaseResponse) t).isSuccess()) {
             onHandleSuccess(t);
         } else {
@@ -27,6 +29,7 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        LoadingManager.cansel();
         onHandleError("网络异常！");
     }
 

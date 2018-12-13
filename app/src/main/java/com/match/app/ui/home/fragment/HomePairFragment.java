@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.classic.common.MultipleStatusView;
 import com.match.app.base.BaseFragment;
 import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
@@ -32,6 +33,8 @@ import link.fls.swipestack.SwipeStack;
 
 public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeStackListener {
 
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
     @BindView(R.id.swipeStack)
     SwipeStack swipeStack;
     @BindView(R.id.rlFilter)
@@ -89,6 +92,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                 startActivity(new Intent(mActivity, DateChoiceActivity.class));
             }
         });
+        multipleStatusView.showLoading();
     }
 
     private void initData() {
@@ -106,11 +110,13 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                         list.clear();
                         list.addAll(res.getBeans());
                         adapter.notifyDataSetChanged();
+                        multipleStatusView.showContent();
                     }
 
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(context, msg);
+                        multipleStatusView.showError();
                     }
                 });
     }

@@ -1,8 +1,8 @@
 package com.match.app.ui.home.activity;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -58,9 +58,10 @@ public class SearchActivity extends BaseActivity {
                 finish();
             }
         });
-        recyclerView.setPadding(20, 20, 20, 20);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.addItemDecoration(new RecyclerItemDecoration(10));
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.addItemDecoration(new RecyclerItemDecoration(15));
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B332Response.UserBean, BaseViewHolder>(R.layout.itemview_search) {
             @Override
             protected void convert(BaseViewHolder helper, B332Response.UserBean item) {
@@ -68,7 +69,6 @@ public class SearchActivity extends BaseActivity {
             }
         });
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
-//        mAdapter.disableLoadMoreIfNotFullPage(recyclerView);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

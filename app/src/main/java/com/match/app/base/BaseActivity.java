@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.match.app.manager.LoadingManager;
 import com.matches.fitness.R;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -104,5 +105,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .fitsSystemWindows(true)
                 .navigationBarColor(colorPrimary)
                 .init();
+    }
+
+    public void showLoading(){
+        LoadingManager.show(this);
+    }
+
+    public void canselLoading(){
+        LoadingManager.cansel();
     }
 }
