@@ -125,10 +125,8 @@ public class SearchActivity extends BaseActivity {
                         }
                         if (page >= totalSize) {
                             mAdapter.loadMoreEnd();
-                            ToastUtils.showToast(SearchActivity.this, "结束");
                         } else {
                             mAdapter.loadMoreComplete();
-                            ToastUtils.showToast(SearchActivity.this, "完成");
                         }
                     }
 

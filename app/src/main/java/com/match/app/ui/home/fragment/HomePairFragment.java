@@ -47,6 +47,8 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     private List<B301Response.FitnessCenterBean> list = new ArrayList<>();
     private SwipeStackAdapter adapter;
 
+    private Boolean showError = true; //只有加载成功过不会再显示error
+
     public static Fragment newInstance() {
         return new HomePairFragment();
     }
@@ -107,6 +109,9 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                 .subscribe(new BaseObserver<B301Response>() {
                     @Override
                     protected void onHandleSuccess(B301Response res) {
+                        if (showError) {
+                            showError = false;
+                        }
                         list.clear();
                         list.addAll(res.getBeans());
                         adapter.notifyDataSetChanged();
@@ -116,7 +121,9 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(context, msg);
-                        multipleStatusView.showError();
+                        if (showError) {
+                            multipleStatusView.showError();
+                        }
                     }
                 });
     }

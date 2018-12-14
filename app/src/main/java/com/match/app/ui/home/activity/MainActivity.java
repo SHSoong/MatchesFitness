@@ -33,8 +33,8 @@ public class MainActivity extends SlidingFragmentActivity {
     @BindView(R.id.ivSearch)
     public ImageView ivSearch;
 
-    HomeAppointFragment homeAppointFragment;
-    HomePairFragment homePairFragment;
+    private HomeAppointFragment homeAppointFragment;
+    private HomePairFragment homePairFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
