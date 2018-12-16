@@ -6,4 +6,9 @@
 
     <include layout="@layout/include_common_tool_bar" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/accounts_rcy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

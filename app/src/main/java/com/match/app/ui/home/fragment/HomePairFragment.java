@@ -20,7 +20,6 @@ import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
-import com.match.app.ui.login.DateChoiceActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 

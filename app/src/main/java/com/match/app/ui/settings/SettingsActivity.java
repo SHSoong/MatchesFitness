@@ -1,12 +1,18 @@
 package com.match.app.ui.settings;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.match.app.MyApp;
+import com.match.app.common.User;
+import com.match.app.ui.login.LoginActivity;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
+
+import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +27,8 @@ public class SettingsActivity extends BaseActivity {
     RelativeLayout rlChangePwd;
     @BindView(R.id.rlPersonalInfo)
     RelativeLayout rlPersonalInfo;
+    @BindView(R.id.rl_exit)
+    RelativeLayout rlExit;
 
     @Override
     protected void onInitBinding() {
@@ -48,6 +56,12 @@ public class SettingsActivity extends BaseActivity {
         rlPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            }
+        });
+        rlExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyApp.logout(SettingsActivity.this);
             }
         });
     }

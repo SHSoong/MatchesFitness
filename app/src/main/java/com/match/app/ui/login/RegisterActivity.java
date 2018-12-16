@@ -77,13 +77,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.btn_register: // 注册
 
-                startActivity(new Intent(this, InfoPrefectActivity.class));
+//                startActivity(new Intent(this, InfoPrefectActivity.class));
 
-//                if (!isGetCode) {
-//                    ToastUtils.showToast(mContext, "请先获取短信验证吗");
-//                    return;
-//                }
-                // register();
+                if (!isGetCode) {
+                    ToastUtils.showToast(mContext, "请先获取短信验证吗");
+                    return;
+                }
+                 register();
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:calendarview="http://schemas.android.com/apk/res-auto"
+    xmlns:weekview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grayBg"
@@ -63,16 +65,17 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <com.match.app.customer.WeekNavigation
+    <com.match.othershe.calendarview.weiget.WeekView
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+
+    <com.match.othershe.calendarview.weiget.CalendarView
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/grayBg" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcy_month"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        calendarview:choose_type="single"
+        calendarview:show_holiday="true"
+        calendarview:show_lunar="true"
+        calendarview:show_term="true"
+        calendarview:switch_choose="false" />
 </LinearLayout>

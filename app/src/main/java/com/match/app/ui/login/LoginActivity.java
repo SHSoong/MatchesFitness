@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTile(R.string.login, false);
         user = User.getInstance();
-        if(user.isLogin()){
+        if (user.isLogin()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
             return;
