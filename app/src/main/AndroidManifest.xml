@@ -59,7 +59,6 @@
         <activity android:name="com.match.app.ui.im.ConversationListActivity" />
         <activity android:name="com.match.app.ui.im.ChatActivity" />
         <activity android:name="com.match.app.ui.im.ContactsListActivity" />
-        <activity android:name="com.match.app.ui.login.DateChoiceActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -1,5 +1,6 @@
 package com.match.app.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
  */
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
+
 
     @BindView(R.id.edt_phone)
     EditText edtPhone;
@@ -69,16 +71,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_validate:
                 // 请求短信验证码
                 if (tvValidate.isClickable()) {
+
                     getValidate();
                 }
                 break;
             case R.id.btn_register: // 注册
-//
+
+//                startActivity(new Intent(this, InfoPrefectActivity.class));
+
                 if (!isGetCode) {
                     ToastUtils.showToast(mContext, "请先获取短信验证吗");
                     return;
                 }
-                register();
+                 register();
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));
@@ -105,6 +110,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 注册
      */
     private void register() {
+
 
         String phone = edtPhone.getText().toString().trim();
         String validte = edtValidate.getText().toString().trim();
@@ -138,11 +144,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 .subscribe(new BaseObserver<B002Response>() {
                     @Override
                     protected void onHandleSuccess(B002Response b002Response) {
-//                        ToastUtils.showToast(mContext, "注册成功");
-                        startActivity(new Intent(mContext, InfoPrefectActivity.class));
-//                        Intent intent = new Intent();
-//                        intent.putExtra(PHONE, phone);
-//                        setResult(Activity.RESULT_OK, intent);
+                        ToastUtils.showToast(mContext, "注册成功");
+//                        startActivity(new Intent(mContext, LoginActivity.class));
+                        Intent intent = new Intent();
+                        intent.putExtra(PHONE, phone);
+                        setResult(Activity.RESULT_OK, intent);
                         finish();
                     }
 
