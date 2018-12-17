@@ -1,6 +1,5 @@
 package com.match.app.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -145,10 +144,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     protected void onHandleSuccess(B002Response b002Response) {
                         ToastUtils.showToast(mContext, "注册成功");
-//                        startActivity(new Intent(mContext, LoginActivity.class));
-                        Intent intent = new Intent();
-                        intent.putExtra(PHONE, phone);
-                        setResult(Activity.RESULT_OK, intent);
+                        startActivity(new Intent(mContext, InfoPrefectActivity.class).putExtra(PHONE, phone));
                         finish();
                     }
 

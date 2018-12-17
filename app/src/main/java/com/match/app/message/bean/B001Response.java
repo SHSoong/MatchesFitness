@@ -10,6 +10,7 @@ public class B001Response extends BaseResponse {
     private Integer hasExp;  //是否有经验1有， 0或者null其它无
     private String logo;        //头像
     private String lastLoginDate;// 更新时间，上次登录时间
+    private Integer hasInfo = 0;// 1为已经完善，
 
     public String getToken() {
         return token;
@@ -73,5 +74,13 @@ public class B001Response extends BaseResponse {
 
     public void setLastLoginDate(String lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    public Integer getHasInfo() {
+        return hasInfo;
+    }
+
+    public void setHasInfo(Integer hasInfo) {
+        this.hasInfo = hasInfo;
     }
 }

@@ -10,6 +10,9 @@ import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
 import com.match.app.message.bean.B332Request;
 import com.match.app.message.bean.B332Response;
+import com.match.app.message.bean.B334Request;
+import com.match.app.message.bean.B334Response;
+import com.match.app.message.bean.B335Request;
 import com.match.app.message.bean.B336Request;
 import com.match.app.message.bean.B336Response;
 import com.match.app.message.bean.B337Request;
@@ -31,13 +34,16 @@ public interface ApiService {
     Observable<B003Response> doRestPassword(@Body B003Request request);
 
     @POST("android/")
-    Observable<B301Response> getFitnessList(@Body B301Request request);
+    Observable<B334Response> doB334Request(@Body B334Request request);
 
     @POST("android/")
     Observable<B332Response> getSearchResultList(@Body B332Request request);
 
     @POST("android/")
     Observable<B336Response> getPairList(@Body B336Request request);
+
+    @POST("android/")
+    Observable<BaseResponse> doB335Request(@Body B335Request request);
 
     @POST("android/")
     Observable<BaseResponse> doAgreeOrRefusePair(@Body B337Request request);

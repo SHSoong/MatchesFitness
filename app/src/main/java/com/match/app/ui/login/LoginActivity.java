@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
+import com.match.app.ui.home.activity.SplashActivity;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
@@ -28,6 +29,7 @@ public class LoginActivity extends BaseActivity {
 
     private final static int REGISTER_CODE = 10001;
     private final static int RESET_PASSWORD_CODE = 10002;
+
     @BindView(R.id.img_login)
     ImageView imgLogin;
     @BindView(R.id.edt_phone)
@@ -48,6 +50,7 @@ public class LoginActivity extends BaseActivity {
     TextView tvTw;
     @BindView(R.id.tv_fc)
     TextView tvFc;
+
     private User user;
 
     @Override
@@ -60,15 +63,6 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTile(R.string.login, false);
         user = User.getInstance();
-        if (user.isLogin()) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-            return;
-        }
-//        if (!TextUtils.isEmpty(user.getLoginName())) {
-//            etUserName.setText(user.getLoginName());
-//
-//        }
         Glide.with(mContext)
                 .load(user.getLogo())
                 .placeholder(R.mipmap.anim_avitor)
@@ -148,8 +142,12 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(B001Response res) {
                         saveUserInfo(res);
-//                        ToastUtils.showToast(LoginActivity.this, "" + b001Response.getLoginName());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        if (user.getHasInfo() == 1) {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, InfoPrefectActivity.class));
+                        }
                         finish();
                     }
 
@@ -176,6 +174,8 @@ public class LoginActivity extends BaseActivity {
         user.setName(o.getName());
         user.setSex(o.getSex());
         user.setLogin(true);
+        if (o.getHasInfo() != null)
+            user.setHasInfo(o.getHasInfo());
         user.save();
     }
 

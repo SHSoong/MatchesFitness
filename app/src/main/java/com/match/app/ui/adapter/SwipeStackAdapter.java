@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import com.match.app.message.bean.B301Response.FitnessCenterBean;
+import com.match.app.message.bean.B334Response;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class SwipeStackAdapter extends BaseAdapter {
 
     private Context context;
-    private List<FitnessCenterBean> list;
+    private List<B334Response.UserBean> list;
 
     public SwipeStackAdapter(Context context) {
         this.context = context;
@@ -43,7 +43,7 @@ public class SwipeStackAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setData(List<FitnessCenterBean> list){
+    public void setData(List<B334Response.UserBean> list){
         this.list = list;
         notifyDataSetChanged();
     }

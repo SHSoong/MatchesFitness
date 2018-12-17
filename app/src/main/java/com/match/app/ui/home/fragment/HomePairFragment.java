@@ -12,8 +12,10 @@ import android.widget.RelativeLayout;
 
 import com.classic.common.MultipleStatusView;
 import com.match.app.base.BaseFragment;
-import com.match.app.message.bean.B301Request;
-import com.match.app.message.bean.B301Response;
+import com.match.app.message.bean.B334Request;
+import com.match.app.message.bean.B334Response;
+import com.match.app.message.bean.B335Request;
+import com.match.app.message.bean.BaseResponse;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
@@ -43,7 +45,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     @BindView(R.id.rlNotice)
     RelativeLayout rlNotice;
 
-    private List<B301Response.FitnessCenterBean> list = new ArrayList<>();
+    private List<B334Response.UserBean> list = new ArrayList<>();
     private SwipeStackAdapter adapter;
 
     private Boolean showError = true; //只有加载成功过不会再显示error
@@ -90,31 +92,36 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity, DateChoiceActivity.class));
+//                startActivity(new Intent(mActivity, DateChoiceActivity.class));
             }
         });
         multipleStatusView.showLoading();
     }
 
     private void initData() {
-        callApi(getActivity(), new B301Request());
+        callApi(getActivity(), new B334Request());
     }
 
-    private void callApi(final Context context, B301Request request) {
+    private void callApi(final Context context, B334Request request) {
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
-                .getFitnessList(request)
-                .compose(RxSchedulers.<B301Response>io_main())
-                .subscribe(new BaseObserver<B301Response>() {
+                .doB334Request(request)
+                .compose(RxSchedulers.<B334Response>io_main())
+                .subscribe(new BaseObserver<B334Response>() {
                     @Override
-                    protected void onHandleSuccess(B301Response res) {
-                        if (showError) {
-                            showError = false;
+                    protected void onHandleSuccess(B334Response res) {
+                        if (showError && res.getBeans().size() <= 0) {
+                            multipleStatusView.showEmpty();
+                        } else {
+                            if (showError) {
+                                showError = false;
+                            }
+                            list.clear();
+                            list.addAll(res.getBeans());
+                            adapter.notifyDataSetChanged();
+                            multipleStatusView.showContent();
                         }
-                        list.clear();
-                        list.addAll(res.getBeans());
-                        adapter.notifyDataSetChanged();
-                        multipleStatusView.showContent();
+
                     }
 
                     @Override
@@ -123,6 +130,23 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                         if (showError) {
                             multipleStatusView.showError();
                         }
+                    }
+                });
+    }
+
+    private void callB335Api(final Context context, B335Request request) {
+        RetrofitManager.getInstance().getRetrofit()
+                .create(ApiService.class)
+                .doB335Request(request)
+                .compose(RxSchedulers.<BaseResponse>io_main())
+                .subscribe(new BaseObserver<BaseResponse>() {
+                    @Override
+                    protected void onHandleSuccess(BaseResponse res) {
+                    }
+
+                    @Override
+                    protected void onHandleError(String msg) {
+                        ToastUtils.showToast(context, msg);
                     }
                 });
     }

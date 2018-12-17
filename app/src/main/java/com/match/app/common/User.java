@@ -29,6 +29,7 @@ public class User implements Serializable {
     private Integer hasExp;  //是否有经验1有， 0或者null其它无
     private String logo;        //头像
     private String lastLoginDate;// 更新时间，上次登录时间
+    private Integer hasInfo = 0;// 1为已经完善，
     private boolean isLogin = false;
 
     private User() {
@@ -135,6 +136,13 @@ public class User implements Serializable {
         this.lastLoginDate = lastLoginDate;
     }
 
+    public Integer getHasInfo() {
+        return hasInfo;
+    }
+
+    public void setHasInfo(Integer hasInfo) {
+        this.hasInfo = hasInfo;
+    }
     /*****
      * 保存
      */
