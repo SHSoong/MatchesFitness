@@ -38,4 +38,5 @@ public class B335Request extends BaseRequest {
     public void setMatchProfileId(String matchProfileId) {
         this.matchProfileId = matchProfileId;
     }
+
 }
