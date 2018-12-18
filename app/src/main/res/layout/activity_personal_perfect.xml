@@ -18,12 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/white"
             android:gravity="center_vertical|left"
             android:hint="@string/nickname"
             android:paddingLeft="3dip"
+            android:singleLine="true"
             android:textSize="@dimen/sp_14" />
 
         <View
@@ -33,13 +34,13 @@
             android:layout_marginRight="20dp"
             android:background="@color/grayLine" />
 
-        <EditText
-            android:id="@+id/edt_birthday"
+        <TextView
+            android:id="@+id/tv_birthday"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dip"
+            android:layout_marginRight="20dp"
             android:background="@color/white"
             android:gravity="center_vertical|left"
             android:hint="@string/birthday"
@@ -68,6 +69,7 @@
                 android:textSize="16sp" />
 
             <RadioGroup
+                android:id="@+id/rg_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -104,6 +106,7 @@
                 android:textSize="16sp" />
 
             <RadioGroup
+                android:id="@+id/rg_experience"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -128,23 +131,25 @@
         </RelativeLayout>
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/edt_pwd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dip"
+            android:layout_marginRight="20dp"
             android:background="@color/white"
             android:gravity="center_vertical|left"
             android:hint="@string/set_pwd"
+            android:inputType="textPassword"
             android:paddingLeft="3dip"
-            android:visibility="gone"
+            android:singleLine="true"
+            android:maxLength="20"
             android:textSize="@dimen/sp_14" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:visibility="gone"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/grayLine" />
@@ -156,7 +161,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_perfect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -164,7 +169,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/login_btn_bg"
-                android:text="确定"
+                android:text="@string/perfect"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -173,8 +178,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"

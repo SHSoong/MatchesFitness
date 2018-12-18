@@ -13,10 +13,11 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.match.app.manager.LoadingManager;
 import com.matches.fitness.R;
 
+import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected final static String PHONE = "phone";
 
@@ -54,6 +55,29 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+    }
+
+    /*******
+     * 初始化标题栏
+     * @param resid
+     *         标题
+     * @param listener
+     *
+     */
+    protected void initTile(int resid, final View.OnClickListener listener) {
+        TextView textView = findViewById(R.id.tvTitle);
+        textView.setText(resid);
+        RelativeLayout rlLeftBack = findViewById(R.id.rlLeftBack);
+        if (listener == null) {
+            rlLeftBack.setVisibility(View.GONE);
+            return;
+        }
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
             }
         });
     }
@@ -107,11 +131,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .init();
     }
 
-    public void showLoading(){
+    public void showLoading() {
         LoadingManager.show(this);
     }
 
-    public void canselLoading(){
+    public void canselLoading() {
         LoadingManager.cansel();
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
