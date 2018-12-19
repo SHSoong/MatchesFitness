@@ -10,8 +10,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.match.app.common.User;
+import com.match.app.db.AccountDao;
+import com.match.app.db.TbAccount;
 import com.match.app.message.bean.B003Response;
 import com.match.app.message.bean.B005Request;
+import com.match.app.message.bean.B005Response;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
@@ -53,7 +57,10 @@ public class InfoPrefectActivity extends BaseActivity {
     private int hasExperience = 1;
 
     private String nickName;
-    private Date birthDay;
+    private String birthDay;
+
+    private AccountDao dao;
+    private TbAccount account;
 
     @Override
     protected void onInitBinding() {
@@ -67,6 +74,7 @@ public class InfoPrefectActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, MainActivity.class));
+                finish();
             }
         });
         tvBirthday.setOnClickListener(this);
@@ -103,9 +111,8 @@ public class InfoPrefectActivity extends BaseActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                birthDay = new Date(year, month, dayOfMonth);
+                                birthDay = year + "-" + (month + 1) + "-" + dayOfMonth + " 00:00:00";
                                 tvBirthday.setText(year + "年-" + (month + 1) + "月-" + dayOfMonth + "日 ");
-                                final String data = (month + 1) + "月-" + dayOfMonth + "日 ";
                             }
                         },
                         mYear, mMonth, mDay);
@@ -133,11 +140,17 @@ public class InfoPrefectActivity extends BaseActivity {
                 RetrofitManager.getInstance().getRetrofit()
                         .create(ApiService.class)
                         .doPerfeect(request)
-                        .compose(RxSchedulers.<B003Response>io_main())
-                        .subscribe(new BaseObserver<B003Response>() {
+                        .compose(RxSchedulers.<B005Response>io_main())
+                        .subscribe(new BaseObserver<B005Response>() {
                             @Override
-                            protected void onHandleSuccess(B003Response res) {
-
+                            protected void onHandleSuccess(B005Response res) {
+                                if (res.isSuccess()) {
+                                    User.getInstance().setHasInfo(Integer.valueOf(1));
+                                    update();
+                                    ToastUtils.showToast(mContext, "完善成功！");
+                                    startActivity(new Intent(mContext, MainActivity.class));
+                                    finish();
+                                }
                             }
 
                             @Override
@@ -149,4 +162,19 @@ public class InfoPrefectActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void update() {
+        if (dao == null) {
+            dao = new AccountDao(mContext);
+        }
+        account = dao.queryByAccount(User.getInstance().getLoginName());
+        if (account != null) {
+            account.setName(nickName);
+            account.setBirthday(birthDay);
+            account.setSex(Integer.valueOf(sex));
+            account.setHasExp(Integer.valueOf(hasExperience));
+            dao.update(account);
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ import com.match.app.message.bean.B002Response;
 import com.match.app.message.bean.B003Request;
 import com.match.app.message.bean.B003Response;
 import com.match.app.message.bean.B005Request;
+import com.match.app.message.bean.B005Response;
 import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
 import com.match.app.message.bean.B332Request;
@@ -35,7 +36,7 @@ public interface ApiService {
     Observable<B003Response> doRestPassword(@Body B003Request request);
 
     @POST("android/")
-    Observable<B003Response> doPerfeect(@Body B005Request request);
+    Observable<B005Response> doPerfeect(@Body B005Request request);
 
     @POST("android/")
     Observable<B334Response> doB334Request(@Body B334Request request);

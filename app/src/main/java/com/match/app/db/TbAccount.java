@@ -1,18 +1,20 @@
 package com.match.app.db;
 
+import android.text.TextUtils;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "tb_account")
 public class TbAccount {
-    @DatabaseField(columnName = "_id" ,generatedId = true)
-    private int id ;
+    @DatabaseField(columnName = "_id", generatedId = true)
+    private int id;
     @DatabaseField
-    private String account ;
+    private String account;
     @DatabaseField
-    private String password ;
+    private String password;
     @DatabaseField
-    private String token ;
+    private String token;
     @DatabaseField
     private String name;    // 昵称
     @DatabaseField
@@ -25,6 +27,18 @@ public class TbAccount {
     private String logo;        //头像
     @DatabaseField
     private String lastLoginDate;// 更新时间，上次登录时间
+
+    public static boolean equals(TbAccount var1, TbAccount var2) {
+        if (var1 != null && var2 != null) {
+            if (!TextUtils.isEmpty(var2.getAccount())) {
+                if (var1.getAccount().equals(var2.getAccount())) {
+                    var1.setId(var2.getId());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public int getId() {
         return id;
@@ -103,6 +117,21 @@ public class TbAccount {
     }
 
     public void setLastLoginDate(String lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public TbAccount() {
+    }
+
+    public TbAccount(String account, String password, String token, String name, String birthday, Integer sex, Integer hasExp, String logo, String lastLoginDate) {
+        this.account = account;
+        this.password = password;
+        this.token = token;
+        this.name = name;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.hasExp = hasExp;
+        this.logo = logo;
         this.lastLoginDate = lastLoginDate;
     }
 }

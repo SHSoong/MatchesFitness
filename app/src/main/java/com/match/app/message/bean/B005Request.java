@@ -11,7 +11,7 @@ public class B005Request extends BaseRequest {
 
 	private String name;	// 昵称
 
-	private Date birthday; //  出生日期
+	private String birthday; //  出生日期
 
 	private Integer sex;		//性别 0:男 1:女
 
@@ -31,11 +31,11 @@ public class B005Request extends BaseRequest {
 		this.name = name;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

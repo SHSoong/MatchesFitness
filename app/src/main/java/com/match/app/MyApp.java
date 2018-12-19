@@ -74,6 +74,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             }
         }
         User.getInstance().setLogin(false);
+        User.getInstance().save();
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 }
