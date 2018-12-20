@@ -186,14 +186,14 @@ public class LoginActivity extends BaseActivity {
         user.setName(o.getName());
         user.setSex(o.getSex());
         user.setLogin(true);
+        if(o.getHasInfo() != null)
+            user.setHasInfo(o.getHasInfo());
         user.save();
-
         if (dao == null) {
             dao = new AccountDao(mContext);
         }
         dao.add(new TbAccount(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
                 user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
-
     }
 
     @Override

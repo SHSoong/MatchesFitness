@@ -111,7 +111,6 @@ public class InfoPrefectActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.btn_perfect:
-
                 nickName = edtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
                     ToastUtils.showToast(mContext, "昵称不能为空!");
