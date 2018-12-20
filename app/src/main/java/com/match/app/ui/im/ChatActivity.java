@@ -7,6 +7,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.match.app.message.entity.Conversation;
+import com.match.app.message.entity.Message;
+import com.match.app.ui.adapter.ChatAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 

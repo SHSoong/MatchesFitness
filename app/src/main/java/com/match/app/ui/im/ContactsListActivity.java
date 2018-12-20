@@ -10,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.match.app.customer.WordsNavigation;
+import com.match.app.message.entity.Contact;
+import com.match.app.message.entity.Conversation;
+import com.match.app.ui.adapter.ContactListAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 
