@@ -19,7 +19,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     /**
      * 数据库名字
      */
-    private static final String DB_NAME = "fitness.db";
+    private static String DB_NAME = "fitness.db";
 
     /**
      * 数据库版本
@@ -44,7 +44,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     /**
      * 构造方法
      */
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

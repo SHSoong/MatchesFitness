@@ -22,10 +22,20 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     private List<TbAccount> lists;
     private Context mContext;
+    private OnItemClickListener itemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     public AccountAdapter(Context context, List<TbAccount> lists) {
         this.mContext = context;
         this.lists = lists;
+    }
+
+    public void setItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+    public void setItemLongClickListener(OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
     }
 
 
@@ -37,7 +47,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
     }
 
     @Override
-    public void onBindViewHolder(AccountHolder holder, int position) {
+    public void onBindViewHolder(final AccountHolder holder, final int position) {
         TbAccount account = lists.get(position);
         if (position == 0) {
             holder.imgState.setVisibility(View.VISIBLE);
@@ -56,6 +66,27 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
                 .error(R.mipmap.anim_avitor)
                 .dontAnimate()
                 .into(holder.headerImg);
+
+        //判断是否设置了监听器
+        if(itemClickListener != null){
+            //为ItemView设置监听器
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onItemClick(holder.itemView,position); // 2
+                }
+            });
+        }
+        if(onItemLongClickListener != null){
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemLongClickListener.onItemLongClick(holder.itemView,position);
+                    //返回true 表示消耗了事件 事件不会继续传递
+                    return true;
+                }
+            });
+        }
 
     }
 
@@ -82,5 +113,13 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             imgState = itemView.findViewById(R.id.img_state);
             line = itemView.findViewById(R.id.line);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View view, int position);
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,14 @@ public class AccountDao {
         try {
             dao.update(account);
         } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(TbAccount account){
+        try {
+            dao.delete(account);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

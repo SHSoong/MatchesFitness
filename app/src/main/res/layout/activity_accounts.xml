@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayBg"
     android:orientation="vertical">
 
     <include layout="@layout/include_common_tool_bar" />
@@ -10,5 +11,33 @@
         android:id="@+id/accounts_rcy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="添加账号" />
+
+        <TextView
+            android:textSize="18sp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=">" />
+    </LinearLayout>
 
 </LinearLayout>
