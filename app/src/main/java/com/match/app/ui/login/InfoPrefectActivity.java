@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.match.app.common.User;
 import com.match.app.db.AccountDao;
 import com.match.app.db.TbAccount;
-import com.match.app.message.bean.B003Response;
 import com.match.app.message.bean.B005Request;
 import com.match.app.message.bean.B005Response;
 import com.match.app.retrofit.ApiService;
@@ -26,7 +25,6 @@ import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,13 +68,7 @@ public class InfoPrefectActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile(R.string.personal_info_prefect, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
-            }
-        });
+        initTile(R.string.personal_info_prefect, false);//不需要返回键
         tvBirthday.setOnClickListener(this);
         rgSex.check(R.id.rdb_gent);
         rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -147,7 +139,7 @@ public class InfoPrefectActivity extends BaseActivity {
                                 if (res.isSuccess()) {
                                     User.getInstance().setHasInfo(Integer.valueOf(1));
                                     update();
-                                    ToastUtils.showToast(mContext, "完善成功！");
+//                                    ToastUtils.showToast(mContext, "完善成功！");
                                     startActivity(new Intent(mContext, MainActivity.class));
                                     finish();
                                 }
