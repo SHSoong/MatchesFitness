@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.match.app.utils.ScreenUtils;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
 import com.match.app.ui.home.activity.SelectGymActivity;
@@ -47,6 +48,7 @@ public class HomeAppointFragment extends BaseFragment {
     }
 
     private void init() {
+        ScreenUtils.setImageViewHeight(getActivity(), iv_anim);
         Animation rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.appoint_anim);
         iv_anim.startAnimation(rotate);
 

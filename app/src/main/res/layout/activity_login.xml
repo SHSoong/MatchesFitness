@@ -56,15 +56,24 @@
                 android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="test"
                 android:background="@color/white" />
 
         </LinearLayout>
+        <View
+            android:id="@+id/view_02"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_phone"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
 
         <LinearLayout
             android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_below="@+id/ll_phone"
+            android:layout_below="@+id/view_02"
             android:layout_marginStart="8dp"
             android:background="@color/white"
 
@@ -93,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:text="test"
                     android:inputType="textPassword" />
             </LinearLayout>
 
@@ -108,6 +118,14 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/view_03"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_below="@+id/ll_password"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/gray" />
 
         <Button
             android:id="@+id/btn_login"
@@ -120,7 +138,7 @@
             android:layout_marginRight="23dip"
             android:background="@drawable/login_btn_bg"
             android:text="@string/login"
-            android:textColor="@color/gray"
+            android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -212,7 +230,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|bottom"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:paddingBottom="15dp">
 
             <View
                 android:layout_width="match_parent"
@@ -222,7 +240,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -235,7 +253,7 @@
                     android:id="@+id/tv_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="注册。"
+                    android:text="注册"
                     android:textColor="@color/black" />
             </LinearLayout>
 

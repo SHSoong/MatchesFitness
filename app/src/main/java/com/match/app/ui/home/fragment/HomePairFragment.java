@@ -1,5 +1,6 @@
 package com.match.app.ui.home.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,24 +10,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.huxq17.swipecardsview.SwipeCardsView;
-import com.matches.fitness.R;
+import com.classic.common.MultipleStatusView;
 import com.match.app.base.BaseFragment;
-import com.match.app.ui.adapter.CardViewsAdapter;
+import com.match.app.message.bean.B334Request;
+import com.match.app.message.bean.B334Response;
+import com.match.app.message.bean.B335Request;
+import com.match.app.message.bean.BaseResponse;
+import com.match.app.retrofit.ApiService;
+import com.match.app.retrofit.manager.BaseObserver;
+import com.match.app.retrofit.manager.RetrofitManager;
+import com.match.app.retrofit.manager.RxSchedulers;
+import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
-import com.match.app.ui.login.DateChoiceActivity;
+import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import link.fls.swipestack.SwipeStack;
 
-public class HomePairFragment extends BaseFragment {
+public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeStackListener {
 
-    @BindView(R.id.swipeCardsView)
-    SwipeCardsView swipeCardsView;
-
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    @BindView(R.id.swipeStack)
+    SwipeStack swipeStack;
     @BindView(R.id.rlFilter)
     RelativeLayout rlFilter;
     @BindView(R.id.rlYes)
@@ -34,9 +45,10 @@ public class HomePairFragment extends BaseFragment {
     @BindView(R.id.rlNotice)
     RelativeLayout rlNotice;
 
-    private List<Integer> list = new ArrayList<>();
-    private CardViewsAdapter adapter;
-    private int curIndex = 0;
+    private List<B334Response.UserBean> list = new ArrayList<>();
+    private SwipeStackAdapter adapter;
+
+    private Boolean showError = true; //只有加载成功过不会再显示error
 
     public static Fragment newInstance() {
         return new HomePairFragment();
@@ -62,7 +74,6 @@ public class HomePairFragment extends BaseFragment {
         initView();
         initData();
         initSwipeCards();
-        showSwipeCards();
     }
 
     private void initView() {
@@ -75,77 +86,90 @@ public class HomePairFragment extends BaseFragment {
         rlYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                doRightOut();
+                swipeStack.swipeTopViewToRight();
             }
         });
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity, DateChoiceActivity.class));
+//                startActivity(new Intent(mActivity, DateChoiceActivity.class));
             }
         });
+        multipleStatusView.showLoading();
     }
 
     private void initData() {
-        list.clear();
-        list.add(R.mipmap.img_avatar_01);
-        list.add(R.mipmap.img_avatar_02);
-        list.add(R.mipmap.img_avatar_03);
-        list.add(R.mipmap.img_avatar_04);
-        list.add(R.mipmap.img_avatar_05);
-        list.add(R.mipmap.img_avatar_06);
-        list.add(R.mipmap.img_avatar_07);
+        callApi(getActivity(), new B334Request());
+    }
+
+    private void callApi(final Context context, B334Request request) {
+        RetrofitManager.getInstance().getRetrofit()
+                .create(ApiService.class)
+                .doB334Request(request)
+                .compose(RxSchedulers.<B334Response>io_main())
+                .subscribe(new BaseObserver<B334Response>() {
+                    @Override
+                    protected void onHandleSuccess(B334Response res) {
+                        if (showError && res.getBeans().size() <= 0) {
+                            multipleStatusView.showEmpty();
+                        } else {
+                            if (showError) {
+                                showError = false;
+                            }
+                            list.clear();
+                            list.addAll(res.getBeans());
+                            adapter.notifyDataSetChanged();
+                            multipleStatusView.showContent();
+                        }
+
+                    }
+
+                    @Override
+                    protected void onHandleError(String msg) {
+                        ToastUtils.showToast(context, msg);
+                        if (showError) {
+                            multipleStatusView.showError();
+                        }
+                    }
+                });
+    }
+
+    private void callB335Api(final Context context, B335Request request) {
+        RetrofitManager.getInstance().getRetrofit()
+                .create(ApiService.class)
+                .doB335Request(request)
+                .compose(RxSchedulers.<BaseResponse>io_main())
+                .subscribe(new BaseObserver<BaseResponse>() {
+                    @Override
+                    protected void onHandleSuccess(BaseResponse res) {
+                    }
+
+                    @Override
+                    protected void onHandleError(String msg) {
+                        ToastUtils.showToast(context, msg);
+                    }
+                });
     }
 
     private void initSwipeCards() {
-        swipeCardsView.retainLastCard(true);
-        swipeCardsView.enableSwipe(true);
-        swipeCardsView.getTouchscreenBlocksFocus();
-        //设置滑动监听
-        swipeCardsView.setCardsSlideListener(new SwipeCardsView.CardsSlideListener() {
+        adapter = new SwipeStackAdapter(getActivity());
+        adapter.setData(list);
+        swipeStack.setAdapter(adapter);
+        swipeStack.setListener(this);
+    }
 
-            @Override
-            public void onShow(int index) {
-                curIndex = index;
-            }
-
-            @Override
-            public void onCardVanish(int index, SwipeCardsView.SlideType type) {
-                switch (type) {
-                    case LEFT:
-                        break;
-                    case RIGHT:
-                        break;
-                }
-            }
-
-            @Override
-            public void onItemClick(View cardImageView, int index) {
-            }
-        });
+    @Override
+    public void onViewSwipedToLeft(int position) {
 
     }
 
-    /**
-     * 点击：卡片向左边飞出
-     */
-    public void doLeftOut() {
-        swipeCardsView.slideCardOut(SwipeCardsView.SlideType.LEFT);
+    @Override
+    public void onViewSwipedToRight(int position) {
+
     }
 
-    /**
-     * 点击：卡片向右边飞出
-     */
-    public void doRightOut() {
-        swipeCardsView.slideCardOut(SwipeCardsView.SlideType.RIGHT);
+    @Override
+    public void onStackEmpty() {
+        swipeStack.resetStack();
     }
-
-    /**
-     * 显示cardsview
-     */
-    private void showSwipeCards() {
-        adapter = new CardViewsAdapter(getActivity(), list);
-        swipeCardsView.setAdapter(adapter);
-    }
-
 }

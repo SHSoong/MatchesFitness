@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.match.app.manager.LoadingManager;
+
 public abstract class BaseFragment extends Fragment {
     protected Activity mActivity;
 
@@ -16,5 +18,13 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mActivity = getActivity();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void showLoading(){
+        LoadingManager.show(getActivity());
+    }
+
+    public void canselLoading(){
+        LoadingManager.cansel();
     }
 }

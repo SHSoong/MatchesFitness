@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_height="0dp"
         android:background="@drawable/shape_white_rectangle"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:elevation="4dp"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintDimensionRatio="2:3">
 
         <com.match.app.customer.RoundCornerImageView
             android:id="@+id/iv_avatar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_avatar_01" />
-
+            android:src="@mipmap/img_avatar_01"
+            app:layout_constraintDimensionRatio="4:5" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_below="@+id/iv_avatar"
-            android:padding="15dp">
+            android:paddingLeft="15dp"
+            android:background="@drawable/shape_white_rectangle_bottom"
+            android:paddingRight="15dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,7 +61,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/tvAge"
@@ -64,6 +75,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -72,6 +84,8 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
 
-</LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

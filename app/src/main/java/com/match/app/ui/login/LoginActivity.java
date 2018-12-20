@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.match.app.db.AccountDao;
+import com.match.app.db.TbAccount;
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
 import com.matches.fitness.R;
@@ -50,6 +52,10 @@ public class LoginActivity extends BaseActivity {
     TextView tvFc;
     private User user;
 
+    private AccountDao dao;
+    private String userName;
+    private String userPwd;
+
     @Override
     protected void onInitBinding() {
         setContentView(R.layout.activity_login);
@@ -60,7 +66,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         initTile(R.string.login, false);
         user = User.getInstance();
-        if(user.isLogin()){
+        if (user.isLogin()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
             return;
@@ -78,8 +84,8 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = etUserName.getText().toString().trim();
-                String userPwd = etUserPwd.getText().toString().trim();
+                userName = etUserName.getText().toString().trim();
+                userPwd = etUserPwd.getText().toString().trim();
                 if (TextUtils.isEmpty(userName)) {
                     ToastUtils.showToast(LoginActivity.this, "请输入账号");
                     return;
@@ -146,16 +152,21 @@ public class LoginActivity extends BaseActivity {
                 .compose(RxSchedulers.<B001Response>io_main())
                 .subscribe(new BaseObserver<B001Response>() {
                     @Override
-                    protected void onHandleSuccess(B001Response b001Response) {
-                        saveUserInfo(b001Response);
-                        ToastUtils.showToast(LoginActivity.this, "" + b001Response.getLoginName());
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    protected void onHandleSuccess(B001Response res) {
+                        saveUserInfo(res);
+                        if (user.getHasInfo() == 1) {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, InfoPrefectActivity.class));
+                        }
+
                         finish();
                     }
 
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(LoginActivity.this, msg);
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }
@@ -175,7 +186,14 @@ public class LoginActivity extends BaseActivity {
         user.setName(o.getName());
         user.setSex(o.getSex());
         user.setLogin(true);
+        if(o.getHasInfo() != null)
+            user.setHasInfo(o.getHasInfo());
         user.save();
+        if (dao == null) {
+            dao = new AccountDao(mContext);
+        }
+        dao.add(new TbAccount(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
+                user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
     }
 
     @Override

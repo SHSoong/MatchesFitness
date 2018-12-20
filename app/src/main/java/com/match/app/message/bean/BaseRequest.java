@@ -1,5 +1,7 @@
 package com.match.app.message.bean;
 
+import com.match.app.common.User;
+
 /**
  * APP接口的实体Bean的请求端的父类
  */
@@ -9,7 +11,7 @@ public class BaseRequest {
 	private String actionCode = "";
 	
 	/**id， 对应旧版本数据库的token字段*/
-	private String token = "";
+	private String token = ""+ User.getInstance().getToken();
 	
 	/**md5签名串*/
 	private String encryptCode = "android";

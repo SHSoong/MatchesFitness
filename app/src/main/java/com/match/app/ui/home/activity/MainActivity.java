@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.match.app.common.User;
+import com.match.app.ui.login.InfoPrefectActivity;
+import com.match.app.ui.login.LoginActivity;
+import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 import com.match.app.ui.home.fragment.HomeAppointFragment;
 import com.match.app.ui.home.fragment.HomePairFragment;
@@ -32,8 +38,8 @@ public class MainActivity extends SlidingFragmentActivity {
     @BindView(R.id.ivSearch)
     public ImageView ivSearch;
 
-    HomeAppointFragment homeAppointFragment;
-    HomePairFragment homePairFragment;
+    private HomeAppointFragment homeAppointFragment;
+    private HomePairFragment homePairFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,6 @@ public class MainActivity extends SlidingFragmentActivity {
         initSlidingMenu();
         initView();
         initDefFragment();
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setStatusBarColor(R.color.graySolBg);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
@@ -98,6 +103,8 @@ public class MainActivity extends SlidingFragmentActivity {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
+
+
     }
 
     private void initDefFragment() {
@@ -132,6 +139,32 @@ public class MainActivity extends SlidingFragmentActivity {
     private void resetTabState() {
         setTabState(tvAppoint, ContextCompat.getColor(this, R.color.gray));
         setTabState(tvPair, ContextCompat.getColor(this, R.color.gray));
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //判断用户是否点击了“返回键”
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            this.exitApp();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private long exitTime;
+
+    /**
+     * 退出程序
+     */
+    private void exitApp() {
+        // 判断2次点击事件时间
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            ToastUtils.showToast(this, "再按一次退出程序");
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
     }
 
 }
