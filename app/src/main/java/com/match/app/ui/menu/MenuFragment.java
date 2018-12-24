@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.match.app.common.User;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
 import com.match.app.ui.adapter.ViewPagerAdapter;
@@ -38,6 +39,9 @@ public class MenuFragment extends BaseFragment {
     public TextView tvRedPacket;
     @BindView(R.id.ll_modify)
     LinearLayout llModify;
+    @BindView(R.id.tvName)
+    TextView tvName;
+
 
     private List<String> tabList = new ArrayList<>();
     private Activity mActivity;
@@ -59,6 +63,8 @@ public class MenuFragment extends BaseFragment {
     }
 
     private void init(){
+        tvName.setText(User.getInstance().getName());
+
         tvSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
