@@ -79,6 +79,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, TbAccount.class);
+            TableUtils.createTable(connectionSource, TbMessage.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
