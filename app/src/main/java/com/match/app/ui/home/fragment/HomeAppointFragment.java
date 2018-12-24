@@ -52,18 +52,9 @@ public class HomeAppointFragment extends BaseFragment {
         Animation rotate = AnimationUtils.loadAnimation(getActivity(), R.anim.appoint_anim);
         iv_anim.startAnimation(rotate);
 
-        llSelectGym.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SelectGymActivity.class));
-            }
-        });
-
-        llSelectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        llSelectGym.setOnClickListener(view -> startActivity(new Intent(getActivity(), SelectGymActivity.class)));
+        llSelectDate.setOnClickListener(view -> {
 //                startActivity(new Intent(getActivity(), SelectGymActivity.class));
-            }
         });
     }
 

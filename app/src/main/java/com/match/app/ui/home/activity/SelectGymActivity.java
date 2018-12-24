@@ -45,12 +45,7 @@ public class SelectGymActivity extends BaseActivity {
 
         tvLeftBack.setText("选择健身房地段");
         ivLeftBack.setVisibility(View.GONE);
-        rlRightBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        rlRightBack.setOnClickListener(view -> finish());
         tvRightBack.setText("取消");
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
