@@ -137,8 +137,11 @@ public class InfoPrefectActivity extends BaseActivity {
                             protected void onHandleSuccess(B005Response res) {
                                 if (res.isSuccess()) {
                                     User.getInstance().setHasInfo(Integer.valueOf(1));
+                                    User.getInstance().setSex(Integer.valueOf(sex));
+                                    User.getInstance().setName(nickName);
+                                    User.getInstance().setBirthday(birthDay);
+                                    User.getInstance().save();
                                     update();
-//                                    ToastUtils.showToast(mContext, "完善成功！");
                                     startActivity(new Intent(mContext, MainActivity.class));
                                     finish();
                                 }
