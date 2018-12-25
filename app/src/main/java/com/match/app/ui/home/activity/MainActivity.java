@@ -108,11 +108,10 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
     private void initDefFragment() {
-        switchFragment(1);//切换Fragment
-        setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
+        switchFragment(0);//切换Fragment
     }
 
-    private void switchFragment(int i) {
+    public void switchFragment(int i) {
         resetTabState();//reset the tab state
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (i) {
@@ -120,12 +119,14 @@ public class MainActivity extends SlidingFragmentActivity {
                 if (homeAppointFragment == null) {
                     homeAppointFragment = new HomeAppointFragment();
                 }
+                setTabState(tvAppoint, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
                 transaction.replace(R.id.fl_content, homeAppointFragment);
                 break;
             case 1:
                 if (homePairFragment == null) {
                     homePairFragment = new HomePairFragment();
                 }
+                setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
                 transaction.replace(R.id.fl_content, homePairFragment);
                 break;
         }
