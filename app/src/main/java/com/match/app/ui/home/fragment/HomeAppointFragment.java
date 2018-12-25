@@ -26,6 +26,7 @@ import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
+import com.match.app.ui.home.activity.MainActivity;
 import com.match.app.utils.ScreenUtils;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
@@ -144,6 +145,7 @@ public class HomeAppointFragment extends BaseFragment {
                         tvSelectGym.setText("");
                         tvSelectDate.setText("");
                         ToastUtils.showToast(context, "发布成功！");
+                        ((MainActivity) getActivity()).switchFragment(1);
                     }
 
                     @Override
