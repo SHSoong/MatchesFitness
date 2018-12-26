@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.match.app.config.AppConstant;
+import com.match.app.db.ConversationDao;
 import com.match.app.db.MessageDao;
-import com.match.app.db.TbMessage;
+import com.match.app.message.entity.Conversation;
+import com.match.app.message.entity.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 public class NewsBroadCastReceiver extends BroadcastReceiver {
 
     private MessageDao dao;
+    private ConversationDao conversationDao;
 
     private static List<MessageListener> listeners;
 
@@ -38,8 +41,10 @@ public class NewsBroadCastReceiver extends BroadcastReceiver {
         String msg = intent.getStringExtra(AppConstant.KEY_MESSAGE);
         saveMessage(context, msg);
 
-        for (MessageListener listener:listeners){
-            listener.notice();
+        if (listeners != null && !listeners.isEmpty()) {
+            for (MessageListener listener : listeners) {
+                listener.notice();
+            }
         }
     }
 
@@ -47,8 +52,20 @@ public class NewsBroadCastReceiver extends BroadcastReceiver {
         if (dao == null) {
             dao = new MessageDao(context);
         }
-        TbMessage message = TbMessage.jsonToObject(msg);
+        if (conversationDao == null) {
+            conversationDao = new ConversationDao(context);
+        }
+        Message message = Message.jsonToObject(msg);
+        message.setConversation(message.getSpeaker());
         dao.add(message);
+        Conversation conversation = new Conversation();
+        conversation.setConversationId(message.getConversation());
+        conversation.setHisLogoUrl(message.getHisLogoUrl());
+        conversation.setHisName(message.getSpeakerName());
+        conversation.setLastMessage(message.getContent());
+        conversation.setLastTime(message.getTime());
+        conversation.setStatus(0);
+        conversationDao.add(conversation);
     }
 
     public interface MessageListener {

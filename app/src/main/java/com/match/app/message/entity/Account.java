@@ -1,4 +1,4 @@
-package com.match.app.db;
+package com.match.app.message.entity;
 
 import android.text.TextUtils;
 
@@ -6,8 +6,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "tb_account")
-public class TbAccount {
-    @DatabaseField(columnName = "_id", generatedId = true)
+public class Account {
+    @DatabaseField(columnName = "id", generatedId = true)
     private int id;
     @DatabaseField
     private String account;
@@ -28,7 +28,7 @@ public class TbAccount {
     @DatabaseField
     private String lastLoginDate;// 更新时间，上次登录时间
 
-    public static boolean equals(TbAccount var1, TbAccount var2) {
+    public static boolean equals(Account var1, Account var2) {
         if (var1 != null && var2 != null) {
             if (!TextUtils.isEmpty(var2.getAccount())) {
                 if (var1.getAccount().equals(var2.getAccount())) {
@@ -120,10 +120,10 @@ public class TbAccount {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public TbAccount() {
+    public Account() {
     }
 
-    public TbAccount(String account, String password, String token, String name, String birthday, Integer sex, Integer hasExp, String logo, String lastLoginDate) {
+    public Account(String account, String password, String token, String name, String birthday, Integer sex, Integer hasExp, String logo, String lastLoginDate) {
         this.account = account;
         this.password = password;
         this.token = token;

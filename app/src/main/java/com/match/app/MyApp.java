@@ -3,19 +3,20 @@ package com.match.app;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.google.gson.Gson;
 import com.match.app.common.User;
 import com.match.app.config.AppConstant;
 import com.match.app.config.BuildConfig;
-import com.match.app.db.DBHelper;
-import com.match.app.db.TbAccount;
+import com.match.app.message.entity.Account;
+import com.match.app.message.entity.Message;
 import com.match.app.ui.home.activity.MainActivity;
 import com.match.app.ui.login.LoginActivity;
 import com.matches.fitness.R;
@@ -26,7 +27,7 @@ import com.umeng.message.UmengAdHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Stack;
 
 public class MyApp extends Application implements Application.ActivityLifecycleCallbacks {
@@ -46,6 +47,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onCreate() {
         super.onCreate();
         app = this;
+
+        handler.sendEmptyMessageDelayed(0, 30000);
+
         registerActivityLifecycleCallbacks(this);
 
         UMConfigure.init(this, BuildConfig.umengAppKey, "Umeng",
@@ -115,6 +119,36 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     }
 
+    private void testMessage(int count) {
+        Message message = new Message();
+        message.setConversation("123" + count);
+        message.setContent("测试" + count);
+        message.setHisLogoUrl("");
+        message.setReceiver("234");
+        message.setReceiverName("接受者");
+        message.setSpeaker("123" + count);
+        message.setSpeakerName("说话者" + count);
+        message.setTime((int) (System.currentTimeMillis() / 1000));
+        message.setStatus(3);
+        Intent intent = new Intent();
+        intent.setAction("com.matches.fitness.news");
+        intent.putExtra(AppConstant.KEY_MESSAGE, new Gson().toJson(message));
+        sendBroadcast(intent);
+
+        handler.sendEmptyMessageDelayed(0, 30000);
+
+
+    }
+
+    int cout = 1;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            testMessage(cout++);
+        }
+    };
+
+
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         if (activities == null) {
@@ -168,7 +202,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
      * 切换账号
      * @param account
      */
-    public static void switchAccount(TbAccount account, Context context) {
+    public static void switchAccount(Account account, Context context) {
         switchUserInfo(account);
 
         if (activities != null && !activities.isEmpty()) {
@@ -181,7 +215,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     }
 
-    private static void switchUserInfo(TbAccount account) {
+    private static void switchUserInfo(Account account) {
         User user = User.getInstance();
         user.reset();
         user.setToken(account.getToken());

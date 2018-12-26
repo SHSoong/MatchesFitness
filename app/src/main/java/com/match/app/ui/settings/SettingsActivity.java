@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.match.app.MyApp;
 import com.match.app.common.User;
+import com.match.app.ui.im.ConversationListActivity;
 import com.match.app.ui.login.LoginActivity;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
@@ -44,7 +45,7 @@ public class SettingsActivity extends BaseActivity {
         rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, AccountsActivity.class));
+                startActivity(new Intent(SettingsActivity.this, ConversationListActivity.class));
             }
         });
         rlChangePwd.setOnClickListener(new View.OnClickListener() {

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.match.app.common.User;
 import com.match.app.db.AccountDao;
-import com.match.app.db.TbAccount;
+import com.match.app.message.entity.Account;
 import com.match.app.message.bean.B005Request;
 import com.match.app.message.bean.B005Response;
 import com.match.app.retrofit.ApiService;
@@ -58,7 +58,7 @@ public class InfoPrefectActivity extends BaseActivity {
     private String birthDay;
 
     private AccountDao dao;
-    private TbAccount account;
+    private Account account;
 
     @Override
     protected void onInitBinding() {
