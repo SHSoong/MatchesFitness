@@ -164,7 +164,11 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
 
     @Override
     public void onViewSwipedToRight(int position) {
-
+        B334Response.UserBean bean = (B334Response.UserBean) adapter.getItem(position);
+        B335Request req = new B335Request();
+        req.setUserIdb(bean.getId());
+        req.setMatchProfileId(bean.getMatchProfileId());
+        callB335Api(getActivity(), req);
     }
 
     @Override

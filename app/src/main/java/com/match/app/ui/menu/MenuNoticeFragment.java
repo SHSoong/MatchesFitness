@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -33,8 +34,6 @@ public class MenuNoticeFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     private BaseQuickAdapter mAdapter;
-    private String matchApplyId;
-    private int status;     // 11同意申请、21拒绝申请
 
     public static Fragment newInstance() {
         return new MenuNoticeFragment();
@@ -57,9 +56,30 @@ public class MenuNoticeFragment extends BaseFragment {
     private void init() {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.itemview_menunotice) {
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B336Response.MatchApplyBean, BaseViewHolder>(R.layout.itemview_menunotice) {
             @Override
-            protected void convert(final BaseViewHolder helper, String item) {
+            protected void convert(final BaseViewHolder helper, final B336Response.MatchApplyBean item) {
+                ImageView ivYess = helper.getView(R.id.ivYes);
+                ImageView ivNo = helper.getView(R.id.ivNo);
+
+                ivYess.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        B337Request req = new B337Request();
+                        req.setMatchApplyId(item.getId());
+                        req.setStatus(11);
+                        callApi(getActivity(), req);
+                    }
+                });
+                ivNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        B337Request req = new B337Request();
+                        req.setMatchApplyId(item.getId());
+                        req.setStatus(11);
+                        callApi(getActivity(), req);
+                    }
+                });
             }
         });
 
@@ -105,6 +125,5 @@ public class MenuNoticeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 }
