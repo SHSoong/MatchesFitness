@@ -369,10 +369,8 @@ public class ModifyActivity extends BaseActivity {
 
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
-
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cropImageUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
