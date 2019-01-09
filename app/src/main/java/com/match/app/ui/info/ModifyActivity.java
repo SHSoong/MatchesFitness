@@ -11,11 +11,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.match.app.message.entity.Account;
 import com.match.app.message.entity.Person;
 import com.match.app.ui.adapter.RecordListAdapter;
 import com.matches.fitness.R;
@@ -33,14 +36,17 @@ import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
 import com.match.app.utils.ImageChoiceDialog;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /*******
  * 修改用户信息
@@ -52,7 +58,7 @@ public class ModifyActivity extends BaseActivity {
     private static final int RESULT_CAMERA = 200;
 
     @BindView(R.id.img_bg_colum)
-    ImageView imgBgColum;
+    CircleImageView imgBgColum;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_age_position)
@@ -68,6 +74,7 @@ public class ModifyActivity extends BaseActivity {
 
     private Uri cropImageUri;
     private Uri imageUri;
+    private Uri photoUri;
     private int action;
     private String bgUrl;
     private User user;
@@ -87,14 +94,15 @@ public class ModifyActivity extends BaseActivity {
         getData();
         user = User.getInstance();
         tvName.setText(user.getName());
-        tvAgePosition.setText("24.广州");
+        tvAgePosition.setText(User.getInstance().getBirthday() + "广州");
         tvCreditScore.setText("信用值：72分");
-        Glide.with(mContext)
-                .load(bgUrl)
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
-                .into(imgBgColum);
+//        Glide.with(mContext)
+//                .load(bgUrl)
+//                .placeholder(R.mipmap.anim_avitor)
+//                .error(R.mipmap.anim_avitor)
+//                .dontAnimate()
+//                .into(imgBgColum);
+
         tvName.setText(User.getInstance().getName());
 
         imgBgColum.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +237,14 @@ public class ModifyActivity extends BaseActivity {
 
     private void photo() {
         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //系统常量， 启动相机的关键
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/photo/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        photoUri = Uri.fromFile(file);
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
         startActivityForResult(openCameraIntent, RESULT_CAMERA);
     }
 
@@ -251,7 +267,6 @@ public class ModifyActivity extends BaseActivity {
                             photo();
                             break;
                     }
-
                 } else {
                     Toast.makeText(this, "你没有开启权限", Toast.LENGTH_SHORT).show();
                 }
@@ -266,7 +281,7 @@ public class ModifyActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case RESULT_IMAGE:
-            case RESULT_CAMERA:
+
                 if (resultCode == RESULT_OK && data != null) {
                     if (Build.VERSION.SDK_INT >= 19) {
                         // 4.4 及以上系统使用这个方法处理图片
@@ -277,10 +292,25 @@ public class ModifyActivity extends BaseActivity {
                     }
                 }
                 break;
+
+            case RESULT_CAMERA:
+//                Bitmap bm = (Bitmap) data.getExtras().get("data");
+//                imgBgColum.setImageBitmap(bm);
+//                try {
+//                    Uri uri = saveFile(bm);
+//                    startPhotoZoom(photoUri);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                startPhotoZoom(photoUri);
+                break;
+
             case CROP_PICTURE:
                 if (resultCode == RESULT_OK) {
                     try {
+                        File file = new File(cropImageUri.toString());
                         Bitmap headShot = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImageUri));
+                        imgBgColum.setImageBitmap(headShot);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -367,5 +397,28 @@ public class ModifyActivity extends BaseActivity {
         Uri cropUri = data.getData();
         startPhotoZoom(cropUri);
     }
+
+    /**
+     * 保存文件
+     *
+     * @param bm
+     * @throws IOException
+     */
+    public Uri saveFile(Bitmap bm) throws IOException {
+
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/photo/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        Uri uri = Uri.fromFile(file);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+        return uri;
+    }
+
 
 }
