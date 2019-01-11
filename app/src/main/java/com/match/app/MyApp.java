@@ -48,7 +48,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         super.onCreate();
         app = this;
 
-        handler.sendEmptyMessageDelayed(0, 30000);
+//        handler.sendEmptyMessageDelayed(0, 30000);
 
         registerActivityLifecycleCallbacks(this);
 
