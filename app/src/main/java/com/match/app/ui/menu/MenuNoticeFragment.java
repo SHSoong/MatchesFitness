@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -59,16 +60,20 @@ public class MenuNoticeFragment extends BaseFragment {
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B336Response.MatchApplyBean, BaseViewHolder>(R.layout.itemview_menunotice) {
             @Override
             protected void convert(final BaseViewHolder helper, final B336Response.MatchApplyBean item) {
-                ImageView ivYess = helper.getView(R.id.ivYes);
+                ImageView ivYes = helper.getView(R.id.ivYes);
                 ImageView ivNo = helper.getView(R.id.ivNo);
+                TextView tvItem = helper.getView(R.id.tvItem);
+                TextView tvTime = helper.getView(R.id.tvTime);
 
-                ivYess.setOnClickListener(new View.OnClickListener() {
+                tvItem.setText(item.getName()+"邀请你");
+                tvTime.setText(item.getCreatedTime()+"去"+item.getAddress());
+                ivYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         B337Request req = new B337Request();
                         req.setMatchApplyId(item.getId());
                         req.setStatus(11);
-                        callApi(getActivity(), req);
+                        callApi(getActivity(), req, helper.getLayoutPosition(), 11);
                     }
                 });
                 ivNo.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +81,8 @@ public class MenuNoticeFragment extends BaseFragment {
                     public void onClick(View view) {
                         B337Request req = new B337Request();
                         req.setMatchApplyId(item.getId());
-                        req.setStatus(11);
-                        callApi(getActivity(), req);
+                        req.setStatus(21);
+                        callApi(getActivity(), req, helper.getLayoutPosition(), 21);
                     }
                 });
             }
@@ -104,7 +109,7 @@ public class MenuNoticeFragment extends BaseFragment {
                 });
     }
 
-    private void callApi(final Context context, B337Request request) {
+    private void callApi(final Context context, B337Request request, final int position, final int status) {
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
                 .doAgreeOrRefusePair(request)
@@ -112,7 +117,14 @@ public class MenuNoticeFragment extends BaseFragment {
                 .subscribe(new BaseObserver<BaseResponse>() {
                     @Override
                     protected void onHandleSuccess(BaseResponse res) {
-
+                        mAdapter.getData().remove(position);
+                        mAdapter.notifyDataSetChanged();
+                        if (status == 11){
+                            ToastUtils.showToast(context, "配对成功！");
+                        }
+                        if (status == 21){
+                            ToastUtils.showToast(context, "取消配对！");
+                        }
                     }
 
                     @Override

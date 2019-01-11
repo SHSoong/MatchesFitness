@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="30dp"
-    android:paddingEnd="30dp"
-    android:paddingTop="15dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/black"
     android:paddingBottom="15dp"
-    android:layout_gravity="center_horizontal">
+    android:paddingEnd="30dp"
+    android:paddingStart="30dp"
+    android:paddingTop="15dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/anim_avitor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerVertical="true"
+        android:src="@mipmap/anim_avitor" />
 
     <LinearLayout
         android:id="@+id/llCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/circleImageView"
-        app:layout_constraintRight_toLeftOf="@+id/ivYes"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_toStartOf="@+id/rlRight"
+        android:layout_toEndOf="@+id/circleImageView"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="邀请你"
+            android:singleLine="true"
             android:textColor="@color/white" />
 
         <TextView
@@ -40,26 +41,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10点20分去健身房"
+            android:singleLine="true"
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ivYes"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/ivNo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="10dp"
-        android:src="@mipmap/icon_menu_y"/>
+    <RelativeLayout
+        android:id="@+id/rlRight"
+        android:layout_width="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivNo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/icon_menu_n"/>
+        <ImageView
+            android:id="@+id/ivYes"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/ivNo"
+            android:src="@mipmap/icon_menu_y" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivNo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/icon_menu_n" />
+    </RelativeLayout>
+
+</RelativeLayout>
