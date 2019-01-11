@@ -151,6 +151,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     }
 
     private void initSwipeCards() {
+        list.clear();
         adapter = new SwipeStackAdapter(getActivity());
         adapter.setData(list);
         swipeStack.setAdapter(adapter);

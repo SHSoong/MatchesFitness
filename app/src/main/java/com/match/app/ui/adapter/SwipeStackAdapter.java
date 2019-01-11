@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.match.app.message.bean.B334Response;
 import com.matches.fitness.R;
 
@@ -27,7 +29,7 @@ public class SwipeStackAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return list.get(position);
     }
 
     @Override
@@ -39,7 +41,16 @@ public class SwipeStackAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.itemview_swipe_cards, null);
         ImageView imageView = convertView.findViewById(R.id.iv_avatar);
+        TextView tvName = convertView.findViewById(R.id.tvName);
+        TextView tvAge = convertView.findViewById(R.id.tvAge);
+        TextView tvTime = convertView.findViewById(R.id.tvTime);
+
+        B334Response.UserBean bean = list.get(position);
+
         imageView.setImageResource(R.mipmap.img_avatar_01);
+        tvName.setText(bean.getName());
+        tvAge.setText(bean.getBirthday()+"* ");
+//        tvTime.setText(bean.getId()+"");
         return convertView;
     }
 
