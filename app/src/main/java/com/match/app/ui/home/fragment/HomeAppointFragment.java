@@ -127,7 +127,7 @@ public class HomeAppointFragment extends BaseFragment {
         req.setFitnessCenterId(fitnessCenterId);
         req.setStartTime(startTime);
         req.setSex(User.getInstance().getSex());
-        req.setExp(User.getInstance().hashCode());
+        req.setExp(User.getInstance().getHasExp());
 
         callApi(context, req);
     }
