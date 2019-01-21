@@ -38,11 +38,7 @@ public class B334Response extends BaseResponse {
 
         private String matchProfileId;  //匹配的预约记录
 
-        private String loginName;//登录名，同mobile(废弃)
-
         private String name;	// 昵称
-
-        private String birthday; //  出生日期
 
         private Integer sex;		//性别 0:男 1:女
 
@@ -50,7 +46,13 @@ public class B334Response extends BaseResponse {
 
         private String logo;		//头像
 
-        private String lastLoginDate;// 更新时间，上次登录时间
+        private String startTime;   //开始时间
+
+        private String endTime;   //开始时间
+
+        private String fitnessName;        //健身房名称
+
+        private String fitnessAddress;     //健身房地址
 
         public String getId() {
             return id;
@@ -60,13 +62,6 @@ public class B334Response extends BaseResponse {
             this.id = id;
         }
 
-        public String getLoginName() {
-            return loginName;
-        }
-
-        public void setLoginName(String loginName) {
-            this.loginName = loginName;
-        }
 
         public String getName() {
             return name;
@@ -76,13 +71,6 @@ public class B334Response extends BaseResponse {
             this.name = name;
         }
 
-        public String getBirthday() {
-            return birthday;
-        }
-
-        public void setBirthday(String birthday) {
-            this.birthday = birthday;
-        }
 
         public Integer getSex() {
             return sex;
@@ -108,20 +96,44 @@ public class B334Response extends BaseResponse {
             this.logo = logo;
         }
 
-        public String getLastLoginDate() {
-            return lastLoginDate;
-        }
-
-        public void setLastLoginDate(String lastLoginDate) {
-            this.lastLoginDate = lastLoginDate;
-        }
-
         public String getMatchProfileId() {
             return matchProfileId;
         }
 
         public void setMatchProfileId(String matchProfileId) {
             this.matchProfileId = matchProfileId;
+        }
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getFitnessName() {
+            return fitnessName;
+        }
+
+        public void setFitnessName(String fitnessName) {
+            this.fitnessName = fitnessName;
+        }
+
+        public String getFitnessAddress() {
+            return fitnessAddress;
+        }
+
+        public void setFitnessAddress(String fitnessAddress) {
+            this.fitnessAddress = fitnessAddress;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
         }
     }
 }

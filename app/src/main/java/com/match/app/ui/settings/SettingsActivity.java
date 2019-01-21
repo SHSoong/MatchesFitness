@@ -22,6 +22,9 @@ public class SettingsActivity extends BaseActivity {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.rlAccounts)
     RelativeLayout rlAccounts;
     @BindView(R.id.rlChangePwd)
@@ -41,6 +44,12 @@ public class SettingsActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvTitle.setText("设置");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
