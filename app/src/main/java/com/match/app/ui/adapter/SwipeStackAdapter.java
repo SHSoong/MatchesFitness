@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.match.app.message.bean.B334Response;
+import com.match.app.utils.DateUtils;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -54,7 +55,11 @@ public class SwipeStackAdapter extends BaseAdapter {
         holder.tvName.setText(bean.getName());
         holder.tvFitnessName.setText(bean.getFitnessName());
         holder.tvTime.setText(bean.getStartTime());
-        holder.tvAge.setText(bean.getSex() + "· " + bean.getFitnessAddress());
+        try {
+            holder.tvAge.setText(DateUtils.getAge(DateUtils.parse(bean.getBirthday())) + " · " + bean.getFitnessAddress());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return convertView;
     }

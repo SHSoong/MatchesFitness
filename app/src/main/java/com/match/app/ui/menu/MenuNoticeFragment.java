@@ -22,6 +22,7 @@ import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
+import com.match.app.utils.DateUtils;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
@@ -66,7 +67,7 @@ public class MenuNoticeFragment extends BaseFragment {
                 TextView tvTime = helper.getView(R.id.tvTime);
 
                 tvItem.setText(item.getName()+"邀请你");
-                tvTime.setText(item.getCreatedTime()+"去"+item.getAddress());
+                tvTime.setText(DateUtils.getTitleDay(item.getCreatedTime())+"去"+item.getAddress());
                 ivYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

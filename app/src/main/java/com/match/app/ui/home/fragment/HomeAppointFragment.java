@@ -1,6 +1,5 @@
 package com.match.app.ui.home.fragment;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +12,14 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.match.app.base.BaseFragment;
 import com.match.app.common.User;
 import com.match.app.config.AppConstant;
+import com.match.app.customer.DateTimePicker;
 import com.match.app.message.bean.B330Request;
 import com.match.app.message.bean.BaseResponse;
 import com.match.app.retrofit.ApiService;
@@ -27,13 +27,10 @@ import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.home.activity.MainActivity;
+import com.match.app.ui.home.activity.SelectGymActivity;
 import com.match.app.utils.ScreenUtils;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
-import com.match.app.base.BaseFragment;
-import com.match.app.ui.home.activity.SelectGymActivity;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,20 +86,13 @@ public class HomeAppointFragment extends BaseFragment {
         llSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar ca = Calendar.getInstance();
-                int mYear = ca.get(Calendar.YEAR);
-                int mMonth = ca.get(Calendar.MONTH);
-                int mDay = ca.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                new DateTimePicker(getActivity(), new DateTimePicker.OnDateTimePickerListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        startTime = year + "-" + (month + 1) + "-" + dayOfMonth + " 00:00:00";
-                        String dateStr = year + "年" + (month + 1) + "月" + dayOfMonth + "日 ";
+                    public void setOnDateTimePickerListener(String dateStr) {
+                        startTime = dateStr;
                         tvSelectDate.setText(dateStr);
                     }
-                },
-                        mYear, mMonth, mDay);
-                datePickerDialog.show();
+                }).dateTimePicker();
             }
         });
         btnSubmit.setOnClickListener(new View.OnClickListener() {

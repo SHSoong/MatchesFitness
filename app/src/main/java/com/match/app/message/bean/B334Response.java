@@ -54,6 +54,16 @@ public class B334Response extends BaseResponse {
 
         private String fitnessAddress;     //健身房地址
 
+        private String birthday;
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
         public String getId() {
             return id;
         }
