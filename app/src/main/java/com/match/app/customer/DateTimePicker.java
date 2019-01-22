@@ -9,7 +9,7 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 public class DateTimePicker {
-    Context context;
+    private Context context;
 
     private OnDatePickerListener onDatePickerListener;
     private OnTimePickerListener onTimePickerListener;

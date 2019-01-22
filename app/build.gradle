@@ -83,5 +83,5 @@ dependencies {
     //PushSDK
     implementation 'com.umeng.sdk:push:4.2.0'
 
-    implementation 'com.github.citux:datetimepicker:0.3.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

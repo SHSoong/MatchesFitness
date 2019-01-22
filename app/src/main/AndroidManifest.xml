@@ -55,6 +55,7 @@
         <activity android:name="com.match.app.ui.login.InfoPrefectActivity" />
         <activity android:name="com.match.app.ui.login.PasswordResetActivity" />
         <activity android:name="com.match.app.ui.login.AgreementActivity" />
+        <activity android:name="com.match.app.ui.login.AvatarActivity" />
         <activity android:name="com.match.app.ui.info.ModifyActivity" />
         <activity android:name="com.match.app.ui.info.OtherPersonInfoActivity" />
         <activity android:name="com.match.app.ui.im.ConversationListActivity" />
