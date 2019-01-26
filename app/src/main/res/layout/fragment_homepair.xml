@@ -9,72 +9,75 @@
     app:loadingView="@layout/custom_loading_view"
     app:noNetworkView="@layout/custom_no_network_view">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false">
+        android:layout_height="match_parent">
 
-        <link.fls.swipestack.SwipeStack
-            android:id="@+id/swipeStack"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="7:9"
-            app:scale_factor=".98"
-            app:stack_rotation="0" />
+            android:layout_height="match_parent"
+            android:clipChildren="false">
 
-        <LinearLayout
-            android:id="@+id/llBottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/swipeStack">
-
-            <RelativeLayout
-                android:id="@+id/rlFilter"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llBottomNav"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/shape_white_oval"
-                android:elevation="2dp"
-                android:padding="20dp">
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/swipeStack">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/icon_home_other" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rlFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shape_white_oval"
+                    android:elevation="2dp"
+                    android:padding="20dp">
 
-            <RelativeLayout
-                android:id="@+id/rlYes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/shape_white_oval"
-                android:elevation="2dp"
-                android:padding="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@mipmap/icon_home_other" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/icon_red_heart" />
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rlYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shape_white_oval"
+                    android:elevation="2dp"
+                    android:padding="20dp">
 
-            <RelativeLayout
-                android:id="@+id/rlNotice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/shape_white_oval"
-                android:elevation="2dp"
-                android:padding="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@mipmap/icon_red_heart" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/icon_home_notice" />
-            </RelativeLayout>
-        </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/rlNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shape_white_oval"
+                    android:elevation="2dp"
+                    android:padding="20dp">
 
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@mipmap/icon_home_notice" />
+                </RelativeLayout>
+            </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+            <link.fls.swipestack.SwipeStack
+                android:id="@+id/swipeStack"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="7:9"
+                app:scale_factor=".98"
+                app:stack_rotation="0" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 </com.classic.common.MultipleStatusView>

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.match.app.db.AccountDao;
-import com.match.app.db.TbAccount;
+import com.match.app.message.entity.Account;
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
 import com.matches.fitness.R;
@@ -192,7 +192,7 @@ public class LoginActivity extends BaseActivity {
         if (dao == null) {
             dao = new AccountDao(mContext);
         }
-        dao.add(new TbAccount(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
+        dao.add(new Account(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
                 user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
     }
 

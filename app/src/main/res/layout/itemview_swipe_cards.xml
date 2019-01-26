@@ -45,12 +45,13 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="小姐姐"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
 
                 <TextView
+                    android:id="@+id/tvFitnessName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

@@ -8,6 +8,9 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.match.app.message.entity.Account;
+import com.match.app.message.entity.Conversation;
+import com.match.app.message.entity.Message;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -78,7 +81,9 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, TbAccount.class);
+            TableUtils.createTable(connectionSource, Account.class);
+            TableUtils.createTable(connectionSource, Message.class);
+            TableUtils.createTable(connectionSource, Conversation.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

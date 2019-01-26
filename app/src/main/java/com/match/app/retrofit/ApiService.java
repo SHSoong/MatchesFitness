@@ -10,6 +10,7 @@ import com.match.app.message.bean.B005Request;
 import com.match.app.message.bean.B005Response;
 import com.match.app.message.bean.B301Request;
 import com.match.app.message.bean.B301Response;
+import com.match.app.message.bean.B330Request;
 import com.match.app.message.bean.B332Request;
 import com.match.app.message.bean.B332Response;
 import com.match.app.message.bean.B334Request;
@@ -37,6 +38,12 @@ public interface ApiService {
 
     @POST("android/")
     Observable<B005Response> doPerfeect(@Body B005Request request);
+
+    @POST("android/")
+    Observable<B301Response> doB301Request(@Body B301Request request);
+
+    @POST("android/")
+    Observable<BaseResponse> doB330Request(@Body B330Request request);
 
     @POST("android/")
     Observable<B334Response> doB334Request(@Body B334Request request);

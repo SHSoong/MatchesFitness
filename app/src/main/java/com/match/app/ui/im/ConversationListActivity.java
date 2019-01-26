@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 
+import com.match.app.db.ConversationDao;
 import com.match.app.message.entity.Conversation;
+import com.match.app.receiver.NewsBroadCastReceiver;
 import com.match.app.ui.adapter.ConversationListAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
@@ -21,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ConversationListActivity extends BaseActivity {
+public class ConversationListActivity extends BaseActivity implements NewsBroadCastReceiver.MessageListener {
 
     private List<Conversation> lists;
     @BindView(R.id.lst_conversation)
@@ -29,6 +31,8 @@ public class ConversationListActivity extends BaseActivity {
     @BindView(R.id.img_right)
     ImageView imgRight;
     private ConversationListAdapter listAdapter;
+
+    private ConversationDao dao;
 
     @Override
     protected void onInitBinding() {
@@ -41,21 +45,19 @@ public class ConversationListActivity extends BaseActivity {
         initData();
         initTile("社交", true);
         imgRight.setImageResource(R.mipmap.icon_search);
+        NewsBroadCastReceiver.register(this);
     }
 
     private void initData() {
-        lists = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        dao = new ConversationDao(mContext);
+        lists = dao.queryAll();
 
-            // int id, String him, String hisName, String hisLogoUrl
-            lists.add(new Conversation(i, "00000" + i, "好友" + i, ""));
-        }
         listAdapter = new ConversationListAdapter(mContext, lists);
         lstConversation.setAdapter(listAdapter);
         lstConversation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Conversation conversation = lists.get(i - 1);
+                Conversation conversation = lists.get(i);
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
@@ -71,7 +73,9 @@ public class ConversationListActivity extends BaseActivity {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                lists.remove(position - 1);
+                                Conversation conversation = lists.get(i);
+                                dao.delete(conversation);
+                                lists.remove(conversation);
                                 listAdapter.notifyDataSetChanged();
                             }
                         }).setNegativeButton("取消", null).create().show();
@@ -84,5 +88,11 @@ public class ConversationListActivity extends BaseActivity {
                 startActivity(new Intent(mContext, ContactsListActivity.class));
             }
         });
+    }
+
+    @Override
+    public void notice() {
+        lists = dao.queryAll();
+        listAdapter.setData(lists);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.match.app.manager.LoadingManager;
 import com.matches.fitness.R;
+import com.umeng.message.PushAgent;
 
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        PushAgent.getInstance(mContext).onAppStart();
         onInitBinding();
         onInit();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

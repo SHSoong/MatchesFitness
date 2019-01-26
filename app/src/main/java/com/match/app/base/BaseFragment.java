@@ -1,6 +1,5 @@
 package com.match.app.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import com.match.app.manager.LoadingManager;
 
 public abstract class BaseFragment extends Fragment {
-    protected Activity mActivity;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mActivity = getActivity();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

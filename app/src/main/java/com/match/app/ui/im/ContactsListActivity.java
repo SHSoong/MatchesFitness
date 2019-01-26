@@ -64,13 +64,13 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Contact contact = lists.get(i);
-                Conversation conversation = new Conversation(i,"",contact.getName(),contact.getLogUrl());
-                Intent intent = new Intent(mContext, ChatActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(ChatActivity.DATA, conversation);
-                intent.putExtras(bundle);
-                startActivity(intent);
+//                Contact contact = lists.get(i);
+//                Conversation conversation = new Conversation(i,"",contact.getName(),contact.getLogUrl());
+//                Intent intent = new Intent(mContext, ChatActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(ChatActivity.DATA, conversation);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
             }
         });
     }

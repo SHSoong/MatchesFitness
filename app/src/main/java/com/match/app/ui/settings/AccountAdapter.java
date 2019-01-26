@@ -10,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.match.app.db.TbAccount;
-import com.match.app.ui.adapter.ChatAdapter;
+import com.match.app.message.entity.Account;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -20,12 +19,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<TbAccount> lists;
+    private List<Account> lists;
     private Context mContext;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public AccountAdapter(Context context, List<TbAccount> lists) {
+    public AccountAdapter(Context context, List<Account> lists) {
         this.mContext = context;
         this.lists = lists;
     }
@@ -48,7 +47,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     @Override
     public void onBindViewHolder(final AccountHolder holder, final int position) {
-        TbAccount account = lists.get(position);
+        Account account = lists.get(position);
         if (position == 0) {
             holder.imgState.setVisibility(View.VISIBLE);
         } else {

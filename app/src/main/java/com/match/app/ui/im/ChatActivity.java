@@ -7,8 +7,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.match.app.common.User;
+import com.match.app.db.MessageDao;
 import com.match.app.message.entity.Conversation;
 import com.match.app.message.entity.Message;
+import com.match.app.receiver.NewsBroadCastReceiver;
 import com.match.app.ui.adapter.ChatAdapter;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
@@ -22,7 +25,7 @@ import butterknife.ButterKnife;
 /*******
  * 会话界面
  */
-public class ChatActivity extends BaseActivity {
+public class ChatActivity extends BaseActivity implements NewsBroadCastReceiver.MessageListener {
     public static final String DATA = "data";
     @BindView(R.id.rcv_conversation)
     RecyclerView rcvConversation;
@@ -32,6 +35,7 @@ public class ChatActivity extends BaseActivity {
     private List<Message> messageList;
     private ChatAdapter adapter;
     private List<String> stringList;
+    private MessageDao dao;
 
     @Override
     protected void onInitBinding() {
@@ -41,6 +45,8 @@ public class ChatActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+        NewsBroadCastReceiver.register(this);
+        dao = new MessageDao(this);
         conversation = getIntent().getParcelableExtra(DATA);
         if (conversation != null) {
             initTile(conversation.getHisName(), true);
@@ -49,27 +55,20 @@ public class ChatActivity extends BaseActivity {
         lstMessage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String message = stringList.get(i);
-                // int id, int conversation, String speaker, String speakerName, String content, int time, int status
-                messageList.add(new Message(0, conversation.getId(), conversation.getHim(),
-                        conversation.getHisName(), message, (int) System.currentTimeMillis() / 1000, 0));
-                adapter.notifyDataSetChanged();
+                String msg = stringList.get(i);
+                Message message = new Message(conversation.getConversationId(), User.getInstance().getToken(), User.getInstance().getName(), conversation.getConversationId(), conversation.getHisName(),
+                        msg, (int) (System.currentTimeMillis() / 1000), conversation.getHisLogoUrl(), 0);
+                dao.add(message);
+                messageList.clear();
+                messageList = dao.queryMessageByConversation(conversation.getConversationId());
+                adapter.setData(messageList);
                 rcvConversation.scrollToPosition(messageList.size() - 1);
             }
         });
     }
 
     private void initData() {
-        messageList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0) {
-                messageList.add(new Message(i, conversation.getId(), conversation.getHim(),
-                        conversation.getHisName(), "你好" + i, (int) System.currentTimeMillis() / 1000, 0));
-            } else {
-                messageList.add(new Message(i, conversation.getId(), "",
-                        "我", "你好" + i, (int) System.currentTimeMillis() / 1000, 0));
-            }
-        }
+        messageList = dao.queryMessageByConversation(conversation.getConversationId());
         rcvConversation.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ChatAdapter(messageList, mContext);
         rcvConversation.setAdapter(adapter);
@@ -82,5 +81,12 @@ public class ChatActivity extends BaseActivity {
         stringList.add("约到你好开心");
         ArrayAdapter<String> adapter = new ArrayAdapter(mContext, R.layout.itemview_message, R.id.tv_message, stringList);
         lstMessage.setAdapter(adapter);
+    }
+
+    @Override
+    public void notice() {
+        messageList.clear();
+        messageList = dao.queryMessageByConversation(conversation.getConversationId());
+        adapter.setData(messageList);
     }
 }

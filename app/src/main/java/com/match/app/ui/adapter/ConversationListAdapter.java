@@ -26,6 +26,11 @@ public class ConversationListAdapter extends BaseAdapter {
         this.lists = lists;
     }
 
+    public void setData(List<Conversation> lists){
+        this.lists = lists;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return lists.size();
@@ -69,10 +74,8 @@ public class ConversationListAdapter extends BaseAdapter {
         /****
          * int id, int conversation, String speaker, String content, int time, int status
          */
-        Message message = new Message(conversation.getId(), conversation.getId(), conversation.getHim(), conversation.getHisName(),
-                "你好啊", (int) (System.currentTimeMillis() / 1000), 0); // 此处由数据库中获取
-        setText(holder.tvLastMsg, message.getContent());
-        setText(holder.tvTime, timeInterval(message.getTime()));
+        setText(holder.tvLastMsg, conversation.getLastMessage());
+        setText(holder.tvTime, timeInterval(conversation.getLastTime()));
 //        ((LinearLayout) (holder.mImageView.getParent())).setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(View view) {
