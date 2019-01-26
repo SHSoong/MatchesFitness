@@ -10,19 +10,12 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
 import com.match.app.db.AccountDao;
 import com.match.app.message.entity.Account;
-import com.match.app.message.bean.B005Request;
-import com.match.app.message.bean.B005Response;
-import com.match.app.retrofit.ApiService;
-import com.match.app.retrofit.manager.BaseObserver;
-import com.match.app.retrofit.manager.RetrofitManager;
-import com.match.app.retrofit.manager.RxSchedulers;
-import com.match.app.ui.home.activity.MainActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 
 import java.util.Calendar;
 
@@ -64,6 +57,7 @@ public class InfoPrefectActivity extends BaseActivity {
     protected void onInit() {
         ButterKnife.bind(this);
         initTile(R.string.personal_info_prefect, false);//不需要返回键
+
         tvBirthday.setOnClickListener(this);
         rgSex.check(R.id.rdb_gent);
         rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -115,6 +109,12 @@ public class InfoPrefectActivity extends BaseActivity {
                     ToastUtils.showToast(mContext, "请先选择您的出生日期!");
                     return;
                 }
+                User.getInstance().setName(nickName);
+                User.getInstance().setBirthday(birthDay);
+                User.getInstance().setSex(sex);
+                User.getInstance().setHasExp(hasExperience);
+                User.getInstance().save();
+                update();
 
                 Intent it = new Intent(this, AvatarActivity.class);
                 startActivity(it);
@@ -122,6 +122,20 @@ public class InfoPrefectActivity extends BaseActivity {
         }
     }
 
+    private AccountDao dao;
 
+    private void update() {
+        if (dao == null) {
+            dao = new AccountDao(mContext);
+        }
+        Account account = dao.queryByAccount(User.getInstance().getLoginName());
+        if (account != null) {
+            account.setName(nickName);
+            account.setBirthday(birthDay);
+            account.setSex(Integer.valueOf(sex));
+            account.setHasExp(Integer.valueOf(hasExperience));
+            dao.update(account);
+        }
+    }
 
 }

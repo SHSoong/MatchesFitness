@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Person;
 import com.match.app.ui.adapter.RecordListAdapter;
 import com.match.app.utils.ShareDialog;
@@ -71,11 +72,11 @@ public class OtherPersonInfoActivity extends BaseActivity {
                 llRecord.setVisibility(View.GONE);
             }
         }
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(person.getLogUrl())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(imgBgColum);
 
         tvAgePosition.setText("24.广州");

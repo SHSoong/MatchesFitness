@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Conversation;
 import com.match.app.message.entity.Message;
 import com.matches.fitness.R;
@@ -64,11 +65,11 @@ public class ConversationListAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         Conversation conversation = lists.get(position);
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(conversation.getHisLogoUrl())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.mImageView);
         setText(holder.tvName, conversation.getHisName());
         /****

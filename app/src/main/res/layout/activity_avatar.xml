@@ -17,15 +17,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp" >
+                android:layout_height="350dp">
 
                 <com.match.app.customer.ArcImageView
                     android:id="@+id/arcImageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:arcHeight="50dp"
-                    android:src="@mipmap/img_avatar_01" />
+                    android:src="@mipmap/avatar_bg_icon"
+                    app:arcHeight="30dp" />
 
                 <TextView
                     android:id="@+id/tvUploadAvatar"
@@ -41,47 +41,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/rlFixInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_name"
+                            android:id="@+id/tvAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="name" />
+                            android:text="" />
 
                         <TextView
-                            android:id="@+id/tv_age_position"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="age" />
-                    </LinearLayout>
+                            android:layout_alignParentEnd="true"
+                            android:text="信用值：100分" />
+                    </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_credit_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="100" />
-                </RelativeLayout>
+
+                </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_below="@+id/rlFixInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
                     android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/rlFixInfo"
+                    android:layout_marginBottom="40dp"
                     android:layout_marginTop="40dp">
 
                     <Button

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Account;
 import com.matches.fitness.R;
 
@@ -59,11 +60,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         }
 
         holder.tvAccount.setText(TextUtils.isEmpty(account.getName()) ? account.getAccount() : account.getName());
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(account.getLogo())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.headerImg);
 
         //判断是否设置了监听器

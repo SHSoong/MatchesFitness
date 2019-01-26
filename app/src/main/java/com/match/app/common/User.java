@@ -24,7 +24,7 @@ public class User implements Serializable {
     private String token = "";//user id
     private String loginName;//登录名，同mobile(废弃)
     private String name;    // 昵称
-    private String birthday; //  出生日期
+    private String birthday = ""; //  出生日期
     private Integer sex;        //性别 0:男 1:女
     private Integer hasExp;  //是否有经验1有， 0或者null其它无
     private String logo;        //头像
@@ -143,6 +143,7 @@ public class User implements Serializable {
     public void setHasInfo(Integer hasInfo) {
         this.hasInfo = hasInfo;
     }
+
     /*****
      * 保存
      */

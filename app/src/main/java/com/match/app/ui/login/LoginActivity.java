@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.db.AccountDao;
 import com.match.app.message.entity.Account;
 import com.match.app.message.bean.B001Request;
@@ -75,11 +76,11 @@ public class LoginActivity extends BaseActivity {
 //            etUserName.setText(user.getLoginName());
 //
 //        }
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(user.getLogo())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(imgLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

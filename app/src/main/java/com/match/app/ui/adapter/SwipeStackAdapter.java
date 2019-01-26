@@ -41,12 +41,12 @@ public class SwipeStackAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null) {
+        if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.itemview_swipe_cards, null);
             initViewHolder(convertView, holder);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         B334Response.UserBean bean = list.get(position);
@@ -55,12 +55,7 @@ public class SwipeStackAdapter extends BaseAdapter {
         holder.tvName.setText(bean.getName());
         holder.tvFitnessName.setText(bean.getFitnessName());
         holder.tvTime.setText(bean.getStartTime());
-        try {
-            holder.tvAge.setText(DateUtils.getAge(DateUtils.parse(bean.getBirthday())) + " · " + bean.getFitnessAddress());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        holder.tvAge.setText(DateUtils.getAge(DateUtils.parse(bean.getBirthday())) + " · " + bean.getFitnessAddress());
         return convertView;
     }
 

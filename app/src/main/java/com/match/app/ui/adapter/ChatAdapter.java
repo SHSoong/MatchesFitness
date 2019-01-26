@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Message;
 import com.matches.fitness.R;
 
@@ -48,11 +49,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
     public void onBindViewHolder(MessageHolder holder, int position) {
         Message message = lists.get(position);
         holder.tvMessage.setText(message.getContent());
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(context)
                 .load(message.getHisLogoUrl())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.headerImg);
         switch (message.getStatus()) { // 状态  0 发送中，1发送成功，2 发送失败 ，3 未读，4 已读 -1 删除
             case 0:

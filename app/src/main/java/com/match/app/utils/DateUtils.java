@@ -1,5 +1,7 @@
 package com.match.app.utils;
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,7 +9,8 @@ import java.util.Date;
 
 public class DateUtils {
 
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static String longToDate(long lo) {
         Date date = new Date(lo);
@@ -15,12 +18,17 @@ public class DateUtils {
     }
 
     //出生日期字符串转化成Date对象
-    public static Date parse(String strDate) throws ParseException {
-        return sdf.parse(strDate);
+    public static Date parse(String strDate) {
+        try {
+            return sdf.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //由出生日期获得年龄
-    public static int getAge(Date birthDay) throws Exception {
+    public static int getAge(Date birthDay) {
         Calendar cal = Calendar.getInstance();
 
         if (cal.before(birthDay)) {
@@ -48,16 +56,16 @@ public class DateUtils {
         return age;
     }
 
-    public static String getTitleDay(String day){
+    public static String getTitleDay(String day) {
         try {
             switch (JudgmentDay(day)) {
-                case YESTERDY : {
+                case YESTERDY: {
                     return "今天";
                 }
-                case TODAY : {
+                case TODAY: {
                     return "昨天";
                 }
-                case TOMORROWDAT : {
+                case TOMORROWDAT: {
                     return "明天";
                 }
                 default:
@@ -88,13 +96,13 @@ public class DateUtils {
                     - pre.get(Calendar.DAY_OF_YEAR);
 
             switch (diffDay) {
-                case YESTERDY : {
+                case YESTERDY: {
                     return YESTERDY;
                 }
-                case TODAY : {
+                case TODAY: {
                     return TODAY;
                 }
-                case TOMORROWDAT : {
+                case TOMORROWDAT: {
                     return TOMORROWDAT;
                 }
             }
