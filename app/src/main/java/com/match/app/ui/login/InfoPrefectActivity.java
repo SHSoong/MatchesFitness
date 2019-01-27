@@ -93,7 +93,7 @@ public class InfoPrefectActivity extends BaseActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 birthDay = year + "-" + (month + 1) + "-" + dayOfMonth + " 00:00:00";
-                                tvBirthday.setText(year + "年-" + (month + 1) + "月-" + dayOfMonth + "日 ");
+                                tvBirthday.setText(year + "年" + (month + 1) + "月" + dayOfMonth + "日 ");
                             }
                         },
                         mYear, mMonth, mDay);

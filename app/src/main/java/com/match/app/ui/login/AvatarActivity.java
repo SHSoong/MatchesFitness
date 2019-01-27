@@ -2,8 +2,11 @@ package com.match.app.ui.login;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -34,6 +37,8 @@ import butterknife.ButterKnife;
 
 public class AvatarActivity extends BaseActivity {
 
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
     @BindView(R.id.arcImageView)
     ArcImageView arcImageView;
     @BindView(R.id.tvUploadAvatar)
@@ -42,7 +47,33 @@ public class AvatarActivity extends BaseActivity {
     TextView tvName;
     @BindView(R.id.tvAge)
     TextView tvAge;
+    @BindView(R.id.btnSubmit)
+    Button btnSubmit;
+
     private UploadFile file;
+    private MaterialDialog mLoadingDialog;
+
+    private void initDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new MaterialDialog.Builder(AvatarActivity.this)
+                    .content("上传中...")
+                    .progress(false, 100, false)
+                    .cancelable(true)
+                    .build();
+        }
+    }
+
+    private void showDialog() {
+        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
+    }
+
+    private void dismissDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+    }
 
     @Override
     protected void onInitBinding() {
@@ -52,9 +83,15 @@ public class AvatarActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         tvName.setText(User.getInstance().getName());
-        tvAge.setText(DateUtils.getAge(DateUtils.parse(User.getInstance().getBirthday())));
+        tvAge.setText(String.valueOf(DateUtils.getAge(DateUtils.parse(User.getInstance().getBirthday()))));
         tvUploadAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,32 +100,55 @@ public class AvatarActivity extends BaseActivity {
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
         });
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (file == null) {
+                    ToastUtils.showToast(AvatarActivity.this, "请选择图片");
+                    return;
+                }
+                uploadImage();
+            }
+        });
     }
 
     public void uploadImage() {
-        if (file == null) {
-            return;
-        }
-        UpFileOSSUtils.getInstance().setBucketName("avatar");
+        initDialog();
+        showDialog();
+        UpFileOSSUtils.getInstance().setBucketName("testpr");
+        UpFileOSSUtils.getInstance().setObjectKeyHead("logo");
         UpFileOSSUtils.getInstance()
                 .upload(this, 0,
                         file, new UpFileOSSUtils.OnUploadListener() {
                             @Override
-                            public void onProgress(int position, long currentSize, long totalSize) {
-
+                            public void onProgress(int position, int progress) {
+                                mLoadingDialog.setProgress(progress);
                             }
 
                             @Override
-                            public void onSuccess(int position, String uploadPath, String ossUrl) {
-                                User.getInstance().setLogo(ossUrl);
+                            public void onSuccess(int position, String uploadPath, String objectKey) {
+                                User.getInstance().setLogo(objectKey);
                                 User.getInstance().save();
+                                dismissDialog();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ToastUtils.showToast(AvatarActivity.this, "上传成功");
+                                    }
+                                });
 
 //                                initCallB005();
                             }
 
                             @Override
-                            public void onFailure(int position) {
-
+                            public void onFailure() {
+                                dismissDialog();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ToastUtils.showToast(AvatarActivity.this, "上传失败");
+                                    }
+                                });
                             }
                         });
     }

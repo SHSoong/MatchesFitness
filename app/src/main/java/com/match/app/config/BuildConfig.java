@@ -19,6 +19,6 @@ public interface BuildConfig {
 
     //oss
     String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-    String STS_SERVER_URL = "http://*.*.*.*:*/sts/getsts";//STS 地址
-    String prefix = "https://xxx.oss-xxxx.com/";
+    String accessKeyId = "LTAIjWN1v5qFDuZJ";
+    String accessKeySecret = "4tbI6RNsQhSQplMncLRpAoSxh7Enq4";
 }

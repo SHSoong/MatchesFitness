@@ -24,7 +24,7 @@ public class DateUtils {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return  new Date();
     }
 
     //由出生日期获得年龄

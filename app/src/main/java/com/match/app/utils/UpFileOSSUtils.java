@@ -1,6 +1,7 @@
 package com.match.app.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -9,13 +10,15 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.common.auth.OSSAuthCredentialsProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider;
+import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.match.app.config.BuildConfig;
 import com.match.app.message.entity.UploadFile;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 import io.reactivex.Observable;
@@ -26,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UpFileOSSUtils {
 
     private String bucketName;
+    private String objectKeyHead;
     private static UpFileOSSUtils mInstance;
 
     public static UpFileOSSUtils getInstance() {
@@ -41,8 +45,17 @@ public class UpFileOSSUtils {
         this.bucketName = bucketName;
     }
 
-    private OSS getOSS(Context context) {
-        OSSCredentialProvider credentialProvider = new OSSAuthCredentialsProvider(BuildConfig.STS_SERVER_URL);
+    public void setObjectKeyHead(String objectKeyHead) {
+        this.objectKeyHead = objectKeyHead;
+    }
+
+    private OSS initOSS(Context context) {
+        OSSCredentialProvider credentialProvider = new OSSCustomSignerCredentialProvider() {
+            @Override
+            public String signContent(String content) {
+                return OSSUtils.sign(BuildConfig.accessKeyId, BuildConfig.accessKeySecret, content);
+            }
+        };
         ClientConfiguration conf = new ClientConfiguration();
         conf.setConnectionTimeout(15 * 1000); // connction time out default 15s
         conf.setSocketTimeout(15 * 1000); // socket timeout，default 15s
@@ -55,51 +68,59 @@ public class UpFileOSSUtils {
      * 图片上传
      *
      * @param context          上下文
-     * @param uploadFile   图片的本地路径
+     * @param uploadFile       图片的本地路径
      * @param onUploadListener 回调监听
      */
     public void upload(final Context context, final int position, final UploadFile uploadFile,
                        final OnUploadListener onUploadListener) {
+
         Observable.just(context)
                 .map(new Function<Context, OSS>() {
                     @Override
                     public OSS apply(Context context) throws Exception {
-                        return getOSS(context);
+                        return initOSS(context);
                     }
                 })
                 .map(new Function<OSS, String>() {
                     @Override
                     public String apply(OSS oss) throws Exception {
                         // 创建上传的对象
-                        PutObjectRequest put = new PutObjectRequest(bucketName, BuildConfig.dir + getUUIDImage()
+                        PutObjectRequest put = new PutObjectRequest(bucketName, objectKeyHead + getUUIDImage()
                                 , uploadFile.getPath());
                         // 上传的进度回调
                         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
                             @Override
                             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                                if (onUploadListener == null) {
-                                    return;
+                                int progress = (int) (100 * currentSize / totalSize);
+                                if (onUploadListener != null) {
+                                    onUploadListener.onProgress(position, progress);
                                 }
-                                onUploadListener.onProgress(position, currentSize, totalSize);
                             }
                         });
                         oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                             @Override
                             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                                if (onUploadListener == null) {
-                                    return;
+                                if (onUploadListener != null) {
+                                    onUploadListener.onSuccess(position, uploadFile.getPath(),  request.getObjectKey());
                                 }
-                                onUploadListener.onSuccess(position, uploadFile.getPath(), BuildConfig.prefix + request.getObjectKey());
                             }
 
                             @Override
                             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                                serviceException.printStackTrace();
-                                clientException.printStackTrace();
-                                if (onUploadListener == null) {
-                                    return;
+                                if (clientException != null) {
+                                    // 本地异常如网络异常等
+                                    clientException.printStackTrace();
                                 }
-                                onUploadListener.onFailure(position);
+                                if (serviceException != null) {
+                                    // 服务异常
+                                    Log.e("ErrorCode", serviceException.getErrorCode());
+                                    Log.e("RequestId", serviceException.getRequestId());
+                                    Log.e("HostId", serviceException.getHostId());
+                                    Log.e("RawMessage", serviceException.getRawMessage());
+                                }
+                                if (onUploadListener != null) {
+                                    onUploadListener.onFailure();
+                                }
                             }
                         });
                         return uploadFile.getPath();
@@ -114,27 +135,37 @@ public class UpFileOSSUtils {
         /**
          * 上传的进度
          */
-        void onProgress(int position, long currentSize, long totalSize);
+        void onProgress(int position, int progress);
 
         /**
          * 成功上传
          */
-        void onSuccess(int position, String uploadPath, String ossUrl);
+        void onSuccess(int position, String uploadPath, String objectKey);
 
         /**
          * 上传失败
          */
-        void onFailure(int position);
+        void onFailure();
     }
 
     /**
      * 上传到后台的图片的名称
      */
     private String getUUIDImage() {
+        Calendar ca = Calendar.getInstance();
+        int mMonth = ca.get(Calendar.MONTH) + 1;
+        int mDay = ca.get(Calendar.DAY_OF_MONTH);
+
         UUID uuid = UUID.randomUUID();
         StringBuilder fileName = new StringBuilder();
-        fileName.append(uuid.toString());
-        fileName.append(String.valueOf(System.currentTimeMillis()));
+        fileName.append("/")
+                .append(mMonth)
+                .append("/")
+                .append(mDay)
+                .append("/")
+//                .append(uuid.toString())
+//                .append("_")
+                .append(String.valueOf(System.currentTimeMillis()));
         return fileName + ".png";
     }
 }
