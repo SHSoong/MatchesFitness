@@ -27,7 +27,6 @@ import com.umeng.message.UmengAdHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 
-import java.util.Date;
 import java.util.Stack;
 
 public class MyApp extends Application implements Application.ActivityLifecycleCallbacks {
@@ -148,7 +147,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         }
     };
 
-
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         if (activities == null) {
@@ -193,14 +191,14 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 activity.finish();
             }
         }
-        User.getInstance().setLogin(false);
+        User.getInstance().reset();
         User.getInstance().save();
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 
     /***
      * 切换账号
-     * @param account
+     * @param account a
      */
     public static void switchAccount(Account account, Context context) {
         switchUserInfo(account);

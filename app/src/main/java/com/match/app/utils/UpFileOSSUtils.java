@@ -27,6 +27,13 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class UpFileOSSUtils {
+    //oss
+    private String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
+    private String accessKeyId = "LTAIjWN1v5qFDuZJ";
+    private String accessKeySecret = "4tbI6RNsQhSQplMncLRpAoSxh7Enq4";
+    //    public static String ossHead = "https://testpr.oss-cn-shenzhen.aliyuncs.com/";
+    public static String logoBucketName = "testpr";
+    public static String logoObjectHead = "logo";
 
     private String bucketName;
     private String objectKeyHead;
@@ -53,7 +60,7 @@ public class UpFileOSSUtils {
         OSSCredentialProvider credentialProvider = new OSSCustomSignerCredentialProvider() {
             @Override
             public String signContent(String content) {
-                return OSSUtils.sign(BuildConfig.accessKeyId, BuildConfig.accessKeySecret, content);
+                return OSSUtils.sign(accessKeyId, accessKeySecret, content);
             }
         };
         ClientConfiguration conf = new ClientConfiguration();
@@ -61,7 +68,7 @@ public class UpFileOSSUtils {
         conf.setSocketTimeout(15 * 1000); // socket timeout，default 15s
         conf.setMaxConcurrentRequest(5); // synchronous request number，default 5
         conf.setMaxErrorRetry(2); // retry，default 2
-        return new OSSClient(context, BuildConfig.endpoint, credentialProvider, conf);
+        return new OSSClient(context, endpoint, credentialProvider, conf);
     }
 
     /**
@@ -101,7 +108,7 @@ public class UpFileOSSUtils {
                             @Override
                             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                                 if (onUploadListener != null) {
-                                    onUploadListener.onSuccess(position, uploadFile.getPath(),  request.getObjectKey());
+                                    onUploadListener.onSuccess(position, uploadFile.getPath(), request.getObjectKey());
                                 }
                             }
 
@@ -153,15 +160,15 @@ public class UpFileOSSUtils {
      */
     private String getUUIDImage() {
         Calendar ca = Calendar.getInstance();
+        int mYear = ca.get(Calendar.YEAR);
         int mMonth = ca.get(Calendar.MONTH) + 1;
-        int mDay = ca.get(Calendar.DAY_OF_MONTH);
 
         UUID uuid = UUID.randomUUID();
         StringBuilder fileName = new StringBuilder();
         fileName.append("/")
-                .append(mMonth)
+                .append(mYear)
                 .append("/")
-                .append(mDay)
+                .append(mMonth)
                 .append("/")
 //                .append(uuid.toString())
 //                .append("_")

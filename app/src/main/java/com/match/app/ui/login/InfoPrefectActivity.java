@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
-import com.match.app.db.AccountDao;
-import com.match.app.message.entity.Account;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
@@ -45,7 +43,7 @@ public class InfoPrefectActivity extends BaseActivity {
     private int sex = 0;
     // 1 有经验，0 无
     private int hasExperience = 1;
-    private String nickName;
+//    private String nickName;
     private String birthDay;
 
     @Override
@@ -100,7 +98,7 @@ public class InfoPrefectActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.btn_perfect:
-                nickName = edtNickName.getText().toString().trim();
+                String nickName = edtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
                     ToastUtils.showToast(mContext, "昵称不能为空!");
                     return;
@@ -114,27 +112,10 @@ public class InfoPrefectActivity extends BaseActivity {
                 User.getInstance().setSex(sex);
                 User.getInstance().setHasExp(hasExperience);
                 User.getInstance().save();
-                update();
 
                 Intent it = new Intent(this, AvatarActivity.class);
                 startActivity(it);
                 break;
-        }
-    }
-
-    private AccountDao dao;
-
-    private void update() {
-        if (dao == null) {
-            dao = new AccountDao(mContext);
-        }
-        Account account = dao.queryByAccount(User.getInstance().getLoginName());
-        if (account != null) {
-            account.setName(nickName);
-            account.setBirthday(birthDay);
-            account.setSex(Integer.valueOf(sex));
-            account.setHasExp(Integer.valueOf(hasExperience));
-            dao.update(account);
         }
     }
 

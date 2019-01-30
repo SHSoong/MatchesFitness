@@ -22,13 +22,13 @@ public class User implements Serializable {
     private static User instance;
 
     private String token = "";//user id
-    private String loginName;//登录名，同mobile(废弃)
-    private String name;    // 昵称
+    private String loginName ="";//登录名，同mobile(废弃)
+    private String name = "";    // 昵称
     private String birthday = ""; //  出生日期
-    private Integer sex;        //性别 0:男 1:女
-    private Integer hasExp;  //是否有经验1有， 0或者null其它无
-    private String logo;        //头像
-    private String lastLoginDate;// 更新时间，上次登录时间
+    private Integer sex = 0;        //性别 0:男 1:女
+    private Integer hasExp = 0;  //是否有经验1有， 0或者null其它无
+    private String logo = "";        //头像
+    private String lastLoginDate = "";// 更新时间，上次登录时间
     private Integer hasInfo = 0;// 1为已经完善，
     private boolean isLogin = false;
 
@@ -52,14 +52,15 @@ public class User implements Serializable {
      * 重置
      */
     public void reset() {
-        token = null;
-        loginName = null;
-        name = null;
-        birthday = null;
+        token = "";
+        loginName = "";
+        name = "";
+        birthday = "";
         sex = 0;
         hasExp = 0;
-        logo = null;
-        lastLoginDate = null;
+        logo = "";
+        lastLoginDate = "";
+        hasInfo = 0;
         isLogin = false;
     }
 

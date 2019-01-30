@@ -57,7 +57,7 @@ public class ContactListAdapter extends BaseAdapter {
         holder.tvWord.setText(word);
         holder.tvName.setText(contact.getName());
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(contact.getLogUrl())
                 .apply(options)

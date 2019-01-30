@@ -1,19 +1,14 @@
 package com.match.app.ui.settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.MyApp;
-import com.match.app.common.User;
-import com.match.app.ui.im.ConversationListActivity;
-import com.match.app.ui.login.LoginActivity;
-import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
-
-import java.util.Stack;
+import com.match.app.ui.im.ConversationListActivity;
+import com.matches.fitness.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

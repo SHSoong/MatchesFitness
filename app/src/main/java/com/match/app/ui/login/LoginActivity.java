@@ -10,19 +10,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.match.app.db.AccountDao;
-import com.match.app.message.entity.Account;
-import com.match.app.message.bean.B001Request;
-import com.match.app.message.bean.B001Response;
-import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
+import com.match.app.message.bean.B001Request;
+import com.match.app.message.bean.B001Response;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.home.activity.MainActivity;
 import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +51,6 @@ public class LoginActivity extends BaseActivity {
     TextView tvFc;
     private User user;
 
-    private AccountDao dao;
     private String userName;
     private String userPwd;
 
@@ -74,13 +71,10 @@ public class LoginActivity extends BaseActivity {
         }
 //        if (!TextUtils.isEmpty(user.getLoginName())) {
 //            etUserName.setText(user.getLoginName());
-//
 //        }
-        RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(user.getLogo())
-                .apply(options)
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
                 .into(imgLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +93,6 @@ public class LoginActivity extends BaseActivity {
                 B001Request request = new B001Request();
                 request.setLoginName(userName);
                 request.setPassword(userPwd);
-                request.setDeviceType("android");
 
                 callApi(request);
             }
@@ -167,14 +160,13 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     protected void onHandleError(String msg) {
                         ToastUtils.showToast(LoginActivity.this, msg);
-//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }
 
     /*******
      * 保存登录信息
-     * @param o
+     * @param o a
      */
     private void saveUserInfo(B001Response o) {
         user.reset();
@@ -190,11 +182,11 @@ public class LoginActivity extends BaseActivity {
         if(o.getHasInfo() != null)
             user.setHasInfo(o.getHasInfo());
         user.save();
-        if (dao == null) {
-            dao = new AccountDao(mContext);
-        }
-        dao.add(new Account(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
-                user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
+//        if (dao == null) {
+//            dao = new AccountDao(mContext);
+//        }
+//        dao.add(new Account(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
+//                user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
     }
 
     @Override

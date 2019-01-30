@@ -1,7 +1,6 @@
 package com.match.app.ui.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +49,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
         Message message = lists.get(position);
         holder.tvMessage.setText(message.getContent());
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(context)
                 .load(message.getHisLogoUrl())
                 .apply(options)

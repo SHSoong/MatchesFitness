@@ -5,18 +5,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.match.app.base.BaseActivity;
+import com.match.app.common.User;
+import com.match.app.customer.ArcImageView;
 import com.match.app.message.entity.Person;
 import com.match.app.ui.adapter.RecordListAdapter;
-import com.match.app.utils.ShareDialog;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +27,19 @@ import butterknife.ButterKnife;
 
 public class OtherPersonInfoActivity extends BaseActivity {
     public static final String INFO_KEY = "info";
-    @BindView(R.id.img_bg_colum)
-    ImageView imgBgColum;
-    @BindView(R.id.img_back)
-    ImageView imgBack;
-    @BindView(R.id.tv_name)
+
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
+    @BindView(R.id.arcImageView)
+    ArcImageView arcImageView;
+    @BindView(R.id.tvName)
     TextView tvName;
-    @BindView(R.id.tv_age_position)
-    TextView tvAgePosition;
-    @BindView(R.id.tv_credit_score)
-    TextView tvCreditScore;
+    @BindView(R.id.ivEdit)
+    TextView ivEdit;
+    @BindView(R.id.tvAge)
+    TextView tvAge;
+
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
     @BindView(R.id.btn_add)
@@ -44,10 +48,10 @@ public class OtherPersonInfoActivity extends BaseActivity {
     LinearLayout llRecord;
     @BindView(R.id.tv_record)
     TextView tvRecord;
+
     @BindView(R.id.gv_record)
     GridView gvRecord;
-    @BindView(R.id.ll_share)
-    LinearLayout llShare;
+
     private Person person;
     private List<Person> records;
     private RecordListAdapter adapter;
@@ -60,51 +64,35 @@ public class OtherPersonInfoActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        tvName.setText(User.getInstance().getName());
+        tvAge.setText(User.getInstance().getBirthday());
+        ivEdit.setVisibility(View.GONE);
+
         Bundle extras = getIntent().getExtras();
         person = extras.getParcelable(INFO_KEY);
         if (person != null) {
             if (person.isFriend()) {
                 llAdd.setVisibility(View.GONE);
                 llRecord.setVisibility(View.VISIBLE);
-                llShare.setVisibility(View.VISIBLE);
             } else {
                 llAdd.setVisibility(View.VISIBLE);
                 llRecord.setVisibility(View.GONE);
             }
         }
-        RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
         Glide.with(mContext)
                 .load(person.getLogUrl())
-                .apply(options)
-                .into(imgBgColum);
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
+                .into(arcImageView);
 
-        tvAgePosition.setText("24.广州");
-        tvCreditScore.setText("信用值：72分");
         tvName.setText(person.getName());
         getData();
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        llShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ShareDialog.Builder(mContext)
-                        .setCancelable(false)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                switch (view.getId()) {
-
-                                }
-                            }
-                        }).create();
-            }
-        });
     }
 
     /****
@@ -113,9 +101,7 @@ public class OtherPersonInfoActivity extends BaseActivity {
     private void getData() {
         tvRecord.setText(person.getName() + "的配对记录");
         records = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            records.add(new Person("测试" + i, "", true));
-        }
+
         gvRecord.setNumColumns(4);
         adapter = new RecordListAdapter(mContext, records, true);
         gvRecord.setAdapter(adapter);

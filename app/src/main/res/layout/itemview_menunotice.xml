@@ -15,7 +15,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:src="@mipmap/anim_avitor" />
+        android:src="@mipmap/icon_avatar" />
 
     <LinearLayout
         android:id="@+id/llCenter"

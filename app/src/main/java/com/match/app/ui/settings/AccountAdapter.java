@@ -61,7 +61,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
         holder.tvAccount.setText(TextUtils.isEmpty(account.getName()) ? account.getAccount() : account.getName());
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(account.getLogo())
                 .apply(options)

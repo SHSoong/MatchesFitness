@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Conversation;
-import com.match.app.message.entity.Message;
 import com.matches.fitness.R;
 import com.match.app.utils.DateUtils;
 
@@ -66,7 +65,7 @@ public class ConversationListAdapter extends BaseAdapter {
         }
         Conversation conversation = lists.get(position);
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(conversation.getHisLogoUrl())
                 .apply(options)

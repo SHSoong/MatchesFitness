@@ -51,29 +51,6 @@ public class AvatarActivity extends BaseActivity {
     Button btnSubmit;
 
     private UploadFile file;
-    private MaterialDialog mLoadingDialog;
-
-    private void initDialog() {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new MaterialDialog.Builder(AvatarActivity.this)
-                    .content("上传中...")
-                    .progress(false, 100, false)
-                    .cancelable(true)
-                    .build();
-        }
-    }
-
-    private void showDialog() {
-        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
-            mLoadingDialog.show();
-        }
-    }
-
-    private void dismissDialog() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
-        }
-    }
 
     @Override
     protected void onInitBinding() {
@@ -115,8 +92,8 @@ public class AvatarActivity extends BaseActivity {
     public void uploadImage() {
         initDialog();
         showDialog();
-        UpFileOSSUtils.getInstance().setBucketName("testpr");
-        UpFileOSSUtils.getInstance().setObjectKeyHead("logo");
+        UpFileOSSUtils.getInstance().setBucketName(UpFileOSSUtils.logoBucketName);
+        UpFileOSSUtils.getInstance().setObjectKeyHead(UpFileOSSUtils.logoObjectHead);
         UpFileOSSUtils.getInstance()
                 .upload(this, 0,
                         file, new UpFileOSSUtils.OnUploadListener() {
@@ -128,16 +105,10 @@ public class AvatarActivity extends BaseActivity {
                             @Override
                             public void onSuccess(int position, String uploadPath, String objectKey) {
                                 User.getInstance().setLogo(objectKey);
+
                                 User.getInstance().save();
                                 dismissDialog();
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtils.showToast(AvatarActivity.this, "上传成功");
-                                    }
-                                });
-
-//                                initCallB005();
+                                initCallB005();
                             }
 
                             @Override
@@ -163,12 +134,14 @@ public class AvatarActivity extends BaseActivity {
 
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
-                .doPerfeect(request)
+                .doB005Request(request)
                 .compose(RxSchedulers.<B005Response>io_main())
                 .subscribe(new BaseObserver<B005Response>() {
                     @Override
                     protected void onHandleSuccess(B005Response res) {
                         if (res.isSuccess()) {
+                            User.getInstance().setHasInfo(1);
+                            User.getInstance().save();
                             startActivity(new Intent(mContext, MainActivity.class));
                             finish();
                         }
@@ -179,6 +152,30 @@ public class AvatarActivity extends BaseActivity {
                         ToastUtils.showToast(mContext, msg);
                     }
                 });
+    }
+
+    private MaterialDialog mLoadingDialog;
+
+    private void initDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new MaterialDialog.Builder(this)
+                    .content("上传中...")
+                    .progress(false, 100, false)
+                    .cancelable(true)
+                    .build();
+        }
+    }
+
+    private void showDialog() {
+        if (mLoadingDialog != null && !mLoadingDialog.isShowing()) {
+            mLoadingDialog.show();
+        }
+    }
+
+    private void dismissDialog() {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
     @Override

@@ -17,8 +17,4 @@ public interface BuildConfig {
     String umengMessageSecret = "a2ea5a019da1a72ca6cb0117d8080019";
     String umengAppMasterSecret = "e7j2huuruowdgt8zxcua7ktltxlsu7i0";
 
-    //oss
-    String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-    String accessKeyId = "LTAIjWN1v5qFDuZJ";
-    String accessKeySecret = "4tbI6RNsQhSQplMncLRpAoSxh7Enq4";
 }

@@ -63,7 +63,7 @@ public class RecordListAdapter extends BaseAdapter {
         }
         Person person = lists.get(position);
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.anim_avitor);
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(context)
                 .load(person.getLogUrl())
                 .apply(options)
