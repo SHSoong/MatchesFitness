@@ -2,21 +2,18 @@ package com.match.app.ui.settings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.MyApp;
 import com.match.app.common.User;
 import com.match.app.db.AccountDao;
-import com.match.app.db.TbAccount;
-import com.match.app.ui.adapter.ChatAdapter;
-import com.match.app.ui.login.LoginActivity;
+import com.match.app.message.entity.Account;
 import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 
@@ -28,12 +25,15 @@ import butterknife.ButterKnife;
 public class AccountsActivity extends BaseActivity implements AccountAdapter.OnItemClickListener, AccountAdapter.OnItemLongClickListener {
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.accounts_rcy)
     RecyclerView accountsRcy;
 
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
-    private List<TbAccount> accounts;
+    private List<Account> accounts;
     private AccountDao dao;
 
     private AccountAdapter adapter;
@@ -61,7 +61,7 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
         accounts = dao.queryAll();
         if (accounts != null && !accounts.isEmpty()) {
             for (int i = 0; i < accounts.size(); i++) {
-                TbAccount account = accounts.get(i);
+                Account account = accounts.get(i);
                 if (account.getAccount().equals(User.getInstance().getLoginName())) {
                     accounts.remove(account);
                     accounts.add(0, account);
@@ -83,7 +83,7 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
     @Override
     public void onItemClick(View view, int position) {
         if (position != 0) {
-            TbAccount account = accounts.get(position);
+            Account account = accounts.get(position);
             MyApp.switchAccount(account, mContext);
         }
     }
@@ -98,7 +98,7 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        TbAccount deleteAccount = accounts.get(position);
+                        Account deleteAccount = accounts.get(position);
                         accounts.remove(position);
                         adapter.notifyDataSetChanged();
                         dao.delete(deleteAccount);

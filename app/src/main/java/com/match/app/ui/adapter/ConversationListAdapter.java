@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Conversation;
-import com.match.app.message.entity.Message;
 import com.matches.fitness.R;
 import com.match.app.utils.DateUtils;
 
@@ -24,6 +24,11 @@ public class ConversationListAdapter extends BaseAdapter {
     public ConversationListAdapter(Context context, List<Conversation> lists) {
         this.mContext = context;
         this.lists = lists;
+    }
+
+    public void setData(List<Conversation> lists){
+        this.lists = lists;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,20 +64,18 @@ public class ConversationListAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
         Conversation conversation = lists.get(position);
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(conversation.getHisLogoUrl())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.mImageView);
         setText(holder.tvName, conversation.getHisName());
         /****
          * int id, int conversation, String speaker, String content, int time, int status
          */
-        Message message = new Message(conversation.getId(), conversation.getId(), conversation.getHim(), conversation.getHisName(),
-                "你好啊", (int) (System.currentTimeMillis() / 1000), 0); // 此处由数据库中获取
-        setText(holder.tvLastMsg, message.getContent());
-        setText(holder.tvTime, timeInterval(message.getTime()));
+        setText(holder.tvLastMsg, conversation.getLastMessage());
+        setText(holder.tvTime, timeInterval(conversation.getLastTime()));
 //        ((LinearLayout) (holder.mImageView.getParent())).setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(View view) {

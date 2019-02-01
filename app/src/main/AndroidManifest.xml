@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.match.app.MyApp"
@@ -14,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.match.app.ui.home.activity.SplashActivity" >
+        <activity android:name="com.match.app.ui.home.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,11 +60,19 @@
         <activity android:name="com.match.app.ui.login.InfoPrefectActivity" />
         <activity android:name="com.match.app.ui.login.PasswordResetActivity" />
         <activity android:name="com.match.app.ui.login.AgreementActivity" />
+        <activity android:name="com.match.app.ui.login.AvatarActivity" />
         <activity android:name="com.match.app.ui.info.ModifyActivity" />
         <activity android:name="com.match.app.ui.info.OtherPersonInfoActivity" />
         <activity android:name="com.match.app.ui.im.ConversationListActivity" />
         <activity android:name="com.match.app.ui.im.ChatActivity" />
         <activity android:name="com.match.app.ui.im.ContactsListActivity" />
+
+
+        <receiver android:name="com.match.app.receiver.NewsBroadCastReceiver">
+            <intent-filter android:priority="20">
+                <action android:name="com.matches.fitness.news" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

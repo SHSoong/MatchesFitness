@@ -10,19 +10,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
-import com.match.app.db.AccountDao;
-import com.match.app.db.TbAccount;
-import com.match.app.message.bean.B005Request;
-import com.match.app.message.bean.B005Response;
-import com.match.app.retrofit.ApiService;
-import com.match.app.retrofit.manager.BaseObserver;
-import com.match.app.retrofit.manager.RetrofitManager;
-import com.match.app.retrofit.manager.RxSchedulers;
-import com.match.app.ui.home.activity.MainActivity;
+import com.match.app.manager.ActivityManager;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 
 import java.util.Calendar;
 
@@ -50,18 +42,14 @@ public class InfoPrefectActivity extends BaseActivity {
 
     // 性别
     private int sex = 0;
-
     // 1 有经验，0 无
     private int hasExperience = 1;
-
-    private String nickName;
+    //    private String nickName;
     private String birthDay;
-
-    private AccountDao dao;
-    private TbAccount account;
 
     @Override
     protected void onInitBinding() {
+        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_personal_perfect);
     }
 
@@ -69,6 +57,7 @@ public class InfoPrefectActivity extends BaseActivity {
     protected void onInit() {
         ButterKnife.bind(this);
         initTile(R.string.personal_info_prefect, false);//不需要返回键
+
         tvBirthday.setOnClickListener(this);
         rgSex.check(R.id.rdb_gent);
         rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -104,14 +93,14 @@ public class InfoPrefectActivity extends BaseActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 birthDay = year + "-" + (month + 1) + "-" + dayOfMonth + " 00:00:00";
-                                tvBirthday.setText(year + "年-" + (month + 1) + "月-" + dayOfMonth + "日 ");
+                                tvBirthday.setText(year + "年" + (month + 1) + "月" + dayOfMonth + "日 ");
                             }
                         },
                         mYear, mMonth, mDay);
                 datePickerDialog.show();
                 break;
             case R.id.btn_perfect:
-                nickName = edtNickName.getText().toString().trim();
+                String nickName = edtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
                     ToastUtils.showToast(mContext, "昵称不能为空!");
                     return;
@@ -120,51 +109,15 @@ public class InfoPrefectActivity extends BaseActivity {
                     ToastUtils.showToast(mContext, "请先选择您的出生日期!");
                     return;
                 }
+                User.getInstance().setName(nickName);
+                User.getInstance().setBirthday(birthDay);
+                User.getInstance().setSex(sex);
+                User.getInstance().setHasExp(hasExperience);
+                User.getInstance().save();
 
-
-                B005Request request = new B005Request();
-                request.setName(nickName);
-                request.setBirthday(birthDay);
-                request.setSex(Integer.valueOf(sex));
-                request.setHasExp(Integer.valueOf(hasExperience));
-
-                RetrofitManager.getInstance().getRetrofit()
-                        .create(ApiService.class)
-                        .doPerfeect(request)
-                        .compose(RxSchedulers.<B005Response>io_main())
-                        .subscribe(new BaseObserver<B005Response>() {
-                            @Override
-                            protected void onHandleSuccess(B005Response res) {
-                                if (res.isSuccess()) {
-                                    User.getInstance().setHasInfo(Integer.valueOf(1));
-                                    update();
-//                                    ToastUtils.showToast(mContext, "完善成功！");
-                                    startActivity(new Intent(mContext, MainActivity.class));
-                                    finish();
-                                }
-                            }
-
-                            @Override
-                            protected void onHandleError(String msg) {
-                                ToastUtils.showToast(mContext, msg);
-                            }
-                        });
-
+                Intent it = new Intent(this, AvatarActivity.class);
+                startActivity(it);
                 break;
-        }
-    }
-
-    private void update() {
-        if (dao == null) {
-            dao = new AccountDao(mContext);
-        }
-        account = dao.queryByAccount(User.getInstance().getLoginName());
-        if (account != null) {
-            account.setName(nickName);
-            account.setBirthday(birthDay);
-            account.setSex(Integer.valueOf(sex));
-            account.setHasExp(Integer.valueOf(hasExperience));
-            dao.update(account);
         }
     }
 

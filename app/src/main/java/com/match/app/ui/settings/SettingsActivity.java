@@ -1,18 +1,15 @@
 package com.match.app.ui.settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.MyApp;
-import com.match.app.common.User;
-import com.match.app.ui.login.LoginActivity;
-import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
-
-import java.util.Stack;
+import com.match.app.ui.im.ConversationListActivity;
+import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +18,9 @@ public class SettingsActivity extends BaseActivity {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.rlAccounts)
     RelativeLayout rlAccounts;
     @BindView(R.id.rlChangePwd)
@@ -40,6 +40,12 @@ public class SettingsActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvTitle.setText("设置");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +56,7 @@ public class SettingsActivity extends BaseActivity {
         rlChangePwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
+//                startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
             }
         });
         rlPersonalInfo.setOnClickListener(new View.OnClickListener() {

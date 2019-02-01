@@ -4,22 +4,40 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical|right"
     android:orientation="horizontal"
-    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
     android:paddingRight="5dp"
-    android:paddingTop="10dp">
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/img_state"
+            android:layout_width="25dp"
+            style="?android:progressBarStyleSmall"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="7dp" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/img_status"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="7dp" />
+
         <TextView
+            android:layout_gravity="center_vertical"
             android:id="@+id/tv_message"
-            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dip"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:padding="10dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cimg_header"

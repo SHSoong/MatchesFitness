@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.match.app.db.TbAccount;
-import com.match.app.ui.adapter.ChatAdapter;
+import com.bumptech.glide.request.RequestOptions;
+import com.match.app.message.entity.Account;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -20,12 +20,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<TbAccount> lists;
+    private List<Account> lists;
     private Context mContext;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public AccountAdapter(Context context, List<TbAccount> lists) {
+    public AccountAdapter(Context context, List<Account> lists) {
         this.mContext = context;
         this.lists = lists;
     }
@@ -48,7 +48,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     @Override
     public void onBindViewHolder(final AccountHolder holder, final int position) {
-        TbAccount account = lists.get(position);
+        Account account = lists.get(position);
         if (position == 0) {
             holder.imgState.setVisibility(View.VISIBLE);
         } else {
@@ -60,11 +60,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
         }
 
         holder.tvAccount.setText(TextUtils.isEmpty(account.getName()) ? account.getAccount() : account.getName());
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(account.getLogo())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.headerImg);
 
         //判断是否设置了监听器

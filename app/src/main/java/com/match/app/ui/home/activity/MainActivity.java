@@ -11,18 +11,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.match.app.common.User;
-import com.match.app.ui.login.InfoPrefectActivity;
-import com.match.app.ui.login.LoginActivity;
-import com.match.app.utils.ToastUtils;
-import com.matches.fitness.R;
 import com.match.app.ui.home.fragment.HomeAppointFragment;
 import com.match.app.ui.home.fragment.HomePairFragment;
 import com.match.app.ui.menu.MenuFragment;
+import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
+import com.umeng.message.PushAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +41,7 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
         setContentView(R.layout.activity_main);
         initSlidingMenu();
         initView();
@@ -108,11 +106,10 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
     private void initDefFragment() {
-        switchFragment(1);//切换Fragment
-        setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
+        switchFragment(0);//切换Fragment
     }
 
-    private void switchFragment(int i) {
+    public void switchFragment(int i) {
         resetTabState();//reset the tab state
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (i) {
@@ -120,12 +117,14 @@ public class MainActivity extends SlidingFragmentActivity {
                 if (homeAppointFragment == null) {
                     homeAppointFragment = new HomeAppointFragment();
                 }
+                setTabState(tvAppoint, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
                 transaction.replace(R.id.fl_content, homeAppointFragment);
                 break;
             case 1:
                 if (homePairFragment == null) {
                     homePairFragment = new HomePairFragment();
                 }
+                setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
                 transaction.replace(R.id.fl_content, homePairFragment);
                 break;
         }

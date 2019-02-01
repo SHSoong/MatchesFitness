@@ -2,6 +2,7 @@ package com.match.app.message.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -12,23 +13,38 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "tb_conversation")
 public class Conversation implements Parcelable{
 
-    @DatabaseField(columnName = "id", id = true, generatedId = true)
+    @DatabaseField(columnName = "id", generatedId = true)
     private int id;
 
-    @DatabaseField(columnName = "him")
-    private String him;
+    @DatabaseField
+    private String conversationId;
 
-    @DatabaseField(columnName = "his_name")
+    @DatabaseField
     private String hisName;
 
-    @DatabaseField(columnName = "his_logo_url")
+    @DatabaseField
     private String hisLogoUrl;
+
+    @DatabaseField
+    private int lastTime;
+
+    @DatabaseField
+    private String lastMessage;
+
+    @DatabaseField
+    private int status;
+
+    public Conversation(){}
+
 
     protected Conversation(Parcel in) {
         id = in.readInt();
-        him = in.readString();
+        conversationId = in.readString();
         hisName = in.readString();
         hisLogoUrl = in.readString();
+        lastTime = in.readInt();
+        lastMessage = in.readString();
+        status = in.readInt();
     }
 
     public static final Creator<Conversation> CREATOR = new Creator<Conversation>() {
@@ -43,6 +59,17 @@ public class Conversation implements Parcelable{
         }
     };
 
+    public static boolean equals(Conversation var1, Conversation var2) {
+        if (var1 != null && var2 != null) {
+            if (!TextUtils.isEmpty(var2.getConversationId())) {
+                if (var1.getConversationId().equals(var2.getConversationId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public int getId() {
         return id;
     }
@@ -51,12 +78,36 @@ public class Conversation implements Parcelable{
         this.id = id;
     }
 
-    public String getHim() {
-        return him;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setHim(String him) {
-        this.him = him;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
+    }
+
+    public int getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(int lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getHisName() {
@@ -75,16 +126,6 @@ public class Conversation implements Parcelable{
         this.hisLogoUrl = hisLogoUrl;
     }
 
-    public Conversation(int id, String him, String hisName, String hisLogoUrl) {
-        this.id = id;
-        this.him = him;
-        this.hisName = hisName;
-        this.hisLogoUrl = hisLogoUrl;
-    }
-
-    public Conversation() {
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -93,8 +134,11 @@ public class Conversation implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
-        parcel.writeString(him);
+        parcel.writeString(conversationId);
         parcel.writeString(hisName);
         parcel.writeString(hisLogoUrl);
+        parcel.writeInt(lastTime);
+        parcel.writeString(lastMessage);
+        parcel.writeInt(status);
     }
 }

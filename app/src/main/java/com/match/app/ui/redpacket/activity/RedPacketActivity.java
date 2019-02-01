@@ -2,6 +2,7 @@ package com.match.app.ui.redpacket.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matches.fitness.R;
@@ -14,6 +15,9 @@ public class RedPacketActivity extends BaseActivity {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.tvBuy)
     TextView tvBuy;
     @BindView(R.id.tvBalance)
@@ -31,6 +35,12 @@ public class RedPacketActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvTitle.setText("我的钱包");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         tvBuy.setOnClickListener(new View.OnClickListener() {
             @Override

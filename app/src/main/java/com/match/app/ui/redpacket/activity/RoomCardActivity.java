@@ -2,6 +2,8 @@ package com.match.app.ui.redpacket.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,6 +24,9 @@ import butterknife.ButterKnife;
 public class RoomCardActivity extends BaseActivity {
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -37,6 +42,12 @@ public class RoomCardActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvTitle.setText("健身房卡");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);

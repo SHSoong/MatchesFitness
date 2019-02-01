@@ -1,6 +1,7 @@
 package com.match.app.ui.redpacket.activity;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.matches.fitness.R;
@@ -17,6 +18,9 @@ public class BalanceActivity extends BaseActivity {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+
     @BindView(R.id.tvCash)
     TextView tvCash;
 
@@ -30,6 +34,12 @@ public class BalanceActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tvTitle.setText("余额");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         tvCash.setOnClickListener(new View.OnClickListener() {
             @Override

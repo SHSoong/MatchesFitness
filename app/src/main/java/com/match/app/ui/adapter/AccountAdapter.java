@@ -6,8 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.match.app.common.User;
-import com.match.app.db.TbAccount;
+import com.match.app.message.entity.Account;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<TbAccount> users;
+    private List<Account> users;
 
     @Override
     public AccountHolder onCreateViewHolder(ViewGroup parent, int viewType) {

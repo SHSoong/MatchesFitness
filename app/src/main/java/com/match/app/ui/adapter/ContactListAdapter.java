@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Contact;
 import com.matches.fitness.R;
 
@@ -55,11 +56,11 @@ public class ContactListAdapter extends BaseAdapter {
         String word = contact.getHeaderWord();
         holder.tvWord.setText(word);
         holder.tvName.setText(contact.getName());
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
                 .load(contact.getLogUrl())
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .apply(options)
                 .into(holder.imgHeader);
         if (i == 0) {
             holder.tvWord.setVisibility(View.VISIBLE);

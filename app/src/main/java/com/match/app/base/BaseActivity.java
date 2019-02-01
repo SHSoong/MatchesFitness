@@ -13,13 +13,10 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.match.app.manager.LoadingManager;
 import com.matches.fitness.R;
 
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
-
-    protected final static String PHONE = "phone";
 
     public CompositeDisposable disposables = new CompositeDisposable();
 

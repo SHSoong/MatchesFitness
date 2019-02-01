@@ -56,10 +56,10 @@
                 android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test"
                 android:background="@color/white" />
 
         </LinearLayout>
+
         <View
             android:id="@+id/view_02"
             android:layout_width="match_parent"
@@ -76,7 +76,6 @@
             android:layout_below="@+id/view_02"
             android:layout_marginStart="8dp"
             android:background="@color/white"
-
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingEnd="15dp"
@@ -102,7 +101,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="test"
                     android:inputType="textPassword" />
             </LinearLayout>
 
@@ -114,7 +112,6 @@
                 android:text="@string/forget_password"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
-
 
         </LinearLayout>
 

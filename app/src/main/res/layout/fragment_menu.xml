@@ -50,18 +50,21 @@
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circleImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@mipmap/anim_avitor" />
+                    android:src="@mipmap/icon_avatar" />
 
                 <LinearLayout
                     android:id="@+id/ll_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="name"

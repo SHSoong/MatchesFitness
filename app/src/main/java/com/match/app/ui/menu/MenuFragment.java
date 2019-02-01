@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.match.app.common.User;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
 import com.match.app.ui.adapter.ViewPagerAdapter;
@@ -22,11 +25,16 @@ import com.match.app.ui.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuFragment extends BaseFragment {
+
+    @BindView(R.id.circleImageView)
+    public CircleImageView circleImageView;
 
     @BindView(R.id.tabLayout)
     public TabLayout tabLayout;
@@ -38,6 +46,9 @@ public class MenuFragment extends BaseFragment {
     public TextView tvRedPacket;
     @BindView(R.id.ll_modify)
     LinearLayout llModify;
+    @BindView(R.id.tvName)
+    TextView tvName;
+
 
     private List<String> tabList = new ArrayList<>();
     private Activity mActivity;
@@ -58,7 +69,13 @@ public class MenuFragment extends BaseFragment {
         init();
     }
 
-    private void init(){
+    private void init() {
+        Glide.with(mActivity)
+                .load(User.getInstance().getLogo())
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
+                .into(circleImageView);
+        tvName.setText(User.getInstance().getName());
+
         tvSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +91,7 @@ public class MenuFragment extends BaseFragment {
         llModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity,ModifyActivity.class));
+                startActivity(new Intent(mActivity, ModifyActivity.class));
             }
         });
     }
@@ -91,7 +108,7 @@ public class MenuFragment extends BaseFragment {
         fragments.add(MenuPairFragment.newInstance());
         fragments.add(MenuNoticeFragment.newInstance());
         //viewpager
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments, tabList);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), fragments, tabList);
         viewPager.setAdapter(viewPagerAdapter);
         //TabLayout加载viewpager
         tabLayout.setupWithViewPager(viewPager);

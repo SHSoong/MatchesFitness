@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.match.app.message.entity.Message;
 import com.matches.fitness.R;
 
@@ -24,6 +27,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
         this.context = context;
     }
 
+    public void setData(List<Message> lists) {
+        this.lists = lists;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -38,13 +46,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
 
     @Override
     public void onBindViewHolder(MessageHolder holder, int position) {
-        holder.tvMessage.setText(lists.get(position).getContent());
+        Message message = lists.get(position);
+        holder.tvMessage.setText(message.getContent());
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.mipmap.icon_avatar);
         Glide.with(context)
-                .load("")
-                .placeholder(R.mipmap.anim_avitor)
-                .error(R.mipmap.anim_avitor)
-                .dontAnimate()
+                .load(message.getHisLogoUrl())
+                .apply(options)
                 .into(holder.headerImg);
+        switch (message.getStatus()) { // 状态  0 发送中，1发送成功，2 发送失败 ，3 未读，4 已读 -1 删除
+            case 0:
+                holder.imgState.setVisibility(View.VISIBLE);
+                holder.imgStatus.setVisibility(View.GONE);
+                break;
+            case 2:
+                holder.imgStatus.setVisibility(View.VISIBLE);
+                holder.imgState.setVisibility(View.GONE);
+                holder.imgStatus.setImageResource(R.mipmap.message_up_error);
+                break;
+            case 1:
+            case 3:
+            case 4:
+                holder.imgState.setVisibility(View.GONE);
+                holder.imgStatus.setVisibility(View.GONE);
+                break;
+        }
+
     }
 
     @Override
@@ -54,19 +81,28 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 1) {
+        Message message = lists.get(position);
+        if (message.getConversation().equals(message.getReceiver())) {
             return 1;
-        } else return 0;
+        }
+        if (message.getConversation().equals(message.getSpeaker())) {
+            return 0;
+        }
+        return 0;
     }
 
     class MessageHolder extends RecyclerView.ViewHolder {
         private CircleImageView headerImg;
         private TextView tvMessage;
+        private ImageView imgStatus;
+        private ProgressBar imgState;
 
         public MessageHolder(View itemView) {
             super(itemView);
             headerImg = itemView.findViewById(R.id.cimg_header);
             tvMessage = itemView.findViewById(R.id.tv_message);
+            imgStatus = itemView.findViewById(R.id.img_status);
+            imgState = itemView.findViewById(R.id.img_state);
         }
     }
 }

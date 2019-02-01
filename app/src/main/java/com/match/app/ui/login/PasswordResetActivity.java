@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.match.app.common.User;
 import com.match.app.message.bean.B003Request;
 import com.match.app.message.bean.B003Response;
 import com.matches.fitness.R;
@@ -121,10 +122,8 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
                     @Override
                     protected void onHandleSuccess(B003Response b003Response) {
                         ToastUtils.showToast(mContext, "密码重置成功");
-//                        startActivity(new Intent(mContext, LoginActivity.class));
-                        Intent intent = new Intent();
-                        intent.putExtra(PHONE, phone);
-                        setResult(Activity.RESULT_OK, intent);
+                        User.getInstance().setLoginName(phone);
+                        User.getInstance().save();
                         finish();
                     }
 

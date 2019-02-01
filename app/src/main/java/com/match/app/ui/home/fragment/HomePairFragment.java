@@ -22,6 +22,9 @@ import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
+import com.match.app.ui.im.ConversationListActivity;
+import com.match.app.ui.login.LoginActivity;
+import com.match.app.ui.settings.SettingsActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
@@ -57,7 +60,6 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mActivity = getActivity();
         View view = inflater.inflate(R.layout.fragment_homepair, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -92,7 +94,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(mActivity, DateChoiceActivity.class));
+                startActivity(new Intent(getActivity(), ConversationListActivity.class));
             }
         });
         multipleStatusView.showLoading();
@@ -152,6 +154,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     }
 
     private void initSwipeCards() {
+        list.clear();
         adapter = new SwipeStackAdapter(getActivity());
         adapter.setData(list);
         swipeStack.setAdapter(adapter);
@@ -165,7 +168,11 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
 
     @Override
     public void onViewSwipedToRight(int position) {
-
+        B334Response.UserBean bean = (B334Response.UserBean) adapter.getItem(position);
+        B335Request req = new B335Request();
+        req.setUserIdb(bean.getId());
+        req.setMatchProfileId(bean.getMatchProfileId());
+        callB335Api(getActivity(), req);
     }
 
     @Override
