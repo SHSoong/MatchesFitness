@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
+import com.match.app.manager.ActivityManager;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
@@ -43,11 +44,12 @@ public class InfoPrefectActivity extends BaseActivity {
     private int sex = 0;
     // 1 有经验，0 无
     private int hasExperience = 1;
-//    private String nickName;
+    //    private String nickName;
     private String birthDay;
 
     @Override
     protected void onInitBinding() {
+        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_personal_perfect);
     }
 

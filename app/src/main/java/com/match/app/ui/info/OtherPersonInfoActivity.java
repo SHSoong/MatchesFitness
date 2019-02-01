@@ -1,6 +1,5 @@
 package com.match.app.ui.info;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +16,7 @@ import com.match.app.common.User;
 import com.match.app.customer.ArcImageView;
 import com.match.app.message.entity.Person;
 import com.match.app.ui.adapter.RecordListAdapter;
+import com.match.app.utils.DateUtils;
 import com.matches.fitness.R;
 
 import java.util.ArrayList;
@@ -40,19 +40,18 @@ public class OtherPersonInfoActivity extends BaseActivity {
     @BindView(R.id.tvAge)
     TextView tvAge;
 
-    @BindView(R.id.ll_add)
+    @BindView(R.id.llAdd)
     LinearLayout llAdd;
-    @BindView(R.id.btn_add)
-    Button btnAdd;
-    @BindView(R.id.ll_record)
+    @BindView(R.id.btnSubmit)
+    Button btnSubmit;
+    @BindView(R.id.llRecord)
     LinearLayout llRecord;
-    @BindView(R.id.tv_record)
+    @BindView(R.id.tvRecord)
     TextView tvRecord;
 
-    @BindView(R.id.gv_record)
+    @BindView(R.id.gvRecord)
     GridView gvRecord;
 
-    private Person person;
     private List<Person> records;
     private RecordListAdapter adapter;
 
@@ -72,26 +71,26 @@ public class OtherPersonInfoActivity extends BaseActivity {
             }
         });
         tvName.setText(User.getInstance().getName());
-        tvAge.setText(User.getInstance().getBirthday());
+        tvAge.setText(String.valueOf(DateUtils.getAge(DateUtils.parse(User.getInstance().getBirthday()))));
         ivEdit.setVisibility(View.GONE);
 
-        Bundle extras = getIntent().getExtras();
-        person = extras.getParcelable(INFO_KEY);
-        if (person != null) {
-            if (person.isFriend()) {
-                llAdd.setVisibility(View.GONE);
-                llRecord.setVisibility(View.VISIBLE);
-            } else {
-                llAdd.setVisibility(View.VISIBLE);
-                llRecord.setVisibility(View.GONE);
-            }
-        }
-        Glide.with(mContext)
-                .load(person.getLogUrl())
-                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
-                .into(arcImageView);
+//        Bundle extras = getIntent().getExtras();
+//        person = extras.getParcelable(INFO_KEY);
+//        if (person != null) {
+//            if (person.isFriend()) {
+//                llAdd.setVisibility(View.GONE);
+//                llRecord.setVisibility(View.VISIBLE);
+//            } else {
+//                llAdd.setVisibility(View.VISIBLE);
+//                llRecord.setVisibility(View.GONE);
+//            }
+//        }
 
-        tvName.setText(person.getName());
+        Glide.with(mContext)
+                .load("")
+                .apply(new RequestOptions().placeholder(R.mipmap.avatar_bg_icon))
+                .into(arcImageView);
+        tvRecord.setText("配对记录");
         getData();
     }
 
@@ -99,9 +98,7 @@ public class OtherPersonInfoActivity extends BaseActivity {
      * 获取数据
      */
     private void getData() {
-        tvRecord.setText(person.getName() + "的配对记录");
         records = new ArrayList<>();
-
         gvRecord.setNumColumns(4);
         adapter = new RecordListAdapter(mContext, records, true);
         gvRecord.setAdapter(adapter);

@@ -17,6 +17,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
 import com.match.app.customer.ArcImageView;
+import com.match.app.manager.ActivityManager;
 import com.match.app.message.bean.B005Request;
 import com.match.app.message.bean.B005Response;
 import com.match.app.message.entity.UploadFile;
@@ -52,8 +53,10 @@ public class AvatarActivity extends BaseActivity {
 
     private UploadFile file;
 
+
     @Override
     protected void onInitBinding() {
+        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_avatar);
     }
 
@@ -74,6 +77,8 @@ public class AvatarActivity extends BaseActivity {
             public void onClick(View view) {
                 PictureSelector.create(AvatarActivity.this)
                         .openGallery(PictureMimeType.ofImage())
+                        .compress(true)
+                        .minimumCompressSize(500)
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
         });
@@ -104,11 +109,8 @@ public class AvatarActivity extends BaseActivity {
 
                             @Override
                             public void onSuccess(int position, String uploadPath, String objectKey) {
-                                User.getInstance().setLogo(objectKey);
-
-                                User.getInstance().save();
+                                initCallB005(objectKey);
                                 dismissDialog();
-                                initCallB005();
                             }
 
                             @Override
@@ -124,13 +126,13 @@ public class AvatarActivity extends BaseActivity {
                         });
     }
 
-    public void initCallB005() {
+    public void initCallB005(String objectKey) {
         B005Request request = new B005Request();
         request.setName(User.getInstance().getName());
         request.setBirthday(User.getInstance().getBirthday());
         request.setSex(User.getInstance().getSex());
         request.setHasExp(User.getInstance().getHasExp());
-        request.setLogo(User.getInstance().getLogo());
+        request.setLogo(objectKey);
 
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
@@ -140,10 +142,12 @@ public class AvatarActivity extends BaseActivity {
                     @Override
                     protected void onHandleSuccess(B005Response res) {
                         if (res.isSuccess()) {
+                            User.getInstance().setLogo(res.getLogo());
                             User.getInstance().setHasInfo(1);
                             User.getInstance().save();
+
+                            ActivityManager.getInstance().finishAllActivity();
                             startActivity(new Intent(mContext, MainActivity.class));
-                            finish();
                         }
                     }
 
@@ -194,6 +198,9 @@ public class AvatarActivity extends BaseActivity {
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     for (LocalMedia media : selectList) {
                         file.setPath(media.getPath());
+                        if (media.isCompressed()) {
+                            file.setPath(media.getCompressPath());
+                        }
                         RequestOptions options = new RequestOptions()
                                 .centerCrop()
                                 .placeholder(R.color.black)

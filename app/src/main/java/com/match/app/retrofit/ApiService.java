@@ -21,7 +21,7 @@ public interface ApiService {
     Observable<B005Response> doB005Request(@Body B005Request request);
 
     @POST("android/")
-    Observable<BaseResponse> doB200Request(@Body B200Request request);
+    Observable<B200Response> doB200Request(@Body B200Request request);
 
     @POST("android/")
     Observable<B301Response> doB301Request(@Body B301Request request);

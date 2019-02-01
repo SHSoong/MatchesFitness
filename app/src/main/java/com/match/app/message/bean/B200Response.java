@@ -1,6 +1,6 @@
 package com.match.app.message.bean;
 
-public class B005Response extends BaseResponse {
+public class B200Response extends BaseResponse {
     private String logo;        //头像
 
     public String getLogo() {

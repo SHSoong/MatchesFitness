@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
+import com.match.app.manager.ActivityManager;
 import com.match.app.message.bean.B001Request;
 import com.match.app.message.bean.B001Response;
 import com.match.app.retrofit.ApiService;
@@ -27,8 +28,6 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
 
-    private final static int REGISTER_CODE = 10001;
-    private final static int RESET_PASSWORD_CODE = 10002;
     @BindView(R.id.img_login)
     ImageView imgLogin;
     @BindView(R.id.edt_phone)
@@ -56,6 +55,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onInitBinding() {
+        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_login);
     }
 
@@ -63,15 +63,9 @@ public class LoginActivity extends BaseActivity {
     protected void onInit() {
         ButterKnife.bind(this);
         initTile(R.string.login, false);
+
         user = User.getInstance();
-        if (user.isLogin()) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-            return;
-        }
-//        if (!TextUtils.isEmpty(user.getLoginName())) {
-//            etUserName.setText(user.getLoginName());
-//        }
+
         Glide.with(mContext)
                 .load(user.getLogo())
                 .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
@@ -101,16 +95,14 @@ public class LoginActivity extends BaseActivity {
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class),
-                        REGISTER_CODE);
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 
         tvForgotPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(LoginActivity.this, PasswordResetActivity.class),
-                        RESET_PASSWORD_CODE);
+                startActivity(new Intent(LoginActivity.this, PasswordResetActivity.class));
             }
         });
         tvWb.setOnClickListener(new View.OnClickListener() {
@@ -179,27 +171,8 @@ public class LoginActivity extends BaseActivity {
         user.setName(o.getName());
         user.setSex(o.getSex());
         user.setLogin(true);
-        if(o.getHasInfo() != null)
+        if (o.getHasInfo() != null)
             user.setHasInfo(o.getHasInfo());
         user.save();
-//        if (dao == null) {
-//            dao = new AccountDao(mContext);
-//        }
-//        dao.add(new Account(userName, userPwd, user.getToken(), user.getName(), user.getBirthday(),
-//                user.getSex(), user.getHasExp(), user.getLogo(), user.getLastLoginDate()));
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REGISTER_CODE:
-            case RESET_PASSWORD_CODE:
-                if (data != null && resultCode == RESULT_OK) {
-                    String phone = data.getStringExtra(PHONE);
-                    etUserName.setText(phone);
-                }
-                break;
-        }
     }
 }

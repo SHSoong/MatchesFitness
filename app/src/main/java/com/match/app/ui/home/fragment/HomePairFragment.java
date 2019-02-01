@@ -22,6 +22,9 @@ import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
+import com.match.app.ui.im.ConversationListActivity;
+import com.match.app.ui.login.LoginActivity;
+import com.match.app.ui.settings.SettingsActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
@@ -91,7 +94,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
         rlNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(mActivity, DateChoiceActivity.class));
+                startActivity(new Intent(getActivity(), ConversationListActivity.class));
             }
         });
         multipleStatusView.showLoading();

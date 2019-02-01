@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.match.app.MyApp;
 import com.match.app.base.BaseActivity;
 import com.match.app.ui.im.ConversationListActivity;
+import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
 import butterknife.BindView;
@@ -49,13 +50,13 @@ public class SettingsActivity extends BaseActivity {
         rlAccounts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ConversationListActivity.class));
+                startActivity(new Intent(SettingsActivity.this, AccountsActivity.class));
             }
         });
         rlChangePwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
+//                startActivity(new Intent(SettingsActivity.this, ChangePwdActivity.class));
             }
         });
         rlPersonalInfo.setOnClickListener(new View.OnClickListener() {

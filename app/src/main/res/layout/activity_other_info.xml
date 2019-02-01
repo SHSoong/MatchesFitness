@@ -5,31 +5,30 @@
     android:background="@color/grayBg"
     android:orientation="vertical">
 
-
     <include layout="@layout/person_heard_bar" />
 
     <LinearLayout
-        android:id="@+id/ll_add"
+        android:id="@+id/llAdd"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btnSubmit"
             style="?android:borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="23dip"
-            android:layout_marginRight="23dip"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
             android:background="@drawable/login_btn_bg"
             android:gravity="center"
             android:text="申请添加好友"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_record"
+        android:id="@+id/llRecord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
@@ -39,15 +38,15 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_record"
+            android:id="@+id/tvRecord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:layout_marginTop="10dip"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:gravity="center" />
 
         <GridView
-            android:id="@+id/gv_record"
+            android:id="@+id/gvRecord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />

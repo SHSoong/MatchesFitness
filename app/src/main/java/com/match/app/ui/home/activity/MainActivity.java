@@ -11,18 +11,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.match.app.common.User;
-import com.match.app.ui.login.InfoPrefectActivity;
-import com.match.app.ui.login.LoginActivity;
-import com.match.app.utils.ToastUtils;
-import com.matches.fitness.R;
 import com.match.app.ui.home.fragment.HomeAppointFragment;
 import com.match.app.ui.home.fragment.HomePairFragment;
 import com.match.app.ui.menu.MenuFragment;
+import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
+import com.umeng.message.PushAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +41,7 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
         setContentView(R.layout.activity_main);
         initSlidingMenu();
         initView();

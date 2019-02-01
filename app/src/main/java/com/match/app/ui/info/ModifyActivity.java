@@ -22,6 +22,7 @@ import com.match.app.base.BaseActivity;
 import com.match.app.common.User;
 import com.match.app.customer.ArcImageView;
 import com.match.app.message.bean.B200Request;
+import com.match.app.message.bean.B200Response;
 import com.match.app.message.bean.BaseResponse;
 import com.match.app.message.entity.Person;
 import com.match.app.message.entity.UploadFile;
@@ -118,6 +119,8 @@ public class ModifyActivity extends BaseActivity {
                 if (editEnable) {
                     PictureSelector.create(ModifyActivity.this)
                             .openGallery(PictureMimeType.ofImage())
+                            .compress(true)
+                            .minimumCompressSize(500)
                             .forResult(PictureConfig.CHOOSE_REQUEST);
                 }
             }
@@ -188,10 +191,8 @@ public class ModifyActivity extends BaseActivity {
 
                             @Override
                             public void onSuccess(int position, String uploadPath, String objectKey) {
-                                User.getInstance().setLogo(objectKey);
-                                User.getInstance().save();
+                                initCallB200(objectKey);
                                 dismissDialog();
-                                initCallB200();
                             }
 
                             @Override
@@ -219,22 +220,24 @@ public class ModifyActivity extends BaseActivity {
         editEnable = !editEnable;
     }
 
-    public void initCallB200() {
+    public void initCallB200(String objectKey) {
         B200Request request = new B200Request();
         request.setName(User.getInstance().getName());
         request.setBirthday(User.getInstance().getBirthday());
         request.setSex(User.getInstance().getSex());
         request.setHasExp(User.getInstance().getHasExp());
-        request.setLogo(User.getInstance().getLogo());
+        request.setLogo(objectKey);
 
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
                 .doB200Request(request)
-                .compose(RxSchedulers.<BaseResponse>io_main())
-                .subscribe(new BaseObserver<BaseResponse>() {
+                .compose(RxSchedulers.<B200Response>io_main())
+                .subscribe(new BaseObserver<B200Response>() {
                     @Override
-                    protected void onHandleSuccess(BaseResponse res) {
+                    protected void onHandleSuccess(B200Response res) {
                         if (res.isSuccess()) {
+                            User.getInstance().setLogo(res.getLogo());
+                            User.getInstance().save();
                             edit();
                         }
                     }
@@ -308,6 +311,9 @@ public class ModifyActivity extends BaseActivity {
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     for (LocalMedia media : selectList) {
                         file.setPath(media.getPath());
+                        if (media.isCompressed()) {
+                            file.setPath(media.getCompressPath());
+                        }
                         RequestOptions options = new RequestOptions()
                                 .centerCrop()
                                 .placeholder(R.color.black)

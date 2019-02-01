@@ -1,6 +1,7 @@
 package com.match.app.ui.home.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -11,24 +12,27 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.match.app.base.BaseActivity;
+import com.match.app.config.AppConstant;
 import com.match.app.customer.CustomLoadMoreView;
 import com.match.app.message.bean.B332Request;
 import com.match.app.message.bean.B332Response;
+import com.match.app.message.bean.B332Response.*;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
+import com.match.app.ui.home.RecyclerItemDecoration;
+import com.match.app.ui.info.OtherPersonInfoActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
-import com.match.app.ui.home.RecyclerItemDecoration;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
 
-    private long totalSize = 0;
+    private long totalPage = 0;
 
     @BindView(R.id.tvLeft)
     TextView tvLeft;
@@ -38,7 +42,7 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    BaseQuickAdapter mAdapter;
+    BaseQuickAdapter<UserBean, BaseViewHolder> mAdapter;
     private Integer page = 1;       // 页号
     private Integer pageSize = 10;   // 页号大小，0或者null为不分页
     private String keyword;
@@ -62,9 +66,9 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.addItemDecoration(new RecyclerItemDecoration(15));
-        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<B332Response.UserBean, BaseViewHolder>(R.layout.itemview_search) {
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<UserBean, BaseViewHolder>(R.layout.itemview_search) {
             @Override
-            protected void convert(BaseViewHolder helper, B332Response.UserBean item) {
+            protected void convert(BaseViewHolder helper, UserBean item) {
 
             }
         });
@@ -72,12 +76,21 @@ public class SearchActivity extends BaseActivity {
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                if (mAdapter.getItemCount() >= totalSize) {
+                if (page > totalPage) {
                     mAdapter.loadMoreEnd();
+                } else {
+                    initRequest();
                 }
-                initRequest();
             }
         }, recyclerView);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                UserBean bean = (UserBean) adapter.getItem(position);
+                Intent it = new Intent(SearchActivity.this, OtherPersonInfoActivity.class);
+                startActivity(it);
+            }
+        });
 
         etKeyword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,14 +129,13 @@ public class SearchActivity extends BaseActivity {
                 .subscribe(new BaseObserver<B332Response>() {
                     @Override
                     protected void onHandleSuccess(B332Response res) {
-                        totalSize = res.getPageCount();
-//                        ToastUtils.showToast(SearchActivity.this, "" + totalSize);
+                        totalPage = res.getPageCount();
                         if (mAdapter.isLoading()) {
                             mAdapter.addData(res.getBeans());
                         } else {
                             mAdapter.setNewData(res.getBeans());
                         }
-                        if (page >= totalSize) {
+                        if (page > totalPage) {
                             mAdapter.loadMoreEnd();
                         } else {
                             mAdapter.loadMoreComplete();

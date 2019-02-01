@@ -9,15 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.match.app.base.BaseActivity;
+import com.match.app.common.User;
+import com.match.app.manager.ActivityManager;
 import com.match.app.message.bean.B002Request;
 import com.match.app.message.bean.B002Response;
-import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.utils.ToastUtils;
+import com.matches.fitness.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,8 +50,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private boolean isGetCode = false;
     private String phone;
 
+
     @Override
     protected void onInitBinding() {
+        ActivityManager.getInstance().addActivity(this);
         setContentView(R.layout.activity_register);
     }
 
@@ -70,19 +74,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.tv_validate:
                 // 请求短信验证码
                 if (tvValidate.isClickable()) {
-
                     getValidate();
                 }
                 break;
             case R.id.btn_register: // 注册
-
-//                startActivity(new Intent(this, InfoPrefectActivity.class));
-
-                if (!isGetCode) {
-                    ToastUtils.showToast(mContext, "请先获取短信验证吗");
-                    return;
-                }
-                 register();
+                register();
                 break;
             case R.id.tv_agreement:
                 startActivity(new Intent(mContext, AgreementActivity.class));
@@ -109,11 +105,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
      * 注册
      */
     private void register() {
-
-
         String phone = edtPhone.getText().toString().trim();
         String validte = edtValidate.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
+        if (!isGetCode) {
+            ToastUtils.showToast(mContext, "请先获取短信验证吗");
+            return;
+        }
         if (!phone.equals(this.phone)) {
             ToastUtils.showToast(mContext, "手机号码不能修改!");
             return;
@@ -133,18 +131,23 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         request.setPassword(password);
         request.setDeviceType("android");
         callApi(request);
+        startActivity(new Intent(mContext, InfoPrefectActivity.class));
     }
 
-    private void callApi(B002Request request) {
+    private void callApi(final B002Request request) {
         RetrofitManager.getInstance().getRetrofit()
                 .create(ApiService.class)
                 .doRegister(request)
                 .compose(RxSchedulers.<B002Response>io_main())
                 .subscribe(new BaseObserver<B002Response>() {
                     @Override
-                    protected void onHandleSuccess(B002Response b002Response) {
+                    protected void onHandleSuccess(B002Response res) {
+                        User.getInstance().setToken(res.getUserId());
+                        User.getInstance().setLoginName(request.getMobile());
+                        User.getInstance().setLogin(true);
+                        User.getInstance().save();
                         ToastUtils.showToast(mContext, "注册成功");
-                        startActivity(new Intent(mContext, InfoPrefectActivity.class).putExtra(PHONE, phone));
+                        startActivity(new Intent(mContext, InfoPrefectActivity.class));
                         finish();
                     }
 
