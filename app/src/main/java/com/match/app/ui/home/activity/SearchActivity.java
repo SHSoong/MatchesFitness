@@ -10,14 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.match.app.base.BaseActivity;
-import com.match.app.config.AppConstant;
+import com.match.app.common.User;
 import com.match.app.customer.CustomLoadMoreView;
+import com.match.app.customer.XCRoundRectImageView;
 import com.match.app.message.bean.B332Request;
 import com.match.app.message.bean.B332Response;
-import com.match.app.message.bean.B332Response.*;
+import com.match.app.message.bean.B332Response.UserBean;
 import com.match.app.retrofit.ApiService;
 import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
@@ -69,7 +72,11 @@ public class SearchActivity extends BaseActivity {
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<UserBean, BaseViewHolder>(R.layout.itemview_search) {
             @Override
             protected void convert(BaseViewHolder helper, UserBean item) {
-
+                XCRoundRectImageView mXCRoundRectImageView = helper.getView(R.id.mXCRoundRectImageView);
+                Glide.with(SearchActivity.this)
+                        .load(User.getInstance().getLogo())
+                        .apply(new RequestOptions().placeholder(R.mipmap.avatar_bg_icon))
+                        .into(mXCRoundRectImageView);
             }
         });
         mAdapter.setLoadMoreView(new CustomLoadMoreView());

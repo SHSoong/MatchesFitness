@@ -6,10 +6,14 @@
     android:background="@color/grayBg">
 
     <com.match.app.customer.XCRoundRectImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/mXCRoundRectImageView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:background="@drawable/shape_white_rectangle"
+        android:minWidth="200dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_avatar_01" />
+        android:src="@mipmap/avatar_bg_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

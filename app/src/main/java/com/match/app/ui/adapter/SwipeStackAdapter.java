@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.match.app.common.User;
 import com.match.app.message.bean.B334Response;
 import com.match.app.utils.DateUtils;
 import com.matches.fitness.R;
@@ -51,7 +54,10 @@ public class SwipeStackAdapter extends BaseAdapter {
         }
         B334Response.UserBean bean = list.get(position);
 
-        holder.imageView.setImageResource(R.mipmap.img_avatar_01);
+        Glide.with(context)
+                .load(User.getInstance().getLogo())
+                .apply(new RequestOptions().placeholder(R.mipmap.avatar_bg_icon))
+                .into(holder.imageView);
         holder.tvName.setText(bean.getName());
         holder.tvFitnessName.setText(bean.getFitnessName());
         holder.tvTime.setText(bean.getStartTime());
