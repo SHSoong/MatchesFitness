@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.match.app.common.User;
+import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
 import com.match.app.ui.adapter.ViewPagerAdapter;
@@ -70,10 +71,7 @@ public class MenuFragment extends BaseFragment {
     }
 
     private void init() {
-        Glide.with(mActivity)
-                .load(User.getInstance().getLogo())
-                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
-                .into(circleImageView);
+        initAvatar();
         tvName.setText(User.getInstance().getName());
 
         tvSettings.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +92,19 @@ public class MenuFragment extends BaseFragment {
                 startActivity(new Intent(mActivity, ModifyActivity.class));
             }
         });
+    }
+
+    private void initAvatar(){
+        Glide.with(mActivity)
+                .load(User.getInstance().getLogo())
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
+                .into(circleImageView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initAvatar();
     }
 
     private void initTabLayout() {

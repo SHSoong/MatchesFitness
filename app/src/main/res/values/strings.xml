@@ -31,4 +31,14 @@
     <string name="hint_new_password_confirm">确认新的密码</string>
     
     <string name="error_password_difference">两次输入的密码不一致</string>
+
+    <string-array name="chinese_week_string_array">
+        <item>周日</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+    </string-array>
 </resources>

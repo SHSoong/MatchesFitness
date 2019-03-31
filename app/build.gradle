@@ -84,6 +84,8 @@ dependencies {
     //PushSDK
     implementation 'com.umeng.sdk:push:4.2.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    //日历
+    implementation 'com.haibin:calendarview:3.5.8'
 
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'

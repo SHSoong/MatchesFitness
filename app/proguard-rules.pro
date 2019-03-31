@@ -69,3 +69,7 @@
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}

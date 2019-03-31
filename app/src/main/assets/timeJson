@@ -1,0 +1,49 @@
+{
+  "result": [
+    {
+      "time": "7",
+      "timeStart": "07:00",
+      "timeEnd": "08:30"
+    },
+    {
+      "time": "8.5",
+      "timeStart": "08:30",
+      "timeEnd": "10:00"
+    },
+    {
+      "time": "10",
+      "timeStart": "10:00",
+      "timeEnd": "11:30"
+    },
+    {
+      "time": "11.5",
+      "timeStart": "11:30",
+      "timeEnd": "13:00"
+    },
+    {
+      "time": "13",
+      "timeStart": "13:00",
+      "timeEnd": "14:30"
+    },
+    {
+      "time": "14.5",
+      "timeStart": "14:30",
+      "timeEnd": "16:00"
+    },
+    {
+      "time": "16",
+      "timeStart": "16:00",
+      "timeEnd": "17:30"
+    },
+    {
+      "time": "17.5",
+      "timeStart": "17:30",
+      "timeEnd": "19:00"
+    },
+    {
+      "time": "19",
+      "timeStart": "19:00",
+      "timeEnd": "21:30"
+    }
+  ]
+}

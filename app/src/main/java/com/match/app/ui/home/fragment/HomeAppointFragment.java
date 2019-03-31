@@ -27,6 +27,7 @@ import com.match.app.retrofit.manager.BaseObserver;
 import com.match.app.retrofit.manager.RetrofitManager;
 import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.home.activity.MainActivity;
+import com.match.app.ui.home.activity.SelectDateActivity;
 import com.match.app.ui.home.activity.SelectGymActivity;
 import com.match.app.utils.ScreenUtils;
 import com.match.app.utils.ToastUtils;
@@ -36,6 +37,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeAppointFragment extends BaseFragment {
+
+    int GYM = 0;
+    int DATE = 1;
 
     @BindView(R.id.iv_anim)
     ImageView iv_anim;
@@ -80,19 +84,20 @@ public class HomeAppointFragment extends BaseFragment {
         llSelectGym.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getActivity(), SelectGymActivity.class), 0);
+                startActivityForResult(new Intent(getActivity(), SelectGymActivity.class), GYM);
             }
         });
         llSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DateTimePicker(getActivity(), new DateTimePicker.OnDateTimePickerListener() {
-                    @Override
-                    public void setOnDateTimePickerListener(String dateStr) {
-                        startTime = dateStr;
-                        tvSelectDate.setText(dateStr);
-                    }
-                }).dateTimePicker();
+//                new DateTimePicker(getActivity(), new DateTimePicker.OnDateTimePickerListener() {
+//                    @Override
+//                    public void setOnDateTimePickerListener(String dateStr) {
+//                        startTime = dateStr;
+//                        tvSelectDate.setText(dateStr);
+//                    }
+//                }).dateTimePicker();
+                startActivityForResult(new Intent(getActivity(), SelectDateActivity.class), DATE);
             }
         });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +121,7 @@ public class HomeAppointFragment extends BaseFragment {
         B330Request req = new B330Request();
         req.setFitnessCenterId(fitnessCenterId);
         req.setStartTime(startTime);
+        req.setEndTime(endTime);
         req.setSex(User.getInstance().getSex());
         req.setExp(User.getInstance().getHasExp());
 
@@ -135,7 +141,7 @@ public class HomeAppointFragment extends BaseFragment {
                         tvSelectGym.setText("");
                         tvSelectDate.setText("");
                         ToastUtils.showToast(context, "发布成功！");
-                        ((MainActivity) getActivity()).switchFragment(1);
+                        if (getActivity() != null) ((MainActivity) getActivity()).switchFragment(1);
                     }
 
                     @Override
@@ -148,9 +154,24 @@ public class HomeAppointFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_OK && requestCode == 0) {
-            fitnessCenterId = data.getExtras().getString(AppConstant.INTENT_CENTER_ID);
-            tvSelectGym.setText(data.getExtras().getString(AppConstant.INTENT_CENTER_NAME));
+        if (resultCode == getActivity().RESULT_OK && requestCode == GYM) {
+            if (data.getExtras() != null) {
+                fitnessCenterId = data.getExtras().getString(AppConstant.INTENT_CENTER_ID);
+                tvSelectGym.setText(data.getExtras().getString(AppConstant.INTENT_CENTER_NAME));
+            }
+        }
+        if (resultCode == getActivity().RESULT_OK && requestCode == DATE) {
+            if (data.getExtras() != null) {
+                int sYear = data.getExtras().getInt(AppConstant.INTENT_INTERVAL_DATE_YEAR, 0);
+                int sMonth = data.getExtras().getInt(AppConstant.INTENT_INTERVAL_DATE_MONTH, 0);
+                int sDay = data.getExtras().getInt(AppConstant.INTENT_INTERVAL_DATE_DAY, 0);
+                String timeStart = data.getExtras().getString(AppConstant.INTENT_INTERVAL_TIME_START);
+                String timeEnd = data.getExtras().getString(AppConstant.INTENT_INTERVAL_TIME_END);
+
+                startTime = sYear + "-" + sMonth + "-" + sDay + " " + timeStart + ":00";
+                endTime = sYear + "-" + sMonth + "-" + sDay + " " + timeEnd + ":00";
+                tvSelectDate.setText(sYear + "年" + sMonth + "月" + sDay + "日" + " " + timeStart + " - " + timeEnd);
+            }
         }
     }
 }

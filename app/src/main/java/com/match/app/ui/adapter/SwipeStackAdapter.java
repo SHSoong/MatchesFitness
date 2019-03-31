@@ -61,7 +61,8 @@ public class SwipeStackAdapter extends BaseAdapter {
         holder.tvName.setText(bean.getName());
         holder.tvFitnessName.setText(bean.getFitnessName());
         holder.tvTime.setText(bean.getStartTime());
-        holder.tvAge.setText(DateUtils.getAge(DateUtils.parse(bean.getBirthday())) + " · " + bean.getFitnessAddress());
+        if (bean.getBirthday() != null)
+            holder.tvAge.setText(DateUtils.getAge(DateUtils.parse(bean.getBirthday())) + " · " + bean.getFitnessAddress());
         return convertView;
     }
 
