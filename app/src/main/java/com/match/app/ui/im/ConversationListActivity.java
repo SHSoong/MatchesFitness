@@ -9,15 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-
+import com.match.app.base.BaseActivity;
 import com.match.app.db.ConversationDao;
 import com.match.app.message.entity.Conversation;
 import com.match.app.receiver.NewsBroadCastReceiver;
 import com.match.app.ui.adapter.ConversationListAdapter;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,11 +42,17 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         ButterKnife.bind(this);
         initData();
         initTile("社交", true);
-        imgRight.setImageResource(R.mipmap.icon_search);
         NewsBroadCastReceiver.register(this);
     }
 
     private void initData() {
+        imgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, ContactsListActivity.class));
+            }
+        });
+
         dao = new ConversationDao(mContext);
         lists = dao.queryAll();
 
@@ -82,12 +86,7 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
                 return true;
             }
         });
-        imgRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, ContactsListActivity.class));
-            }
-        });
+
     }
 
     @Override
