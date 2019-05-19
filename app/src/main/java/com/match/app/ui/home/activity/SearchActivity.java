@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.match.app.base.BaseActivity;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.customer.CustomLoadMoreView;
 import com.match.app.customer.XCRoundRectImageView;
 import com.match.app.message.bean.B332Request;

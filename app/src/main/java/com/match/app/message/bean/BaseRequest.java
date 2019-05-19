@@ -1,6 +1,6 @@
 package com.match.app.message.bean;
 
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 
 /**
  * APP接口的实体Bean的请求端的父类

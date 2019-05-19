@@ -15,7 +15,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.match.app.base.BaseActivity;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.customer.ArcImageView;
 import com.match.app.manager.ActivityManager;
 import com.match.app.message.bean.B005Request;

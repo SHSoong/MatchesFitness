@@ -15,8 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.match.app.common.User;
-import com.match.app.utils.ToastUtils;
+import com.match.app.message.entity.User;
 import com.matches.fitness.R;
 import com.match.app.base.BaseFragment;
 import com.match.app.ui.adapter.ViewPagerAdapter;

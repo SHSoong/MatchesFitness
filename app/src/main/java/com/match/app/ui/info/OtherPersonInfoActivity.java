@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.match.app.base.BaseActivity;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.customer.ArcImageView;
 import com.match.app.message.entity.Person;
 import com.match.app.ui.adapter.RecordListAdapter;

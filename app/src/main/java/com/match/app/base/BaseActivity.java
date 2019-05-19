@@ -36,9 +36,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mContext = this;
         onInitBinding();
         onInit();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        setStatusBarColor(R.color.graySolBg);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        setStatusBarColor(R.color.graySolBg);
     }
 
     /*******
@@ -148,8 +148,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
 
     }
-
-
 
     /**
      * 设置小米黑色状态栏字体

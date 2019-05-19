@@ -17,9 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.match.app.base.BaseFragment;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.config.AppConstant;
-import com.match.app.customer.DateTimePicker;
 import com.match.app.message.bean.B330Request;
 import com.match.app.message.bean.BaseResponse;
 import com.match.app.retrofit.ApiService;

@@ -15,7 +15,6 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider
 import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.match.app.config.BuildConfig;
 import com.match.app.message.entity.UploadFile;
 
 import java.util.Calendar;

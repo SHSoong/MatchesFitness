@@ -1,14 +1,12 @@
 package com.match.app.ui.login;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.message.bean.B003Request;
 import com.match.app.message.bean.B003Response;
 import com.matches.fitness.R;

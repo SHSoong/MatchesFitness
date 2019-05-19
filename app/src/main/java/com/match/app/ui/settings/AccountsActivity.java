@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.MyApp;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.db.AccountDao;
 import com.match.app.message.entity.Account;
 import com.matches.fitness.R;

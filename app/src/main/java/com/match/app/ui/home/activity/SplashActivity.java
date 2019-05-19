@@ -3,7 +3,7 @@ package com.match.app.ui.home.activity;
 import android.content.Intent;
 
 import com.match.app.base.BaseActivity;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.ui.login.InfoPrefectActivity;
 import com.match.app.ui.login.LoginActivity;
 

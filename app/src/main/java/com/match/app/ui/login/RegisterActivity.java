@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.manager.ActivityManager;
 import com.match.app.message.bean.B002Request;
 import com.match.app.message.bean.B002Response;

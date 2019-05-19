@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.config.AppConstant;
 import com.match.app.config.BuildConfig;
 import com.match.app.message.entity.Account;
@@ -210,7 +210,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         }
 
         context.startActivity(new Intent(context, MainActivity.class));
-
     }
 
     private static void switchUserInfo(Account account) {

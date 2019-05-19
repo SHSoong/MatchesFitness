@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.match.app.common.User;
+import com.match.app.message.entity.User;
 import com.match.app.db.MessageDao;
 import com.match.app.message.entity.Conversation;
 import com.match.app.message.entity.Message;

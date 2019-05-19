@@ -32,12 +32,4 @@ public class LocalJsonUtils {
         return stringBuilder.toString();
     }
 
-    public <T> ArrayList<T> fromJsonList(String json, Class<T> cls) {
-        ArrayList<T> mList = new ArrayList<T>();
-        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
-        for (final JsonElement elem : array) {
-            mList.add(new Gson().fromJson(elem, cls));
-        }
-        return mList;
-    }
 }
