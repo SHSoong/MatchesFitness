@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -36,9 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mContext = this;
         onInitBinding();
         onInit();
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        setStatusBarColor(R.color.graySolBg);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     /*******
@@ -124,16 +123,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void addSubscription(Disposable disposable) {
         disposables.add(disposable);
-    }
-
-    public void setStatusBarColor(int colorPrimary) {
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .statusBarColor(colorPrimary)
-                .statusBarDarkFont(true)
-                .fitsSystemWindows(true)
-                .navigationBarColor(colorPrimary)
-                .init();
     }
 
     public void showLoading() {

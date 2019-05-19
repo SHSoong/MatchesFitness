@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.match.app.ui.home.fragment.HomeAppointFragment;
@@ -46,23 +45,13 @@ public class MainActivity extends SlidingFragmentActivity {
         initSlidingMenu();
         initView();
         initDefFragment();
-        setStatusBarColor(R.color.graySolBg);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-    }
 
-    public void setStatusBarColor(int colorPrimary) {
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .statusBarColor(colorPrimary)
-                .statusBarDarkFont(true)
-                .fitsSystemWindows(true)
-                .navigationBarColor(colorPrimary)
-                .init();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     private void initSlidingMenu() {
         ButterKnife.bind(this);
-
         setBehindContentView(R.layout.activity_menu);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.menu_frame, new MenuFragment()).commit();
