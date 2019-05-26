@@ -1,21 +1,19 @@
 package com.match.app.ui.im;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.match.app.base.BaseActivity;
 import com.match.app.customer.WordsNavigation;
 import com.match.app.message.entity.Contact;
-import com.match.app.message.entity.Conversation;
 import com.match.app.ui.adapter.ContactListAdapter;
 import com.matches.fitness.R;
-import com.match.app.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,12 +28,17 @@ import butterknife.ButterKnife;
  * 联系人列表
  */
 public class ContactsListActivity extends BaseActivity implements WordsNavigation.OnWrodsChangeListener {
+    @BindView(R.id.tvLeft)
+    TextView tvLeft;
+    @BindView(R.id.ivRight)
+    ImageView ivRight;
     @BindView(R.id.listview)
     ListView listView;
     @BindView(R.id.words_view)
     WordsNavigation wordsView;
     @BindView(R.id.tv_position)
     TextView tvPosition;
+
     private List<Contact> lists;
     private ContactListAdapter adapter;
 
@@ -46,10 +49,18 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
 
     @Override
     protected void onInit() {
-
         ButterKnife.bind(this);
-        wordsView.setListener(this);
+
+        tvLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        ivRight.setVisibility(View.INVISIBLE);
+
         initData();
+        wordsView.setListener(this);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
@@ -103,7 +114,6 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
     @Override
     public void wordsChange(String words) {
         updateWord(words);
-
         updateListView(words);
     }
 

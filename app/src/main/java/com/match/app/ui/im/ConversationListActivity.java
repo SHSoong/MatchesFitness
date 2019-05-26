@@ -1,19 +1,20 @@
 package com.match.app.ui.im;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.match.app.base.BaseActivity;
 import com.match.app.db.ConversationDao;
-import com.match.app.message.entity.Conversation;
+import com.match.app.message.table.Conversation;
 import com.match.app.receiver.NewsBroadCastReceiver;
-import com.match.app.ui.adapter.ConversationListAdapter;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -23,14 +24,15 @@ import butterknife.ButterKnife;
 
 public class ConversationListActivity extends BaseActivity implements NewsBroadCastReceiver.MessageListener {
 
-    private List<Conversation> lists;
-    @BindView(R.id.lst_conversation)
-    ListView lstConversation;
-    @BindView(R.id.img_right)
-    ImageView imgRight;
-    private ConversationListAdapter listAdapter;
+    @BindView(R.id.ivRight)
+    ImageView ivRight;
 
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private List<Conversation> lists;
     private ConversationDao dao;
+    private BaseQuickAdapter mAdapter;
 
     @Override
     protected void onInitBinding() {
@@ -40,28 +42,48 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+
+        initTitleBar();
         initData();
-        initTile("社交", true);
         NewsBroadCastReceiver.register(this);
     }
 
-    private void initData() {
-        imgRight.setOnClickListener(new View.OnClickListener() {
+    private void initTitleBar() {
+        initTile("社交", true);
+        ivRight.setVisibility(View.VISIBLE);
+        ivRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, ContactsListActivity.class));
             }
         });
+    }
 
+    private void initData() {
         dao = new ConversationDao(mContext);
         lists = dao.queryAll();
 
-        listAdapter = new ConversationListAdapter(mContext, lists);
-        lstConversation.setAdapter(listAdapter);
-        lstConversation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<Conversation, BaseViewHolder>(R.layout.itemview_conversation) {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Conversation conversation = lists.get(i);
+            protected void convert(BaseViewHolder helper, Conversation item) {
+                helper.setText(R.id.tv_name, item.getHisName());
+                helper.setText(R.id.tv_lastmsg, item.getLastMessage());
+                helper.setText(R.id.tv_time, item.getLastTime() + "");
+
+                ImageView icon = helper.getView(R.id.img_icon);
+                Glide.with(ConversationListActivity.this)
+                        .load(item.getHisLogoUrl())
+                        .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
+                        .into(icon);
+            }
+        });
+
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Conversation conversation = lists.get(position);
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
@@ -69,29 +91,25 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
                 startActivity(intent);
             }
         });
-        lstConversation.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(final AdapterView<?> adapterView, View view, final int position, long l) {
-                new AlertDialog.Builder(mContext)
-                        .setMessage("是否删除该对话")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Conversation conversation = lists.get(i);
-                                dao.delete(conversation);
-                                lists.remove(conversation);
-                                listAdapter.notifyDataSetChanged();
-                            }
-                        }).setNegativeButton("取消", null).create().show();
-                return true;
-            }
-        });
 
+        getDataList();
     }
 
     @Override
     public void notice() {
         lists = dao.queryAll();
-        listAdapter.setData(lists);
     }
+
+    private void getDataList() {
+        for (int i = 0; i < 5; i++) {
+            Conversation bean = new Conversation();
+            bean.setHisName("name" + i);
+            bean.setConversationId(i + "");
+            bean.setLastMessage("content" + i);
+            bean.setLastTime(System.currentTimeMillis());
+            lists.add(bean);
+        }
+        mAdapter.addData(lists);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.match.app.message.entity;
+package com.match.app.message.table;
 
 import android.text.TextUtils;
 

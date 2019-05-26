@@ -7,8 +7,8 @@ import android.content.Intent;
 import com.match.app.config.AppConstant;
 import com.match.app.db.ConversationDao;
 import com.match.app.db.MessageDao;
-import com.match.app.message.entity.Conversation;
-import com.match.app.message.entity.Message;
+import com.match.app.message.table.Conversation;
+import com.match.app.message.table.Message;
 
 import java.util.ArrayList;
 import java.util.List;

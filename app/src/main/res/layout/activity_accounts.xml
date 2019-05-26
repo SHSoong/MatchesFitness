@@ -5,7 +5,16 @@
     android:background="@color/grayBg"
     android:orientation="vertical">
 
-    <include layout="@layout/include_common_tool_bar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/graySolBg"
+        android:elevation="4dp">
+
+        <include
+            layout="@layout/include_common_tool_bar"
+            android:elevation="2dp" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/accounts_rcy"

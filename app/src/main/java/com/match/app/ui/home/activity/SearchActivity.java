@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +40,8 @@ public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.tvLeft)
     TextView tvLeft;
+    @BindView(R.id.ivRight)
+    ImageView ivRight;
 
     @BindView(R.id.etKeyword)
     EditText etKeyword;
@@ -63,6 +66,12 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        ivRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SearchActivity.this, FilterActivity.class));
             }
         });
 

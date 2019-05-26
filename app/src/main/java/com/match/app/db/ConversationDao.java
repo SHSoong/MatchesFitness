@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.match.app.message.entity.Conversation;
+import com.match.app.message.table.Conversation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

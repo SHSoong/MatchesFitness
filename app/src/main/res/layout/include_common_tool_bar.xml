@@ -42,8 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:text="" />
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:id="@+id/rlRightBack"
@@ -53,10 +52,20 @@
             android:paddingEnd="15dp"
             android:paddingStart="15dp">
 
+            <ImageView
+                android:id="@+id/ivRight"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_search" />
+
             <TextView
                 android:id="@+id/tvRightBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_centerVertical="true" />
 
         </RelativeLayout>

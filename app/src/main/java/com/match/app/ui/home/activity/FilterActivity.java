@@ -2,14 +2,12 @@ package com.match.app.ui.home.activity;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.matches.fitness.R;
 import com.match.app.base.BaseActivity;
 import com.match.app.ui.home.RecyclerItemDecoration;
+import com.matches.fitness.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FilterActivity extends BaseActivity {
-
-    @BindView(R.id.tvLeft)
-    TextView tvLeft;
 
     @BindView(R.id.recyclerView1)
     RecyclerView recyclerView1;
@@ -38,16 +33,14 @@ public class FilterActivity extends BaseActivity {
         setContentView(R.layout.activity_filter);
     }
 
+    private void initTitleBar() {
+        initTile("筛选", true);
+    }
+
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-
-        tvLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        initTitleBar();
 
         recyclerView1.setPadding(20, 20, 20, 20);
         recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));

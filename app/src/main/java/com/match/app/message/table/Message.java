@@ -1,4 +1,4 @@
-package com.match.app.message.entity;
+package com.match.app.message.table;
 
 import com.google.gson.Gson;
 import com.j256.ormlite.field.DatabaseField;

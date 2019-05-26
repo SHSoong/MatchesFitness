@@ -40,7 +40,7 @@ public class SelectGymActivity extends BaseActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    BaseQuickAdapter mAdapter;
+    private BaseQuickAdapter mAdapter;
 
     @Override
     protected void onInitBinding() {

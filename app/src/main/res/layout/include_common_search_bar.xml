@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/graySolBg">
+
+    <RelativeLayout
+        android:id="@+id/rlTopSearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/graySolBg"
+        android:elevation="2dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingEnd="5dp"
+            android:paddingStart="15dp"
+            android:text="取消"
+            android:textColor="@color/graySol"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etKeyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tvLeft"
+            android:layout_toStartOf="@+id/ivRight"
+            android:background="@drawable/shape_white_rectangle_none"
+            android:hint="请输入"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:paddingBottom="5dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/ivRight"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:src="@mipmap/icon_home_other" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

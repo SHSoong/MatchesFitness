@@ -9,8 +9,8 @@ import android.widget.ListView;
 
 import com.match.app.message.entity.User;
 import com.match.app.db.MessageDao;
-import com.match.app.message.entity.Conversation;
-import com.match.app.message.entity.Message;
+import com.match.app.message.table.Conversation;
+import com.match.app.message.table.Message;
 import com.match.app.receiver.NewsBroadCastReceiver;
 import com.match.app.ui.adapter.ChatAdapter;
 import com.matches.fitness.R;

@@ -1,4 +1,4 @@
-package com.match.app.message.entity;
+package com.match.app.message.table;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * 会话表
  */
 @DatabaseTable(tableName = "tb_conversation")
-public class Conversation implements Parcelable{
+public class Conversation implements Parcelable {
 
     @DatabaseField(columnName = "id", generatedId = true)
     private int id;
@@ -26,7 +26,7 @@ public class Conversation implements Parcelable{
     private String hisLogoUrl;
 
     @DatabaseField
-    private int lastTime;
+    private long lastTime;
 
     @DatabaseField
     private String lastMessage;
@@ -34,8 +34,8 @@ public class Conversation implements Parcelable{
     @DatabaseField
     private int status;
 
-    public Conversation(){}
-
+    public Conversation() {
+    }
 
     protected Conversation(Parcel in) {
         id = in.readInt();
@@ -86,11 +86,11 @@ public class Conversation implements Parcelable{
         this.conversationId = conversationId;
     }
 
-    public int getLastTime() {
+    public long getLastTime() {
         return lastTime;
     }
 
-    public void setLastTime(int lastTime) {
+    public void setLastTime(long lastTime) {
         this.lastTime = lastTime;
     }
 
@@ -137,7 +137,7 @@ public class Conversation implements Parcelable{
         parcel.writeString(conversationId);
         parcel.writeString(hisName);
         parcel.writeString(hisLogoUrl);
-        parcel.writeInt(lastTime);
+        parcel.writeLong(lastTime);
         parcel.writeString(lastMessage);
         parcel.writeInt(status);
     }

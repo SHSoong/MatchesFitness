@@ -14,7 +14,7 @@ import com.match.app.utils.DisplayUtils;
 
 public class WordsNavigation extends View {
     private String words[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
     private Context mContext;
     private Paint wordsPaint;
     private Paint bgPaint;
@@ -26,6 +26,7 @@ public class WordsNavigation extends View {
     public void setListener(OnWrodsChangeListener listener) {
         this.listener = listener;
     }
+
     /*设置当前按下的是那个字母*/
     public void setTouchIndex(String word) {
         for (int i = 0; i < words.length; i++) {
@@ -61,7 +62,7 @@ public class WordsNavigation extends View {
 //                canvas.drawCircle(itemWidth / 2, itemHeight / 2 + i * itemHeight, DisplayUtils.sp2px(mContext, 10), bgPaint);
 //                wordsPaint.setColor(Color.GRAY);
 //            } else {
-                wordsPaint.setColor(Color.WHITE);
+            wordsPaint.setColor(Color.BLACK);
 
 //            }
             Rect rect = new Rect();

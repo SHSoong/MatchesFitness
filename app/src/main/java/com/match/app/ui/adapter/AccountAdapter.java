@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.match.app.message.entity.Account;
+import com.match.app.message.table.Account;
 import com.matches.fitness.R;
 
 import java.util.List;

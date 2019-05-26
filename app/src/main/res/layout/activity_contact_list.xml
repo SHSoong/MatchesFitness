@@ -2,72 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayBg"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
+        android:background="@color/graySolBg"
+        android:elevation="4dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <include
+            layout="@layout/include_common_search_bar"
+            android:elevation="2dp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/shape_white_rectangle_none"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="15dp"
-                android:paddingStart="15dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/icon_search" />
-
-                <EditText
-                    android:id="@+id/edt_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@color/white"
-                    android:hint="请输入"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingTop="5dp"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_cancle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="15dp"
-                android:text="取消"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:text="最近联系人"
-            android:textColor="@color/white" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -82,9 +30,11 @@
 
         <com.match.app.customer.WordsNavigation
             android:id="@+id/words_view"
-            android:layout_width="30dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp" />
 
         <TextView
             android:id="@+id/tv_position"

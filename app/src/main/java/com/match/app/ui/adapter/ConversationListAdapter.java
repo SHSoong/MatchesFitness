@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.match.app.message.entity.Conversation;
+import com.match.app.message.table.Conversation;
 import com.matches.fitness.R;
 import com.match.app.utils.DateUtils;
 
@@ -35,8 +35,6 @@ public class ConversationListAdapter extends BaseAdapter {
     public int getCount() {
         return lists.size();
     }
-
-//    public
 
     @Override
     public Object getItem(int i) {
@@ -75,22 +73,6 @@ public class ConversationListAdapter extends BaseAdapter {
          * int id, int conversation, String speaker, String content, int time, int status
          */
         setText(holder.tvLastMsg, conversation.getLastMessage());
-        setText(holder.tvTime, timeInterval(conversation.getLastTime()));
-//        ((LinearLayout) (holder.mImageView.getParent())).setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                new AlertDialog.Builder(mContext)
-//                        .setMessage("是否删除该对话")
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                lists.remove(position);
-//                                notifyDataSetChanged();
-//                            }
-//                        }).setNegativeButton("取消", null).create().show();
-//                return false;
-//            }
-//        });
         return convertView;
     }
 
@@ -110,7 +92,6 @@ public class ConversationListAdapter extends BaseAdapter {
         } else {
             return DateUtils.longToDate(time * 1000);
         }
-
     }
 
     private class Holder {

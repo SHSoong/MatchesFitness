@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.match.app.message.entity.Account;
+import com.match.app.message.table.Account;
 import com.matches.fitness.R;
 
 import java.util.List;
