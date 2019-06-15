@@ -37,7 +37,7 @@ public class User implements Serializable {
 
     public static User getInstance() {
         if (instance == null) {
-            String path = MyApp.getContext().getCacheDir().getAbsolutePath() + "/" + TAG;
+            String path = MyApp.app.getCacheDir().getAbsolutePath() + "/" + TAG;
             Object o = restoreObject(path);
             if (null == o) {
                 o = new User();
@@ -149,7 +149,7 @@ public class User implements Serializable {
      * 保存
      */
     public void save() {
-        String path = MyApp.getContext().getCacheDir().getAbsolutePath() + "/" + TAG;
+        String path = MyApp.app.getCacheDir().getAbsolutePath() + "/" + TAG;
         saveObject(path, this);
     }
 

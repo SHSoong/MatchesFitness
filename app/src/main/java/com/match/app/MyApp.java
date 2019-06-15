@@ -28,11 +28,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
     private static final String TAG = "MyApp";
 
-    private static MyApp app;
-
-    public static Context getContext() {
-        return app;
-    }
+    public static Application app;
 
     @Override
     public void onCreate() {

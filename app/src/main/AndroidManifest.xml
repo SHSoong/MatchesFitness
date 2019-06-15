@@ -72,7 +72,10 @@
         <activity android:name="com.match.app.ui.info.ModifyActivity" />
         <activity android:name="com.match.app.ui.info.OtherPersonInfoActivity" />
         <activity android:name="com.match.app.ui.im.ConversationListActivity" />
-        <activity android:name="com.match.app.ui.im.ChatActivity" />
+        <activity android:name="com.match.app.ui.im.ChatActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name="com.match.app.ui.im.ContactsListActivity" />
 
 

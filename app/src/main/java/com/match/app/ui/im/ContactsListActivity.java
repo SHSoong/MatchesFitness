@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
  * 联系人列表
  */
 public class ContactsListActivity extends BaseActivity implements WordsNavigation.OnWrodsChangeListener {
+
     @BindView(R.id.tvLeft)
     TextView tvLeft;
     @BindView(R.id.ivRight)
