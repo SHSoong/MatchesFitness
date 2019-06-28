@@ -1,6 +1,5 @@
 package com.match.app.ui.im;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
@@ -26,6 +25,7 @@ import com.match.app.message.MsgSendStatus;
 import com.match.app.message.MsgType;
 import com.match.app.message.entity.MessageEntity;
 import com.match.app.message.entity.TextMsgBody;
+import com.match.app.ui.adapter.ChatsAdapter;
 import com.match.app.utils.SoftKeyBoardListener;
 import com.matches.fitness.R;
 
@@ -83,6 +83,7 @@ public class ChatActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
+
         initTile("用户", true);
         mAdapter = new ChatsAdapter(this, new ArrayList<MessageEntity>());
         LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);

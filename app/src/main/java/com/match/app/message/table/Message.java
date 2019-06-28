@@ -11,13 +11,14 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "tb_message")
 public class Message {
-    @DatabaseField(columnName = "id", generatedId = true)
-    private int id;
+
+    @DatabaseField(columnName = "message_id", generatedId = true)
+    private int messageId;
 
     @DatabaseField(columnName = "conversation_id")
-    private String conversation; // 属于哪个会话
+    private String conversationId; // 属于哪个会话
 
-    @DatabaseField(columnName = "speaker")
+    @DatabaseField
     private String speaker; // 谁说的
 
     @DatabaseField(columnName = "speaker_name")
@@ -26,7 +27,7 @@ public class Message {
     @DatabaseField
     private String receiver;
 
-    @DatabaseField
+    @DatabaseField(columnName = "receiver_name")
     private String receiverName;
 
     @DatabaseField(columnName = "content")
@@ -51,20 +52,20 @@ public class Message {
 
     }
 
-    public int getId() {
-        return id;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
-    public String getConversation() {
-        return conversation;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setConversation(String conversation) {
-        this.conversation = conversation;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
     public String getSpeaker() {
@@ -134,8 +135,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(String conversation, String speaker, String speakerName, String receiver, String receiverName, String content, int time, String hisLogoUrl, int status) {
-        this.conversation = conversation;
+    public Message(String conversationId, String speaker, String speakerName, String receiver, String receiverName, String content, int time, String hisLogoUrl, int status) {
+        this.conversationId = conversationId;
         this.speaker = speaker;
         this.speakerName = speakerName;
         this.receiver = receiver;

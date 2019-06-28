@@ -1,7 +1,6 @@
 package com.match.app.db;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -14,15 +13,12 @@ import java.util.List;
 
 public class MessageDao {
 
-    private static final String TAG = MessageDao.class.getName();
-
     private Dao<Message, Integer> dao;
-    private DBHelper dbHelper;
 
     public MessageDao(Context context) {
         try {
-            dbHelper = DBHelper.getHelper(context);
-            dao = dbHelper.getDao(Message.class);
+            BaseDBHelper baseDbHelper = BaseDBHelper.getHelper(context);
+            dao = baseDbHelper.getDao(Message.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,8 +26,7 @@ public class MessageDao {
 
     public void add(Message tbMessage) {
         try {
-            int count = dao.create(tbMessage);
-            Log.d(TAG, "插入数据 " + count);
+             dao.create(tbMessage);
         } catch (SQLException e) {
             e.printStackTrace();
         }

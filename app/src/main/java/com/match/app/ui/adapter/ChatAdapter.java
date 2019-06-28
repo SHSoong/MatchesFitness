@@ -82,10 +82,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageHolder>
     @Override
     public int getItemViewType(int position) {
         Message message = lists.get(position);
-        if (message.getConversation().equals(message.getReceiver())) {
+        if (message.getConversationId().equals(message.getReceiver())) {
             return 1;
         }
-        if (message.getConversation().equals(message.getSpeaker())) {
+        if (message.getConversationId().equals(message.getSpeaker())) {
             return 0;
         }
         return 0;

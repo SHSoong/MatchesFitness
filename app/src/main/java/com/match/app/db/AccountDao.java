@@ -1,11 +1,10 @@
 package com.match.app.db;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.match.app.message.table.Account;
+import com.match.app.message.table.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,74 +13,69 @@ import java.util.List;
 
 public class AccountDao {
 
-    private static final String TAG = AccountDao.class.getName();
-
-    private Dao<Account, Integer> dao;
-    private DBHelper dbHelper;
+    private Dao<User, Integer> dao;
 
     public AccountDao(Context context) {
         try {
-            dbHelper = DBHelper.getHelper(context);
-            dao = dbHelper.getDao(Account.class);
+            BaseDBHelper baseDbHelper = BaseDBHelper.getHelper(context);
+            dao = baseDbHelper.getDao(User.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void add(Account tbAccount) {
+    public void add(User tbUser) {
         try {
-            List<Account> accounts = queryAll();
-            for (Account account : accounts) {
-                if (Account.equals(tbAccount, account)) {
-                    update(tbAccount);
+            List<User> users = queryAll();
+            for (User user : users) {
+                if (User.equals(tbUser, user)) {
+                    update(tbUser);
                     return;
                 }
             }
-
-            int count = dao.create(tbAccount);
-            Log.d(TAG, "插入数据 " + count);
+            dao.create(tbUser);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(Account account) {
+    public void update(User user) {
         try {
-            dao.update(account);
+            dao.update(user);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(Account account){
+    public void delete(User user){
         try {
-            dao.delete(account);
+            dao.delete(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Account queryByAccount(String var1) {
-        Account account = null;
+    public User queryByAccount(String var1) {
+        User user = null;
         try {
-            List<Account> lists = getQueryBuiler().where().eq("account", var1).query();
+            List<User> lists = getQueryBuiler().where().eq("user", var1).query();
             if (lists != null && !lists.isEmpty()) {
-                account = lists.get(lists.size() - 1);
+                user = lists.get(lists.size() - 1);
             }
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        return account;
+        return user;
     }
 
-    public List<Account> queryAll() {
-        List<Account> accounts = new ArrayList<>();
+    public List<User> queryAll() {
+        List<User> users = new ArrayList<>();
         try {
-            accounts = dao.queryForAll();
+            users = dao.queryForAll();
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        return accounts;
+        return users;
     }
 
     public QueryBuilder getQueryBuiler() {

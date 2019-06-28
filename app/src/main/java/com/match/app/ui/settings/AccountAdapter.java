@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.match.app.message.table.Account;
+import com.match.app.message.table.User;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -20,12 +20,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountHolder> {
 
-    private List<Account> lists;
+    private List<User> lists;
     private Context mContext;
     private OnItemClickListener itemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public AccountAdapter(Context context, List<Account> lists) {
+    public AccountAdapter(Context context, List<User> lists) {
         this.mContext = context;
         this.lists = lists;
     }
@@ -48,7 +48,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
 
     @Override
     public void onBindViewHolder(final AccountHolder holder, final int position) {
-        Account account = lists.get(position);
+        User user = lists.get(position);
         if (position == 0) {
             holder.imgState.setVisibility(View.VISIBLE);
         } else {
@@ -59,11 +59,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountH
             holder.line.setVisibility(View.GONE);
         }
 
-        holder.tvAccount.setText(TextUtils.isEmpty(account.getName()) ? account.getAccount() : account.getName());
+        holder.tvAccount.setText(TextUtils.isEmpty(user.getName()) ? user.getAccount() : user.getName());
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.icon_avatar);
         Glide.with(mContext)
-                .load(account.getLogo())
+                .load(user.getLogo())
                 .apply(options)
                 .into(holder.headerImg);
 

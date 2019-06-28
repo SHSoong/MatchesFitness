@@ -12,11 +12,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.match.app.base.BaseActivity;
-import com.match.app.db.ConversationDao;
+import com.match.app.db.BaseDao;
 import com.match.app.message.table.Conversation;
 import com.match.app.receiver.NewsBroadCastReceiver;
 import com.matches.fitness.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,9 +31,9 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private List<Conversation> lists;
-    private ConversationDao dao;
+    private List<Conversation> lists = new ArrayList<>();
     private BaseQuickAdapter mAdapter;
+    private BaseDao dao;
 
     @Override
     protected void onInitBinding() {
@@ -44,8 +45,10 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         ButterKnife.bind(this);
 
         initTitleBar();
-        initData();
+        dao = new BaseDao(Conversation.class);
         NewsBroadCastReceiver.register(this);
+
+        initData();
     }
 
     private void initTitleBar() {
@@ -60,9 +63,6 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
     }
 
     private void initData() {
-        dao = new ConversationDao(mContext);
-        lists = dao.queryAll();
-
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<Conversation, BaseViewHolder>(R.layout.itemview_conversation) {
@@ -95,21 +95,14 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         getDataList();
     }
 
-    @Override
-    public void notice() {
-        lists = dao.queryAll();
-    }
-
     private void getDataList() {
-        for (int i = 0; i < 5; i++) {
-            Conversation bean = new Conversation();
-            bean.setHisName("name" + i);
-            bean.setConversationId(i + "");
-            bean.setLastMessage("content" + i);
-            bean.setLastTime(System.currentTimeMillis());
-            lists.add(bean);
-        }
+        lists = dao.queryAll();
         mAdapter.addData(lists);
     }
 
+    @Override
+    public void notice() {
+        lists = dao.queryAll();
+        mAdapter.notifyDataSetChanged();
+    }
 }

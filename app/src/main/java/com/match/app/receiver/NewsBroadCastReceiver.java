@@ -56,10 +56,10 @@ public class NewsBroadCastReceiver extends BroadcastReceiver {
             conversationDao = new ConversationDao(context);
         }
         Message message = Message.jsonToObject(msg);
-        message.setConversation(message.getSpeaker());
+        message.setConversationId(message.getConversationId());
         dao.add(message);
         Conversation conversation = new Conversation();
-        conversation.setConversationId(message.getConversation());
+        conversation.setConversationId(message.getConversationId());
         conversation.setHisLogoUrl(message.getHisLogoUrl());
         conversation.setHisName(message.getSpeakerName());
         conversation.setLastMessage(message.getContent());

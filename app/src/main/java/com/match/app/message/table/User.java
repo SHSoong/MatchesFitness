@@ -5,10 +5,10 @@ import android.text.TextUtils;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "tb_account")
-public class Account {
-    @DatabaseField(columnName = "id", generatedId = true)
-    private int id;
+@DatabaseTable(tableName = "tb_user")
+public class User {
+    @DatabaseField(columnName = "user_id", generatedId = true)
+    private int userId;
     @DatabaseField
     private String account;
     @DatabaseField
@@ -21,18 +21,18 @@ public class Account {
     private String birthday; //  出生日期
     @DatabaseField
     private Integer sex;        //性别 0:男 1:女
-    @DatabaseField
+    @DatabaseField(columnName = "has_exp")
     private Integer hasExp;  //是否有经验1有， 0或者null其它无
     @DatabaseField
     private String logo;        //头像
-    @DatabaseField
+    @DatabaseField(columnName = "last_login_date")
     private String lastLoginDate;// 更新时间，上次登录时间
 
-    public static boolean equals(Account var1, Account var2) {
+    public static boolean equals(User var1, User var2) {
         if (var1 != null && var2 != null) {
             if (!TextUtils.isEmpty(var2.getAccount())) {
                 if (var1.getAccount().equals(var2.getAccount())) {
-                    var1.setId(var2.getId());
+                    var1.setUserId(var2.getUserId());
                     return true;
                 }
             }
@@ -40,12 +40,12 @@ public class Account {
         return false;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getAccount() {
@@ -120,10 +120,10 @@ public class Account {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public Account() {
+    public User() {
     }
 
-    public Account(String account, String password, String token, String name, String birthday, Integer sex, Integer hasExp, String logo, String lastLoginDate) {
+    public User(String account, String password, String token, String name, String birthday, Integer sex, Integer hasExp, String logo, String lastLoginDate) {
         this.account = account;
         this.password = password;
         this.token = token;

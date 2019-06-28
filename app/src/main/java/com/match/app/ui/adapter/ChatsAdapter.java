@@ -1,4 +1,4 @@
-package com.match.app.ui.im;
+package com.match.app.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -16,6 +16,7 @@ import com.match.app.message.entity.ImageMsgBody;
 import com.match.app.message.entity.MessageEntity;
 import com.match.app.message.entity.TextMsgBody;
 import com.match.app.message.entity.VideoMsgBody;
+import com.match.app.ui.im.ChatActivity;
 import com.match.app.utils.GlideUtils;
 import com.matches.fitness.R;
 

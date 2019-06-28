@@ -1,5 +1,7 @@
 package com.match.app.ui.im;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.match.app.base.BaseActivity;
 import com.match.app.customer.WordsNavigation;
 import com.match.app.message.entity.Contact;
+import com.match.app.message.table.Conversation;
 import com.match.app.ui.adapter.ContactListAdapter;
 import com.matches.fitness.R;
 
@@ -76,32 +79,19 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Contact contact = lists.get(i);
-//                Conversation conversation = new Conversation(i,"",contact.getName(),contact.getLogUrl());
-//                Intent intent = new Intent(mContext, ChatActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(ChatActivity.DATA, conversation);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                Contact contact = lists.get(i);
+                Conversation conversation = new Conversation();
+                Intent intent = new Intent(mContext, ChatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(ChatActivity.DATA, conversation);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
 
     private void initData() {
         lists = new ArrayList<>();
-        lists.add(new Contact("DAVE", null));
-        lists.add(new Contact("阿忠", null));
-        lists.add(new Contact("老宋", null));
-        lists.add(new Contact("旺仔", null));
-        lists.add(new Contact("凯歌", null));
-        lists.add(new Contact("刘乐", null));
-        lists.add(new Contact("严峻", null));
-        lists.add(new Contact("三爷", null));
-        lists.add(new Contact("小勇", null));
-        lists.add(new Contact("伟哥", null));
-        lists.add(new Contact("唐伟", null));
-        lists.add(new Contact("定时兄", null));
-        lists.add(new Contact("john", null));
         Collections.sort(lists, new Comparator<Contact>() {
             @Override
             public int compare(Contact contact, Contact t1) {

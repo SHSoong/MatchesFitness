@@ -1,6 +1,5 @@
 package com.match.app.message.entity;
 
-import com.match.app.message.entity.Person;
 import com.match.app.utils.PinYinUtils;
 
 public class Contact extends Person {

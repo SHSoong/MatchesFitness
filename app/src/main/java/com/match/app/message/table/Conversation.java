@@ -13,22 +13,22 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "tb_conversation")
 public class Conversation implements Parcelable {
 
-    @DatabaseField(columnName = "id", generatedId = true)
-    private int id;
-
-    @DatabaseField
+    @DatabaseField(columnName = "conversation_id", generatedId = true)
     private String conversationId;
 
-    @DatabaseField
+    @DatabaseField(columnName = "user_id")
+    private int userId;
+
+    @DatabaseField(columnName = "his_name")
     private String hisName;
 
-    @DatabaseField
+    @DatabaseField(columnName = "his_logo_url")
     private String hisLogoUrl;
 
-    @DatabaseField
+    @DatabaseField(columnName = "last_time")
     private long lastTime;
 
-    @DatabaseField
+    @DatabaseField(columnName = "last_message")
     private String lastMessage;
 
     @DatabaseField
@@ -38,7 +38,7 @@ public class Conversation implements Parcelable {
     }
 
     protected Conversation(Parcel in) {
-        id = in.readInt();
+        userId = in.readInt();
         conversationId = in.readString();
         hisName = in.readString();
         hisLogoUrl = in.readString();
@@ -70,12 +70,12 @@ public class Conversation implements Parcelable {
         return false;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getConversationId() {
@@ -133,7 +133,7 @@ public class Conversation implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeInt(userId);
         parcel.writeString(conversationId);
         parcel.writeString(hisName);
         parcel.writeString(hisLogoUrl);

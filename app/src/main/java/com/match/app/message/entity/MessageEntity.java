@@ -16,7 +16,6 @@ public class MessageEntity {
     private String targetId;
     private long sentTime;
 
-
     public String getUuid() {
         return uuid;
     }
@@ -72,7 +71,6 @@ public class MessageEntity {
     public void setSentStatus(MsgSendStatus sentStatus) {
         this.sentStatus = sentStatus;
     }
-
 
     public long getSentTime() {
         return sentTime;
