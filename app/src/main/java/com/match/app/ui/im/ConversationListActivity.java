@@ -51,6 +51,12 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         initData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NewsBroadCastReceiver.unRegister(this);
+    }
+
     private void initTitleBar() {
         initTile("社交", true);
         ivRight.setVisibility(View.VISIBLE);
@@ -97,6 +103,14 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
 
     private void getDataList() {
         lists = dao.queryAll();
+        if (lists.size() <= 0) {
+            Conversation bean = new Conversation();
+            bean.setLastMessage("testMsg");
+            bean.setHisName("testName");
+            bean.setLastTime(0);
+            dao.insert(bean);
+        }
+        lists = dao.queryAll();
         mAdapter.addData(lists);
     }
 
@@ -105,4 +119,5 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         lists = dao.queryAll();
         mAdapter.notifyDataSetChanged();
     }
+
 }

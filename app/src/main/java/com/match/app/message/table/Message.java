@@ -16,16 +16,16 @@ public class Message {
     private int messageId;
 
     @DatabaseField(columnName = "conversation_id")
-    private String conversationId; // 属于哪个会话
+    private int conversationId; // 属于哪个会话
 
-    @DatabaseField
-    private String speaker; // 谁说的
+    @DatabaseField(columnName = "send_token")
+    private String sendToken; // 谁说的
 
     @DatabaseField(columnName = "speaker_name")
     private String speakerName;
 
-    @DatabaseField
-    private String receiver;
+    @DatabaseField(columnName = "receiver_token")
+    private String receiverToken;
 
     @DatabaseField(columnName = "receiver_name")
     private String receiverName;
@@ -60,20 +60,12 @@ public class Message {
         this.messageId = messageId;
     }
 
-    public String getConversationId() {
+    public int getConversationId() {
         return conversationId;
     }
 
-    public void setConversationId(String conversationId) {
+    public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
-    }
-
-    public String getSpeaker() {
-        return speaker;
-    }
-
-    public void setSpeaker(String speaker) {
-        this.speaker = speaker;
     }
 
     public String getContent() {
@@ -108,12 +100,20 @@ public class Message {
         this.speakerName = speakerName;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getSendToken() {
+        return sendToken;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setSendToken(String sendToken) {
+        this.sendToken = sendToken;
+    }
+
+    public String getReceiverToken() {
+        return receiverToken;
+    }
+
+    public void setReceiverToken(String receiverToken) {
+        this.receiverToken = receiverToken;
     }
 
     public String getReceiverName() {
@@ -135,11 +135,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(String conversationId, String speaker, String speakerName, String receiver, String receiverName, String content, int time, String hisLogoUrl, int status) {
+    public Message(int conversationId, String sendToken, String speakerName, String receiverToken, String receiverName, String content, int time, String hisLogoUrl, int status) {
         this.conversationId = conversationId;
-        this.speaker = speaker;
+        this.sendToken = sendToken;
         this.speakerName = speakerName;
-        this.receiver = receiver;
+        this.receiverToken = receiverToken;
         this.receiverName = receiverName;
         this.content = content;
         this.time = time;

@@ -2,7 +2,6 @@ package com.match.app.message.table;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -14,10 +13,10 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Conversation implements Parcelable {
 
     @DatabaseField(columnName = "conversation_id", generatedId = true)
-    private String conversationId;
+    private int conversationId;
 
-    @DatabaseField(columnName = "user_id")
-    private int userId;
+    @DatabaseField(columnName = "token")
+    private String token;
 
     @DatabaseField(columnName = "his_name")
     private String hisName;
@@ -38,8 +37,8 @@ public class Conversation implements Parcelable {
     }
 
     protected Conversation(Parcel in) {
-        userId = in.readInt();
-        conversationId = in.readString();
+        conversationId = in.readInt();
+        token = in.readString();
         hisName = in.readString();
         hisLogoUrl = in.readString();
         lastTime = in.readInt();
@@ -60,34 +59,27 @@ public class Conversation implements Parcelable {
     };
 
     public static boolean equals(Conversation var1, Conversation var2) {
-        if (var1 != null && var2 != null) {
-            if (!TextUtils.isEmpty(var2.getConversationId())) {
-                if (var1.getConversationId().equals(var2.getConversationId())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getConversationId() {
-        return conversationId;
-    }
-
-    public void setConversationId(String conversationId) {
-        this.conversationId = conversationId;
+        return var1 != null && var2 != null && var1.getConversationId() == var2.getConversationId();
     }
 
     public long getLastTime() {
         return lastTime;
+    }
+
+    public int getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(int conversationId) {
+        this.conversationId = conversationId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setLastTime(long lastTime) {
@@ -133,8 +125,8 @@ public class Conversation implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(userId);
-        parcel.writeString(conversationId);
+        parcel.writeInt(conversationId);
+        parcel.writeString(token);
         parcel.writeString(hisName);
         parcel.writeString(hisLogoUrl);
         parcel.writeLong(lastTime);

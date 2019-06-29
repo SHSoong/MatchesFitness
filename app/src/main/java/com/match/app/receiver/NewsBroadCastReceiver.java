@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.match.app.config.AppConstant;
-import com.match.app.db.ConversationDao;
-import com.match.app.db.MessageDao;
+import com.match.app.db.BaseDao;
 import com.match.app.message.table.Conversation;
 import com.match.app.message.table.Message;
 
@@ -15,9 +14,8 @@ import java.util.List;
 
 public class NewsBroadCastReceiver extends BroadcastReceiver {
 
-    private MessageDao dao;
-    private ConversationDao conversationDao;
-
+    private BaseDao messageDao;
+    private BaseDao conversationDao;
     private static List<MessageListener> listeners;
 
     public static void register(MessageListener listener) {
@@ -34,10 +32,8 @@ public class NewsBroadCastReceiver extends BroadcastReceiver {
         listeners.remove(listener);
     }
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         String msg = intent.getStringExtra(AppConstant.KEY_MESSAGE);
         saveMessage(context, msg);
 
@@ -49,23 +45,22 @@ public class NewsBroadCastReceiver extends BroadcastReceiver {
     }
 
     private void saveMessage(Context context, String msg) {
-        if (dao == null) {
-            dao = new MessageDao(context);
-        }
-        if (conversationDao == null) {
-            conversationDao = new ConversationDao(context);
-        }
         Message message = Message.jsonToObject(msg);
-        message.setConversationId(message.getConversationId());
-        dao.add(message);
+        List<Message> list = messageDao.queryByColumn("message_id", message.getMessageId());
+
+        if (list == null || list.size() <= 0) {
+            messageDao.insert(Message.class);
+            conversationDao.insert(Conversation.class);
+        }
+        messageDao.update(message);
+
         Conversation conversation = new Conversation();
-        conversation.setConversationId(message.getConversationId());
-        conversation.setHisLogoUrl(message.getHisLogoUrl());
+        conversation.setToken(message.getSendToken());
+        conversation.setLastTime(message.getTime());
         conversation.setHisName(message.getSpeakerName());
         conversation.setLastMessage(message.getContent());
-        conversation.setLastTime(message.getTime());
-        conversation.setStatus(0);
-        conversationDao.add(conversation);
+        conversation.setHisLogoUrl(message.getHisLogoUrl());
+        conversationDao.update(conversation);
     }
 
     public interface MessageListener {

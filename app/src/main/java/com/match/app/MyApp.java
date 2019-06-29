@@ -6,13 +6,16 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.google.gson.Gson;
 import com.match.app.config.AppConstant;
 import com.match.app.config.BuildConfig;
 import com.match.app.message.entity.User;
+import com.match.app.message.table.Message;
 import com.match.app.ui.login.LoginActivity;
 import com.matches.fitness.R;
 import com.umeng.commonsdk.UMConfigure;
@@ -99,6 +102,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         };
 
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
+
+        handler.sendEmptyMessageDelayed(0, 30000);
     }
 
     private static Stack<Activity> activities;
@@ -151,4 +156,29 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         User.getInstance().save();
         context.startActivity(new Intent(context, LoginActivity.class));
     }
+
+    private void testMessage(int count) {
+        Message message = new Message();
+        message.setContent("测试" + count);
+        message.setSendToken("send");
+        message.setReceiverName("接受者");
+        message.setReceiverToken("receiver" + count);
+        message.setSpeakerName("说话者" + count);
+        message.setTime((int) (System.currentTimeMillis() / 1000));
+        message.setStatus(3);
+        Intent intent = new Intent();
+        intent.setAction("com.matches.fitness.news");
+        intent.putExtra(AppConstant.KEY_MESSAGE, new Gson().toJson(message));
+        sendBroadcast(intent);
+
+        handler.sendEmptyMessageDelayed(0, 30000);
+    }
+
+    int cout = 0;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            testMessage(cout++);
+        }
+    };
 }
