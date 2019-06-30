@@ -34,10 +34,13 @@ public class Message {
     private String content;
 
     @DatabaseField(columnName = "time")
-    private int time;
+    private long time;
 
     @DatabaseField
     private String hisLogoUrl;
+
+    @DatabaseField
+    private String messageType;
 
     @DatabaseField(columnName = "status")
     private int status; // 状态  0 发送中，1发送成功，2 发送失败 ，3 未读，4 已读 -1 删除
@@ -76,11 +79,11 @@ public class Message {
         this.content = content;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -130,6 +133,14 @@ public class Message {
 
     public void setHisLogoUrl(String hisLogoUrl) {
         this.hisLogoUrl = hisLogoUrl;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
 
     public Message() {

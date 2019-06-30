@@ -3,7 +3,6 @@ package com.match.app.ui.im;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,16 +20,12 @@ import android.widget.RelativeLayout;
 import com.match.app.base.BaseActivity;
 import com.match.app.customer.RecordButton;
 import com.match.app.customer.StateButton;
-import com.match.app.message.MsgSendStatus;
-import com.match.app.message.MsgType;
-import com.match.app.message.entity.MessageEntity;
-import com.match.app.message.entity.TextMsgBody;
+import com.match.app.db.BaseDao;
+import com.match.app.message.table.Conversation;
+import com.match.app.message.table.Message;
 import com.match.app.ui.adapter.ChatsAdapter;
 import com.match.app.utils.SoftKeyBoardListener;
 import com.matches.fitness.R;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,12 +63,10 @@ public class ChatActivity extends BaseActivity {
     private Boolean isSoftInputShow = false;
     private Boolean showBottomLayout = false;
 
+    BaseDao dao;
     private ChatsAdapter mAdapter;
-    public static final String mSenderId = "right";
-    public static final String mTargetId = "left";
-    public static final int REQUEST_CODE_IMAGE = 0000;
-    public static final int REQUEST_CODE_VEDIO = 1111;
-    public static final int REQUEST_CODE_FILE = 2222;
+    public static String mSenderId = "right";
+    public static String mTargetId = "left";
 
     @Override
     protected void onInitBinding() {
@@ -85,7 +78,28 @@ public class ChatActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initTile("用户", true);
-        mAdapter = new ChatsAdapter(this, new ArrayList<MessageEntity>());
+
+        Conversation conversation = getIntent().getParcelableExtra(DATA);
+        mSenderId = conversation.getSendToken();
+        mTargetId = conversation.getReceiverToken();
+
+        initData(conversation.getConversationId());
+
+        softInputShow.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (showBottomLayout && aBoolean != null && !aBoolean) {
+                    showBottomLayout();
+                    showBottomLayout = false;
+                }
+            }
+        });
+    }
+
+    private void initData(int id) {
+        dao = new BaseDao(Message.class);
+
+        mAdapter = new ChatsAdapter(this, dao.queryByColumn("conversation_id", id));
         LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
         mRvChat.setLayoutManager(mLinearLayout);
         mRvChat.setAdapter(mAdapter);
@@ -137,18 +151,7 @@ public class ChatActivity extends BaseActivity {
                 isSoftInputShow = false;
             }
         });
-
-        softInputShow.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (showBottomLayout && aBoolean != null && !aBoolean) {
-                    showBottomLayout();
-                    showBottomLayout = false;
-                }
-            }
-        });
     }
-
 
     private void initChatUi() {
         //底部布局弹出,聊天列表上滑
@@ -199,28 +202,10 @@ public class ChatActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_CODE_FILE:
-                    break;
-                case REQUEST_CODE_IMAGE:
-                    break;
-                case REQUEST_CODE_VEDIO:
-                    break;
-            }
-        }
-    }
-
     //文本消息
-    private void sendTextMsg(String hello) {
-        final MessageEntity mMessgae = getBaseSendMessage(MsgType.TEXT);
-        TextMsgBody mTextMsgBody = new TextMsgBody();
-        mTextMsgBody.setMessage(hello);
-        mMessgae.setBody(mTextMsgBody);
+    private void sendTextMsg(String msg) {
+        final Message mMessgae = getBaseSendMessage();
+        mMessgae.setContent(msg);
         //开始发送
         mAdapter.addData(mMessgae);
         //模拟两秒后发送成功
@@ -228,48 +213,33 @@ public class ChatActivity extends BaseActivity {
     }
 
 
-    private MessageEntity getBaseSendMessage(MsgType msgType) {
-        MessageEntity mMessgae = new MessageEntity();
-        mMessgae.setUuid(UUID.randomUUID() + "");
-        mMessgae.setSenderId(mSenderId);
-        mMessgae.setTargetId(mTargetId);
-        mMessgae.setSentTime(System.currentTimeMillis());
-        mMessgae.setSentStatus(MsgSendStatus.SENDING);
-        mMessgae.setMsgType(msgType);
+    private Message getBaseSendMessage() {
+        Message mMessgae = new Message();
+        mMessgae.setSendToken(mSenderId);
+        mMessgae.setReceiverToken(mTargetId);
+        mMessgae.setTime(System.currentTimeMillis());
+        mMessgae.setStatus(0);
         return mMessgae;
     }
 
-
-    private MessageEntity getBaseReceiveMessage(MsgType msgType) {
-        MessageEntity mMessgae = new MessageEntity();
-        mMessgae.setUuid(UUID.randomUUID() + "");
-        mMessgae.setSenderId(mTargetId);
-        mMessgae.setTargetId(mSenderId);
-        mMessgae.setSentTime(System.currentTimeMillis());
-        mMessgae.setSentStatus(MsgSendStatus.SENDING);
-        mMessgae.setMsgType(msgType);
-        return mMessgae;
-    }
-
-
-    private void updateMsg(final MessageEntity mMessgae) {
+    private void updateMsg(final Message mMessgae) {
         mRvChat.scrollToPosition(mAdapter.getItemCount() - 1);
         //模拟2秒后发送成功
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 int position = 0;
-                mMessgae.setSentStatus(MsgSendStatus.SENT);
+                mMessgae.setStatus(1);
                 //更新单个子条目
                 for (int i = 0; i < mAdapter.getData().size(); i++) {
-                    MessageEntity mAdapterMessage = mAdapter.getData().get(i);
-                    if (mMessgae.getUuid().equals(mAdapterMessage.getUuid())) {
+                    Message mAdapterMessage = mAdapter.getData().get(i);
+                    if (mMessgae.getSendToken().equals(mAdapterMessage.getSendToken())) {
                         position = i;
                     }
                 }
+                dao.insert(mMessgae);
                 mAdapter.notifyItemChanged(position);
             }
         }, 2000);
-
     }
 
     private void showBottomLayout() {

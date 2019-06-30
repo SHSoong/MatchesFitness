@@ -105,9 +105,11 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
         lists = dao.queryAll();
         if (lists.size() <= 0) {
             Conversation bean = new Conversation();
+            bean.setSendToken("1");
             bean.setLastMessage("testMsg");
             bean.setHisName("testName");
-            bean.setLastTime(0);
+            bean.setLastTime(System.currentTimeMillis());
+            bean.setReceiverToken("2");
             dao.insert(bean);
         }
         lists = dao.queryAll();

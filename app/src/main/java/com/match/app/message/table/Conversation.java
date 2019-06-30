@@ -15,8 +15,8 @@ public class Conversation implements Parcelable {
     @DatabaseField(columnName = "conversation_id", generatedId = true)
     private int conversationId;
 
-    @DatabaseField(columnName = "token")
-    private String token;
+    @DatabaseField(columnName = "send_token")
+    private String sendToken; // 谁说的
 
     @DatabaseField(columnName = "his_name")
     private String hisName;
@@ -30,6 +30,9 @@ public class Conversation implements Parcelable {
     @DatabaseField(columnName = "last_message")
     private String lastMessage;
 
+    @DatabaseField(columnName = "receiver_token")
+    private String receiverToken;
+
     @DatabaseField
     private int status;
 
@@ -38,12 +41,13 @@ public class Conversation implements Parcelable {
 
     protected Conversation(Parcel in) {
         conversationId = in.readInt();
-        token = in.readString();
+        sendToken = in.readString();
         hisName = in.readString();
         hisLogoUrl = in.readString();
         lastTime = in.readInt();
         lastMessage = in.readString();
         status = in.readInt();
+        receiverToken = in.readString();
     }
 
     public static final Creator<Conversation> CREATOR = new Creator<Conversation>() {
@@ -72,14 +76,6 @@ public class Conversation implements Parcelable {
 
     public void setConversationId(int conversationId) {
         this.conversationId = conversationId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public void setLastTime(long lastTime) {
@@ -118,6 +114,22 @@ public class Conversation implements Parcelable {
         this.hisLogoUrl = hisLogoUrl;
     }
 
+    public String getSendToken() {
+        return sendToken;
+    }
+
+    public void setSendToken(String sendToken) {
+        this.sendToken = sendToken;
+    }
+
+    public String getReceiverToken() {
+        return receiverToken;
+    }
+
+    public void setReceiverToken(String receiverToken) {
+        this.receiverToken = receiverToken;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -126,11 +138,12 @@ public class Conversation implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(conversationId);
-        parcel.writeString(token);
+        parcel.writeString(sendToken);
         parcel.writeString(hisName);
         parcel.writeString(hisLogoUrl);
         parcel.writeLong(lastTime);
         parcel.writeString(lastMessage);
         parcel.writeInt(status);
+        parcel.writeString(receiverToken);
     }
 }
