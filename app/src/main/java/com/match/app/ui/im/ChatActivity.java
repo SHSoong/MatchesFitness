@@ -1,5 +1,6 @@
 package com.match.app.ui.im;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
@@ -134,16 +135,6 @@ public class ChatActivity extends BaseActivity {
             }
         });
 
-        mEtContent.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP && mRlBottomLayout.isShown()) {
-                    hideBottomLayout();//隐藏表情布局，显示软件盘
-                }
-                return false;
-            }
-        });
-
         SoftKeyBoardListener.setListener(this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
             public void keyBoardShow(int height) {
@@ -159,23 +150,8 @@ public class ChatActivity extends BaseActivity {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initChatUi() {
-        //底部布局弹出,聊天列表上滑
-//        mRvChat.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                if (bottom < oldBottom) {
-//                    mRvChat.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (mAdapter.getItemCount() > 0) {
-//                                mRvChat.smoothScrollToPosition(mAdapter.getItemCount() - 1);
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
         //点击空白区域关闭键盘
         mRvChat.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -183,6 +159,15 @@ public class ChatActivity extends BaseActivity {
                 hideBottomLayout();
                 hideSoftInput();
                 mEtContent.clearFocus();
+                return false;
+            }
+        });
+        mEtContent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP && mRlBottomLayout.isShown()) {
+                    hideBottomLayout();//隐藏表情布局，显示软件盘
+                }
                 return false;
             }
         });
@@ -199,7 +184,7 @@ public class ChatActivity extends BaseActivity {
             case R.id.ivAdd:
                 mEtContent.clearFocus();
                 showBottomLayout = true;
-                if (isSoftInputShow == false) {
+                if (!isSoftInputShow) {
                     showBottomLayout();
                 } else {
                     hideSoftInput();
@@ -255,6 +240,7 @@ public class ChatActivity extends BaseActivity {
 
     private void showBottomLayout() {
         mRlBottomLayout.setVisibility(View.VISIBLE);
+        showBottomLayout = false;
     }
 
     /**
