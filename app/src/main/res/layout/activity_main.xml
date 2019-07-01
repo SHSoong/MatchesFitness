@@ -1,80 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.match.app.customer.CustomDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context="com.match.app.ui.home.activity.MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/graySolBg"
-        android:elevation="4dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@color/graySolBg"
-            android:elevation="2dp">
+            android:elevation="4dp">
 
             <RelativeLayout
-                android:id="@+id/rlMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp">
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/graySolBg"
+                android:elevation="2dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/icon_home_left_menu" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@+id/rlMenu"
+                    android:layout_toStartOf="@+id/ivSearch"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvAppoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="预约时间"
+                        android:textColor="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/tvPair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="健身配对"
+                        android:textColor="@color/gray" />
+                </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ivSearch"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/icon_home_left_menu" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toEndOf="@+id/rlMenu"
-                android:layout_toStartOf="@+id/ivSearch"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvAppoint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginEnd="15dp"
-                    android:text="预约时间"
-                    android:textColor="@color/gray" />
-
-                <TextView
-                    android:id="@+id/tvPair"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="健身配对"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@mipmap/icon_search" />
+                    android:src="@mipmap/icon_search" />
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
 
-    <!-- 用一个帧布局来占一个位置，目的是给fragment用 -->
-    <FrameLayout
-        android:id="@+id/fl_content"
+        <com.match.app.customer.MyViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlMenuLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/grayBg" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
 
-</LinearLayout>
+        <include layout="@layout/fragment_menu" />
+    </RelativeLayout>
+</com.match.app.customer.CustomDrawerLayout>

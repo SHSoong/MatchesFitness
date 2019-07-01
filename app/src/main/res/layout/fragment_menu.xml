@@ -89,8 +89,8 @@
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextColor="@color/white" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+        <com.match.app.customer.MyViewPager
+            android:id="@+id/tabViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

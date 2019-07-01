@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,8 +82,8 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
         initSwipeCards();
+        initData();
     }
 
     private void initView() {
@@ -130,7 +131,6 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
                             adapter.notifyDataSetChanged();
                             multipleStatusView.showContent();
                         }
-
                     }
 
                     @Override
@@ -161,7 +161,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     }
 
     private void initSwipeCards() {
-        list.clear();
+//        list.clear();
         adapter = new SwipeStackAdapter(getActivity());
         adapter.setData(list);
         swipeStack.setAdapter(adapter);
@@ -175,11 +175,12 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
 
     @Override
     public void onViewSwipedToRight(int position) {
-        B334Response.UserBean bean = (B334Response.UserBean) adapter.getItem(position);
-        B335Request req = new B335Request();
-        req.setUserIdb(bean.getId());
-        req.setMatchProfileId(bean.getMatchProfileId());
-        callB335Api(getActivity(), req);
+        Log.e("position",""+position);
+//        B334Response.UserBean bean = (B334Response.UserBean) adapter.getItem(position);
+//        B335Request req = new B335Request();
+//        req.setUserIdb(bean.getId());
+//        req.setMatchProfileId(bean.getMatchProfileId());
+//        callB335Api(getActivity(), req);
     }
 
     @Override

@@ -2,28 +2,46 @@ package com.match.app.ui.home.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.match.app.base.BaseFragmentActivity;
+import com.match.app.customer.CustomDrawerLayout;
+import com.match.app.customer.MyViewPager;
+import com.match.app.customer.SwipeDirection;
+import com.match.app.message.entity.User;
+import com.match.app.ui.adapter.MyViewPagerAdapter;
+import com.match.app.ui.adapter.ViewPagerAdapter;
 import com.match.app.ui.home.fragment.HomeAppointFragment;
 import com.match.app.ui.home.fragment.HomePairFragment;
-import com.match.app.ui.menu.MenuFragment;
+import com.match.app.ui.info.ModifyActivity;
+import com.match.app.ui.menu.MenuNoticeFragment;
+import com.match.app.ui.menu.MenuPairFragment;
+import com.match.app.ui.redpacket.activity.RedPacketActivity;
+import com.match.app.ui.settings.SettingsActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 import com.umeng.message.PushAgent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     @BindView(R.id.rlMenu)
     RelativeLayout rlMenu;
@@ -33,41 +51,58 @@ public class MainActivity extends SlidingFragmentActivity {
     public TextView tvPair;
     @BindView(R.id.ivSearch)
     public ImageView ivSearch;
+    @BindView(R.id.viewPager)
+    public MyViewPager viewPager;
+    @BindView(R.id.drawerLayout)
+    public CustomDrawerLayout drawerLayout;
+    @BindView(R.id.rlMenuLayout)
+    public RelativeLayout rlMenuLayout;
 
-    private FragmentTransaction transaction;
-    private HomeAppointFragment homeAppointFragment;
-    private HomePairFragment homePairFragment;
+    private MyViewPagerAdapter adapter;
+
+    //menu
+    @BindView(R.id.circleImageView)
+    public CircleImageView circleImageView;
+    @BindView(R.id.tabLayout)
+    public TabLayout tabLayout;
+    @BindView(R.id.tabViewPager)
+    public MyViewPager tabViewPager;
+    @BindView(R.id.tvSettings)
+    public TextView tvSettings;
+    @BindView(R.id.tvRedPacket)
+    public TextView tvRedPacket;
+    @BindView(R.id.ll_modify)
+    LinearLayout llModify;
+    @BindView(R.id.tvName)
+    TextView tvName;
+
+    private List<String> tabList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PushAgent.getInstance(this).onAppStart();
-        setContentView(R.layout.activity_main);
-        initSlidingMenu();
-        initView();
-        initDefFragment();
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        PushAgent.getInstance(this).onAppStart();
+
+        setContentView(R.layout.activity_main);
+
+        initMain();
+        initMenu();
     }
 
-    private void initSlidingMenu() {
-        ButterKnife.bind(this);
-        setBehindContentView(R.layout.activity_menu);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.menu_frame, new MenuFragment()).commit();
-        // 设置滑动菜单的属性值
-        getSlidingMenu().setMode(SlidingMenu.LEFT); //设定模式，SlidingMenu在左边
-        getSlidingMenu().setBehindOffsetRes(R.dimen.sliding_menu_offset); //配置slidingmenu偏移出来的尺寸
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE); //全屏都可以拖拽触摸，打开slidingmenu
-        getSlidingMenu().setFadeDegree(0.35F);// SlidingMenu滑动时的渐变程度
+    private void initMain() {
+        initView();
+        initDefFragment();
+        switchFragment(0);
     }
 
     private void initView() {
+        ButterKnife.bind(this);
+
         rlMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSlidingMenu().toggle();
+                drawerLayout.openDrawer(rlMenuLayout);
             }
         });
 
@@ -94,29 +129,26 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
     private void initDefFragment() {
-        switchFragment(0);//切换Fragment
+        List<Fragment> list = new ArrayList<>();
+        list.add(new HomeAppointFragment());
+        list.add(new HomePairFragment());
+        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), list);
+        viewPager.setAdapter(adapter);
+        viewPager.setSwipeDirection(SwipeDirection.none);
     }
 
     public void switchFragment(int i) {
         resetTabState();//reset the tab state
-        transaction = getSupportFragmentManager().beginTransaction();
         switch (i) {
             case 0:
-                if (homeAppointFragment == null) {
-                    homeAppointFragment = new HomeAppointFragment();
-                }
-                setTabState(tvAppoint, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
-                transaction.replace(R.id.fl_content, homeAppointFragment);
+                viewPager.setCurrentItem(0);
+                setTabState(tvAppoint, ContextCompat.getColor(MainActivity.this, R.color.black));
                 break;
             case 1:
-                if (homePairFragment == null) {
-                    homePairFragment = new HomePairFragment();
-                }
-                setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));//设置Tab状态
-                transaction.replace(R.id.fl_content, homePairFragment);
+                viewPager.setCurrentItem(1);
+                setTabState(tvPair, ContextCompat.getColor(MainActivity.this, R.color.black));
                 break;
         }
-        transaction.commit();
     }
 
     private void setTabState(TextView textView, int color) {
@@ -128,10 +160,63 @@ public class MainActivity extends SlidingFragmentActivity {
         setTabState(tvPair, ContextCompat.getColor(this, R.color.gray));
     }
 
+    private void initMenu(){
+        initTabLayout();
+        init();
+    }
+
+    private void init() {
+        initAvatar();
+        tvName.setText(User.getInstance().getName());
+
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+        tvRedPacket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RedPacketActivity.class));
+            }
+        });
+        llModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ModifyActivity.class));
+            }
+        });
+    }
+
+    private void initAvatar(){
+        Glide.with(MainActivity.this)
+                .load(User.getInstance().getLogo())
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
+                .into(circleImageView);
+    }
+
+    private void initTabLayout() {
+        tabList.add("健身配对");
+        tabList.add("通知");
+        for (int i = 0; i < tabList.size(); i++) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabList.get(i)));
+        }
+
+        // 创建一个集合,装填Fragment
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(MenuPairFragment.newInstance());
+        fragments.add(MenuNoticeFragment.newInstance());
+        //viewpager
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(Objects.requireNonNull(MainActivity.this).getSupportFragmentManager(), fragments, tabList);
+        tabViewPager.setAdapter(viewPagerAdapter);
+        tabViewPager.setSwipeDirection(SwipeDirection.none);
+        //TabLayout加载viewpager
+        tabLayout.setupWithViewPager(tabViewPager);
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //判断用户是否点击了“返回键”
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             this.exitApp();
             return true;
@@ -141,9 +226,6 @@ public class MainActivity extends SlidingFragmentActivity {
 
     private long exitTime;
 
-    /**
-     * 退出程序
-     */
     private void exitApp() {
         // 判断2次点击事件时间
         if ((System.currentTimeMillis() - exitTime) > 2000) {
@@ -154,4 +236,9 @@ public class MainActivity extends SlidingFragmentActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initAvatar();
+    }
 }

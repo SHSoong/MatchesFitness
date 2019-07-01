@@ -39,6 +39,8 @@
                     android:id="@+id/rv_chat_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:stackFromBottom="true"
+                    android:transcriptMode="alwaysScroll"
                     android:overScrollMode="never" />
             </RelativeLayout>
 
@@ -87,7 +89,7 @@
                             android:maxLines="3"
                             android:minHeight="36dp"
                             android:paddingLeft="13dp"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <com.match.app.customer.RecordButton
                             android:id="@+id/btnAudio"
@@ -98,7 +100,6 @@
                             android:text="按住说话"
                             android:textSize="13sp"
                             android:visibility="gone" />
-
 
                     </RelativeLayout>
 

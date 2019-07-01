@@ -105,8 +105,10 @@ public class ChatActivity extends BaseActivity {
 
         mAdapter = new ChatsAdapter(this, dao.queryByColumn("conversation_token", token));
         LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
+        mLinearLayout.setStackFromEnd(true);
         mRvChat.setLayoutManager(mLinearLayout);
         mRvChat.setAdapter(mAdapter);
+
         initChatUi();
         mInputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mEtContent.addTextChangedListener(new TextWatcher() {
@@ -159,21 +161,21 @@ public class ChatActivity extends BaseActivity {
 
     private void initChatUi() {
         //底部布局弹出,聊天列表上滑
-        mRvChat.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (bottom < oldBottom) {
-                    mRvChat.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mAdapter.getItemCount() > 0) {
-                                mRvChat.smoothScrollToPosition(mAdapter.getItemCount() - 1);
-                            }
-                        }
-                    });
-                }
-            }
-        });
+//        mRvChat.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+//            @Override
+//            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                if (bottom < oldBottom) {
+//                    mRvChat.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mAdapter.getItemCount() > 0) {
+//                                mRvChat.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
         //点击空白区域关闭键盘
         mRvChat.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -248,7 +250,7 @@ public class ChatActivity extends BaseActivity {
 
                 mAdapter.notifyItemChanged(position);
             }
-        }, 2000);
+        }, 0);
     }
 
     private void showBottomLayout() {

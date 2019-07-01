@@ -18,9 +18,6 @@ public class ChatsAdapter extends BaseQuickAdapter<Message, BaseViewHolder> {
 
     private static final int SEND_TEXT = R.layout.item_text_send;
     private static final int RECEIVE_TEXT = R.layout.item_text_receive;
-    /*
-    private static final int SEND_LOCATION = R.layout.item_location_send;
-    private static final int RECEIVE_LOCATION = R.layout.item_location_receive;*/
 
 
     public ChatsAdapter(Context context, List<Message> data) {

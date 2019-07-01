@@ -38,8 +38,6 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
     ImageView ivRight;
     @BindView(R.id.listview)
     ListView listView;
-    @BindView(R.id.words_view)
-    WordsNavigation wordsView;
     @BindView(R.id.tv_position)
     TextView tvPosition;
 
@@ -64,18 +62,6 @@ public class ContactsListActivity extends BaseActivity implements WordsNavigatio
         ivRight.setVisibility(View.INVISIBLE);
 
         initData();
-        wordsView.setListener(this);
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                wordsView.setTouchIndex(lists.get(i).getHeaderWord());
-            }
-        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

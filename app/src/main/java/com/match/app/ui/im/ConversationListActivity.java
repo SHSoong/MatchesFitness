@@ -44,8 +44,6 @@ public class ConversationListActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initTitleBar();
-        dao = new BaseDao(Conversation.class);
-
         initData();
     }
 
@@ -66,6 +64,8 @@ public class ConversationListActivity extends BaseActivity {
     }
 
     private void initData() {
+        dao = new BaseDao(Conversation.class);
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<Conversation, BaseViewHolder>(R.layout.itemview_conversation) {
@@ -86,7 +86,7 @@ public class ConversationListActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Conversation conversation = lists.get(position);
+                Conversation conversation = (Conversation) adapter.getItem(position);
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
@@ -94,13 +94,13 @@ public class ConversationListActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-        getDataList();
     }
 
-    private void getDataList() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lists.clear();
         lists = dao.queryAll();
-        mAdapter.addData(lists);
+        mAdapter.setNewData(lists);
     }
-
 }

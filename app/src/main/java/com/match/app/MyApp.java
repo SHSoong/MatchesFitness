@@ -176,7 +176,6 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         intent.setComponent(new ComponentName(getPackageName(), "com.match.app.receiver.NewsBroadCastReceiver"));
         sendBroadcast(intent);
 
-        handler.sendEmptyMessageDelayed(0, 30000);
     }
 
     int count = 0;

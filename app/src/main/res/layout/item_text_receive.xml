@@ -52,7 +52,7 @@
                 android:background="@drawable/message_text_receive"
                 android:text="你好"
                 android:textColor="#333333"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
