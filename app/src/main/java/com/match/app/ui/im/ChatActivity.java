@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
 import com.match.app.customer.RecordButton;
@@ -50,16 +51,26 @@ public class ChatActivity extends BaseActivity {
     RelativeLayout mRlBottomLayout;//表情,添加底部布局
     @BindView(R.id.ivAdd)
     ImageView mIvAdd;
-    @BindView(R.id.ivEmo)
-    ImageView mIvEmo;
     @BindView(R.id.btn_send)
     StateButton mBtnSend;//发送按钮
-    @BindView(R.id.ivAudio)
-    ImageView mIvAudio;//录音图片
-    @BindView(R.id.btnAudio)
-    RecordButton mBtnAudio;//录音按钮
-    @BindView(R.id.llAdd)
-    LinearLayout mLlAdd;//添加布局
+
+    //
+    @BindView(R.id.llTips1)
+    LinearLayout llTips1;
+    @BindView(R.id.tvTips1)
+    TextView tvTips1;
+    @BindView(R.id.llTips2)
+    LinearLayout llTips2;
+    @BindView(R.id.tvTips2)
+    TextView tvTips2;
+    @BindView(R.id.llTips3)
+    LinearLayout llTips3;
+    @BindView(R.id.tvTips3)
+    TextView tvTips3;
+    @BindView(R.id.llTips4)
+    LinearLayout llTips4;
+    @BindView(R.id.tvTips4)
+    TextView tvTips4;
 
     private MutableLiveData<Boolean> softInputShow = new MutableLiveData<>();
     private Boolean isSoftInputShow = false;
@@ -173,7 +184,7 @@ public class ChatActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.btn_send, R.id.ivAdd})
+    @OnClick({R.id.btn_send, R.id.ivAdd, R.id.llTips1, R.id.llTips2, R.id.llTips3, R.id.llTips4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_send:
@@ -189,6 +200,22 @@ public class ChatActivity extends BaseActivity {
                 } else {
                     hideSoftInput();
                 }
+                break;
+            case R.id.llTips1:
+                sendTextMsg(tvTips1.getText().toString());
+                hideBottomLayout();
+                break;
+            case R.id.llTips2:
+                sendTextMsg(tvTips2.getText().toString());
+                hideBottomLayout();
+                break;
+            case R.id.llTips3:
+                sendTextMsg(tvTips3.getText().toString());
+                hideBottomLayout();
+                break;
+            case R.id.llTips4:
+                sendTextMsg(tvTips4.getText().toString());
+                hideBottomLayout();
                 break;
         }
     }
@@ -261,4 +288,12 @@ public class ChatActivity extends BaseActivity {
         mInputManager.hideSoftInputFromWindow(mEtContent.getWindowToken(), 0);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mRlBottomLayout.getVisibility() == View.VISIBLE) {
+            hideBottomLayout();
+            return;
+        }
+        super.onBackPressed();
+    }
 }

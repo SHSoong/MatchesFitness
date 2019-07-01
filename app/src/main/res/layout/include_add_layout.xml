@@ -2,21 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:elevation="4dp"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <LinearLayout
+        android:id="@+id/llTips1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
+            android:id="@+id/tvTips1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="你好，你到指定健身房了吗"
@@ -29,14 +31,16 @@
         android:background="@color/line_color" />
 
     <LinearLayout
+        android:id="@+id/llTips2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="15dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
+            android:id="@+id/tvTips2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="你好，我已经到达指定健身房了"
@@ -49,14 +53,16 @@
         android:background="@color/line_color" />
 
     <LinearLayout
+        android:id="@+id/llTips3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
+            android:id="@+id/tvTips3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="到"
@@ -69,14 +75,16 @@
         android:background="@color/line_color" />
 
     <LinearLayout
+        android:id="@+id/llTips4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="15dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
+            android:id="@+id/tvTips4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="约到你好开心啊"
