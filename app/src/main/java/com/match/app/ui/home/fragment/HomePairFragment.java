@@ -23,8 +23,6 @@ import com.match.app.retrofit.manager.RxSchedulers;
 import com.match.app.ui.adapter.SwipeStackAdapter;
 import com.match.app.ui.home.activity.FilterActivity;
 import com.match.app.ui.im.ConversationListActivity;
-import com.match.app.ui.login.LoginActivity;
-import com.match.app.ui.settings.SettingsActivity;
 import com.match.app.utils.ToastUtils;
 import com.matches.fitness.R;
 
@@ -52,6 +50,7 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     private SwipeStackAdapter adapter;
 
     private Boolean showError = true; //只有加载成功过不会再显示error
+    private View rootView;// 缓存Fragment view@Override
 
     public static Fragment newInstance() {
         return new HomePairFragment();
@@ -60,9 +59,17 @@ public class HomePairFragment extends BaseFragment implements SwipeStack.SwipeSt
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_homepair, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_homepair, container, false);
+        }
+        // 缓存的rootView需要判断是否已经被加过parent，
+        // 如果有parent需要从parent删除，要不然会发生这个rootView已经有parent的错误。
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
+        }
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_avatar_01"
+            android:src="@mipmap/avatar_bg_icon"
             app:layout_constraintDimensionRatio="4:5" />
 
         <LinearLayout

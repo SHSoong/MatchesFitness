@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
 import com.match.app.db.AccountDao;
-import com.match.app.message.table.User;
+import com.match.app.message.table.Account;
 import com.matches.fitness.R;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
 
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
-    private List<User> users;
+    private List<Account> accounts;
     private AccountDao dao;
 
     private AccountAdapter adapter;
@@ -45,7 +45,7 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
         getAccount();
 
         accountsRcy.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AccountAdapter(mContext, users);
+        adapter = new AccountAdapter(mContext, accounts);
         accountsRcy.setAdapter(adapter);
         adapter.setItemClickListener(this);
         adapter.setItemLongClickListener(this);
@@ -53,13 +53,13 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
 
     private void getAccount() {
         dao = new AccountDao(mContext);
-        users = dao.queryAll();
-        if (users != null && !users.isEmpty()) {
-            for (int i = 0; i < users.size(); i++) {
-                User user = users.get(i);
-                if (user.getAccount().equals(com.match.app.message.entity.User.getInstance().getLoginName())) {
-                    users.remove(user);
-                    users.add(0, user);
+        accounts = dao.queryAll();
+        if (accounts != null && !accounts.isEmpty()) {
+            for (int i = 0; i < accounts.size(); i++) {
+                Account account = accounts.get(i);
+                if (account.getAccount().equals(com.match.app.message.entity.User.getInstance().getLoginName())) {
+                    accounts.remove(account);
+                    accounts.add(0, account);
                     return;
                 }
             }

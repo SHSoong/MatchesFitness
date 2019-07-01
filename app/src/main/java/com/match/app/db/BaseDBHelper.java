@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.match.app.message.table.User;
+import com.match.app.message.table.Account;
 import com.match.app.message.table.Conversation;
 import com.match.app.message.table.Message;
 
@@ -90,7 +90,7 @@ public class BaseDBHelper extends OrmLiteSqliteOpenHelper {
 
     private Class<?>[] getCreateTables() {
         return new Class<?>[]{
-                User.class,
+                Account.class,
                 Message.class,
                 Conversation.class
         };

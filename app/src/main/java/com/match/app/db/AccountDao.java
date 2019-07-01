@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.match.app.message.table.User;
+import com.match.app.message.table.Account;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,69 +13,69 @@ import java.util.List;
 
 public class AccountDao {
 
-    private Dao<User, Integer> dao;
+    private Dao<Account, Integer> dao;
 
     public AccountDao(Context context) {
         try {
             BaseDBHelper baseDbHelper = BaseDBHelper.getHelper(context);
-            dao = baseDbHelper.getDao(User.class);
+            dao = baseDbHelper.getDao(Account.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void add(User tbUser) {
+    public void add(Account tbAccount) {
         try {
-            List<User> users = queryAll();
-            for (User user : users) {
-                if (User.equals(tbUser, user)) {
-                    update(tbUser);
+            List<Account> accounts = queryAll();
+            for (Account account : accounts) {
+                if (Account.equals(tbAccount, account)) {
+                    update(tbAccount);
                     return;
                 }
             }
-            dao.create(tbUser);
+            dao.create(tbAccount);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(User user) {
+    public void update(Account account) {
         try {
-            dao.update(user);
+            dao.update(account);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(User user){
+    public void delete(Account account){
         try {
-            dao.delete(user);
+            dao.delete(account);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public User queryByAccount(String var1) {
-        User user = null;
+    public Account queryByAccount(String var1) {
+        Account account = null;
         try {
-            List<User> lists = getQueryBuiler().where().eq("user", var1).query();
+            List<Account> lists = getQueryBuiler().where().eq("account", var1).query();
             if (lists != null && !lists.isEmpty()) {
-                user = lists.get(lists.size() - 1);
+                account = lists.get(lists.size() - 1);
             }
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return account;
     }
 
-    public List<User> queryAll() {
-        List<User> users = new ArrayList<>();
+    public List<Account> queryAll() {
+        List<Account> accounts = new ArrayList<>();
         try {
-            users = dao.queryForAll();
+            accounts = dao.queryForAll();
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
-        return users;
+        return accounts;
     }
 
     public QueryBuilder getQueryBuiler() {

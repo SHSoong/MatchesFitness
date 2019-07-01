@@ -3,6 +3,7 @@ package com.match.app;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -157,28 +158,33 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 
-    private void testMessage(int count) {
+    private void testMessage() {
         Message message = new Message();
-        message.setContent("测试" + count);
-        message.setSendToken("send");
-        message.setReceiverName("接受者");
-        message.setReceiverToken("receiver" + count);
-        message.setSpeakerName("说话者" + count);
-        message.setTime((int) (System.currentTimeMillis() / 1000));
-        message.setStatus(3);
+        message.setContent("content-" + count);
+        message.setConversationToken("sendToken" + count);
+        message.setSendToken("sendToken" + count);
+        message.setReceiverName("myName");
+        message.setReceiverToken("myToken");
+        message.setSpeakerName("name-" + count);
+        message.setTime(System.currentTimeMillis());
+        message.setStatus(1);
+
         Intent intent = new Intent();
         intent.setAction("com.matches.fitness.news");
         intent.putExtra(AppConstant.KEY_MESSAGE, new Gson().toJson(message));
+        //解决8.0以上无法接收广播问题
+        intent.setComponent(new ComponentName(getPackageName(), "com.match.app.receiver.NewsBroadCastReceiver"));
         sendBroadcast(intent);
 
         handler.sendEmptyMessageDelayed(0, 30000);
     }
 
-    int cout = 0;
+    int count = 0;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
-            testMessage(cout++);
+            count++;
+            testMessage();
         }
     };
 }

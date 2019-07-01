@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.match.app.base.BaseActivity;
 import com.match.app.db.BaseDao;
 import com.match.app.message.table.Conversation;
-import com.match.app.receiver.NewsBroadCastReceiver;
 import com.matches.fitness.R;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ConversationListActivity extends BaseActivity implements NewsBroadCastReceiver.MessageListener {
+public class ConversationListActivity extends BaseActivity {
 
     @BindView(R.id.ivRight)
     ImageView ivRight;
@@ -46,7 +45,6 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
 
         initTitleBar();
         dao = new BaseDao(Conversation.class);
-        NewsBroadCastReceiver.register(this);
 
         initData();
     }
@@ -54,7 +52,6 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NewsBroadCastReceiver.unRegister(this);
     }
 
     private void initTitleBar() {
@@ -103,23 +100,7 @@ public class ConversationListActivity extends BaseActivity implements NewsBroadC
 
     private void getDataList() {
         lists = dao.queryAll();
-        if (lists.size() <= 0) {
-            Conversation bean = new Conversation();
-            bean.setSendToken("1");
-            bean.setLastMessage("testMsg");
-            bean.setHisName("testName");
-            bean.setLastTime(System.currentTimeMillis());
-            bean.setReceiverToken("2");
-            dao.insert(bean);
-        }
-        lists = dao.queryAll();
         mAdapter.addData(lists);
-    }
-
-    @Override
-    public void notice() {
-        lists = dao.queryAll();
-        mAdapter.notifyDataSetChanged();
     }
 
 }

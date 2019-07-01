@@ -15,11 +15,11 @@ public class Message {
     @DatabaseField(columnName = "message_id", generatedId = true)
     private int messageId;
 
-    @DatabaseField(columnName = "conversation_id")
-    private int conversationId; // 属于哪个会话
+    @DatabaseField(columnName = "conversation_token")
+    private String conversationToken; // 属于哪个会话
 
     @DatabaseField(columnName = "send_token")
-    private String sendToken; // 谁说的
+    private String sendToken;
 
     @DatabaseField(columnName = "speaker_name")
     private String speakerName;
@@ -63,12 +63,12 @@ public class Message {
         this.messageId = messageId;
     }
 
-    public int getConversationId() {
-        return conversationId;
+    public String getConversationToken() {
+        return conversationToken;
     }
 
-    public void setConversationId(int conversationId) {
-        this.conversationId = conversationId;
+    public void setConversationToken(String conversationToken) {
+        this.conversationToken = conversationToken;
     }
 
     public String getContent() {
@@ -146,8 +146,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(int conversationId, String sendToken, String speakerName, String receiverToken, String receiverName, String content, int time, String hisLogoUrl, int status) {
-        this.conversationId = conversationId;
+    public Message(String conversationToken, String sendToken, String speakerName, String receiverToken, String receiverName, String content, int time, String hisLogoUrl, int status) {
+        this.conversationToken = conversationToken;
         this.sendToken = sendToken;
         this.speakerName = speakerName;
         this.receiverToken = receiverToken;

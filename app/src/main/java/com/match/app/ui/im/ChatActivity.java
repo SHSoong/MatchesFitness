@@ -21,6 +21,7 @@ import com.match.app.base.BaseActivity;
 import com.match.app.customer.RecordButton;
 import com.match.app.customer.StateButton;
 import com.match.app.db.BaseDao;
+import com.match.app.message.entity.User;
 import com.match.app.message.table.Conversation;
 import com.match.app.message.table.Message;
 import com.match.app.ui.adapter.ChatsAdapter;
@@ -64,6 +65,9 @@ public class ChatActivity extends BaseActivity {
     private Boolean showBottomLayout = false;
 
     BaseDao dao;
+    BaseDao conversationDao;
+    Conversation conversation;
+
     private ChatsAdapter mAdapter;
     public static String mSenderId = "right";
     public static String mTargetId = "left";
@@ -77,13 +81,12 @@ public class ChatActivity extends BaseActivity {
     protected void onInit() {
         ButterKnife.bind(this);
 
-        initTile("用户", true);
+        conversation = getIntent().getParcelableExtra(DATA);
+        mSenderId = User.getInstance().getToken();
+        mTargetId = conversation.getHisToken();
 
-        Conversation conversation = getIntent().getParcelableExtra(DATA);
-        mSenderId = conversation.getSendToken();
-        mTargetId = conversation.getReceiverToken();
-
-        initData(conversation.getConversationId());
+        initTile(conversation.getHisName(), true);
+        initData(conversation.getHisToken());
 
         softInputShow.observe(this, new Observer<Boolean>() {
             @Override
@@ -96,10 +99,11 @@ public class ChatActivity extends BaseActivity {
         });
     }
 
-    private void initData(int id) {
+    private void initData(String token) {
         dao = new BaseDao(Message.class);
+        conversationDao = new BaseDao(Conversation.class);
 
-        mAdapter = new ChatsAdapter(this, dao.queryByColumn("conversation_id", id));
+        mAdapter = new ChatsAdapter(this, dao.queryByColumn("conversation_token", token));
         LinearLayoutManager mLinearLayout = new LinearLayoutManager(this);
         mRvChat.setLayoutManager(mLinearLayout);
         mRvChat.setAdapter(mAdapter);
@@ -204,39 +208,44 @@ public class ChatActivity extends BaseActivity {
 
     //文本消息
     private void sendTextMsg(String msg) {
-        final Message mMessgae = getBaseSendMessage();
-        mMessgae.setContent(msg);
+        Message mMessage = getBaseSendMessage();
+        mMessage.setContent(msg);
         //开始发送
-        mAdapter.addData(mMessgae);
+        mAdapter.addData(mMessage);
         //模拟两秒后发送成功
-        updateMsg(mMessgae);
+        updateMsg(mMessage);
     }
-
 
     private Message getBaseSendMessage() {
-        Message mMessgae = new Message();
-        mMessgae.setSendToken(mSenderId);
-        mMessgae.setReceiverToken(mTargetId);
-        mMessgae.setTime(System.currentTimeMillis());
-        mMessgae.setStatus(0);
-        return mMessgae;
+        Message mMessage = new Message();
+        mMessage.setConversationToken(mTargetId);
+        mMessage.setSendToken(mSenderId);
+        mMessage.setReceiverToken(mTargetId);
+        mMessage.setTime(System.currentTimeMillis());
+        mMessage.setStatus(0);
+        return mMessage;
     }
 
-    private void updateMsg(final Message mMessgae) {
+    private void updateMsg(final Message mMessage) {
         mRvChat.scrollToPosition(mAdapter.getItemCount() - 1);
         //模拟2秒后发送成功
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 int position = 0;
-                mMessgae.setStatus(1);
+                mMessage.setStatus(1);
                 //更新单个子条目
                 for (int i = 0; i < mAdapter.getData().size(); i++) {
                     Message mAdapterMessage = mAdapter.getData().get(i);
-                    if (mMessgae.getSendToken().equals(mAdapterMessage.getSendToken())) {
+                    if (mMessage.getSendToken().equals(mAdapterMessage.getSendToken())) {
                         position = i;
                     }
                 }
-                dao.insert(mMessgae);
+                dao.insert(mMessage);
+
+                conversation.setLastTime(mMessage.getTime());
+                conversation.setLastMessage(mMessage.getContent());
+                conversationDao.update(conversation);
+
                 mAdapter.notifyItemChanged(position);
             }
         }, 2000);

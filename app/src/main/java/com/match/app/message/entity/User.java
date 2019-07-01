@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 6927152376472605640L;
-    private static final String TAG = "User";
+    private static final String TAG = "Account";
     private static User instance;
 
     private String token = "";//user id

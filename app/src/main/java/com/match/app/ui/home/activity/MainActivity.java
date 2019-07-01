@@ -34,6 +34,7 @@ public class MainActivity extends SlidingFragmentActivity {
     @BindView(R.id.ivSearch)
     public ImageView ivSearch;
 
+    private FragmentTransaction transaction;
     private HomeAppointFragment homeAppointFragment;
     private HomePairFragment homePairFragment;
 
@@ -90,8 +91,6 @@ public class MainActivity extends SlidingFragmentActivity {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
-
-
     }
 
     private void initDefFragment() {
@@ -100,7 +99,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
     public void switchFragment(int i) {
         resetTabState();//reset the tab state
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
         switch (i) {
             case 0:
                 if (homeAppointFragment == null) {
