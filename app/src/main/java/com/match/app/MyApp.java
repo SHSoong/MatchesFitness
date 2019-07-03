@@ -3,20 +3,16 @@ package com.match.app;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.google.gson.Gson;
 import com.match.app.config.AppConstant;
 import com.match.app.config.BuildConfig;
 import com.match.app.message.entity.User;
-import com.match.app.message.table.Message;
 import com.match.app.ui.login.LoginActivity;
 import com.matches.fitness.R;
 import com.umeng.commonsdk.UMConfigure;
@@ -26,7 +22,8 @@ import com.umeng.message.UmengAdHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyApp extends Application implements Application.ActivityLifecycleCallbacks {
 
@@ -38,6 +35,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     public void onCreate() {
         super.onCreate();
         app = this;
+
+        this.registerActivityLifecycleCallbacks(this);
 
         UMConfigure.init(this, BuildConfig.umengAppKey, "Umeng",
                 UMConfigure.DEVICE_TYPE_PHONE, BuildConfig.umengMessageSecret);
@@ -56,6 +55,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             }
         });
 
+        //显示通知
         UmengAdHandler umengAdHandler = new UmengAdHandler() {
             @Override
             public Notification getNotification(Context context, UMessage uMessage) {
@@ -91,9 +91,9 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 }
             }
         };
-
         mPushAgent.setMessageHandler(umengAdHandler);
 
+        //打开通知
         UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
             @Override
             public void dealWithCustomAction(Context context, UMessage uMessage) {
@@ -101,20 +101,16 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
                 super.dealWithCustomAction(context, uMessage);
             }
         };
-
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
-
-        handler.sendEmptyMessageDelayed(0, 30000);
     }
 
-    private static Stack<Activity> activities;
+    private static List<Activity> activities = new ArrayList<>();
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        if (activities == null) {
-            activities = new Stack<>();
+        if (!activities.contains(activity)) {
+            activities.add(activity);
         }
-        activities.add(activity);
     }
 
     @Override
@@ -148,8 +144,8 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
     }
 
     public static void logout(Context context) {
-        if (activities != null && !activities.isEmpty()) {
-            for (Activity activity : activities) {
+        for (Activity activity : activities) {
+            if (!activity.isFinishing()) {
                 activity.finish();
             }
         }
@@ -158,32 +154,4 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         context.startActivity(new Intent(context, LoginActivity.class));
     }
 
-    private void testMessage() {
-        Message message = new Message();
-        message.setContent("content-" + count);
-        message.setConversationToken("sendToken" + count);
-        message.setSendToken("sendToken" + count);
-        message.setReceiverName("myName");
-        message.setReceiverToken("myToken");
-        message.setSpeakerName("name-" + count);
-        message.setTime(System.currentTimeMillis());
-        message.setStatus(1);
-
-        Intent intent = new Intent();
-        intent.setAction("com.matches.fitness.news");
-        intent.putExtra(AppConstant.KEY_MESSAGE, new Gson().toJson(message));
-        //解决8.0以上无法接收广播问题
-        intent.setComponent(new ComponentName(getPackageName(), "com.match.app.receiver.NewsBroadCastReceiver"));
-        sendBroadcast(intent);
-
-    }
-
-    int count = 0;
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            count++;
-            testMessage();
-        }
-    };
 }

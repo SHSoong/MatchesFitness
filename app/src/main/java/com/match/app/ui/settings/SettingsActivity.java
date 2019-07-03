@@ -64,7 +64,8 @@ public class SettingsActivity extends BaseActivity {
         rlExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyApp.logout(SettingsActivity.this);
+                 MyApp.logout(SettingsActivity.this);
+                 finish();
             }
         });
     }

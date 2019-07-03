@@ -10,7 +10,7 @@ import android.view.ViewConfiguration;
 
 public class CustomDrawerLayout extends DrawerLayout {
 
-    private boolean isIntercept = false;
+    private boolean isIntercept = true;
     private int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     private float lastMotionX = 0f;
     private float lastMotionY = 0f;
@@ -34,28 +34,27 @@ public class CustomDrawerLayout extends DrawerLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!isIntercept) {
-            return super.onInterceptTouchEvent(ev);
-        }
-        float x = ev.getX();
-        float y = ev.getY();
+        if (isIntercept) {
+            float x = ev.getX();
+            float y = ev.getY();
 
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                lastMotionX = x;
-                lastMotionY = y;
-            }
-            break;
-            case MotionEvent.ACTION_MOVE: {
-                int xDiff = (int) Math.abs(x - lastMotionX);
-                int yDiff = (int) Math.abs(y - lastMotionY);
-                int xyDiff = xDiff * xDiff + yDiff * yDiff;
-                boolean xMoved = xyDiff > touchSlop * touchSlop;
-                if (xMoved) {
-                    return xDiff > yDiff * 4;
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    lastMotionX = x;
+                    lastMotionY = y;
                 }
+                break;
+                case MotionEvent.ACTION_MOVE: {
+                    int xDiff = (int) Math.abs(x - lastMotionX);
+                    int yDiff = (int) Math.abs(y - lastMotionY);
+                    int xyDiff = xDiff * xDiff + yDiff * yDiff;
+                    boolean xMoved = xyDiff > touchSlop * touchSlop;
+                    if (xMoved) {
+                        return xDiff > yDiff * 4;
+                    }
+                }
+                break;
             }
-            break;
         }
         return super.onInterceptTouchEvent(ev);
     }
