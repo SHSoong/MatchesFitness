@@ -59,7 +59,7 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         UmengAdHandler umengAdHandler = new UmengAdHandler() {
             @Override
             public Notification getNotification(Context context, UMessage uMessage) {
-                Log.i(TAG, "-------->  getNotification");
+                Log.i(TAG, "text:" + uMessage.text + "builder_id:" + uMessage.builder_id);
 
                 switch (uMessage.builder_id) {
                     case 1:
@@ -86,6 +86,12 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
 
                         return builder.getNotification();
                     default:
+                        if (!TextUtils.isEmpty(uMessage.text)) {
+                            Intent intent = new Intent();
+                            intent.setAction("com.matches.fitness.news");
+                            intent.putExtra(AppConstant.KEY_MESSAGE, uMessage.text);
+                            sendBroadcast(intent);
+                        }
                         //默认为0，若填写的builder_id并不存在，也使用默认。
                         return super.getNotification(context, uMessage);
                 }
