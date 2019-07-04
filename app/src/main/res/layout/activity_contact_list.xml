@@ -22,28 +22,31 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/listview"
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
             android:scrollbars="none" />
 
-        <com.match.app.customer.WordsNavigation
-            android:layout_width="20dp"
+        <com.match.app.customer.SideBar
+            android:id="@+id/sideBar"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="50dp"
-            android:layout_marginTop="50dp" />
+            android:layout_marginBottom="80dp"
+            android:layout_marginTop="40dp"
+            android:paddingBottom="20dp" />
 
         <TextView
-            android:id="@+id/tv_position"
+            android:id="@+id/dialog"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:background="#444444"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:visibility="gone" />
+            android:textColor="#ffffffff"
+            android:textSize="30sp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

@@ -68,6 +68,7 @@ public class SearchActivity extends BaseActivity {
                 finish();
             }
         });
+        ivRight.setVisibility(View.VISIBLE);
         ivRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
