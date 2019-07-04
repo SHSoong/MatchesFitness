@@ -3,9 +3,13 @@ package com.match.app;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -59,42 +63,38 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
         UmengAdHandler umengAdHandler = new UmengAdHandler() {
             @Override
             public Notification getNotification(Context context, UMessage uMessage) {
-                Log.i(TAG, "text:" + uMessage.text + "builder_id:" + uMessage.builder_id);
-
-                switch (uMessage.builder_id) {
-                    case 1:
-                        if (!TextUtils.isEmpty(uMessage.text)) {
-                            // 消息体
-                            Intent intent = new Intent();
-                            intent.setAction("com.matches.fitness.news");
-                            intent.putExtra(AppConstant.KEY_MESSAGE, uMessage.text);
-                            sendBroadcast(intent);
-                        }
-
-                        Notification.Builder builder = new Notification.Builder(context);
-                        RemoteViews myNotificationView = new RemoteViews(context.getPackageName(),
-                                R.layout.notification_view);
-                        myNotificationView.setTextViewText(R.id.notification_title, uMessage.title);
-                        myNotificationView.setTextViewText(R.id.notification_text, uMessage.text);
-                        myNotificationView.setImageViewBitmap(R.id.notification_large_icon, getLargeIcon(context, uMessage));
-                        myNotificationView.setImageViewResource(R.id.notification_small_icon,
-                                getSmallIconId(context, uMessage));
-                        builder.setContent(myNotificationView)
-                                .setSmallIcon(getSmallIconId(context, uMessage))
-                                .setTicker(uMessage.ticker)
-                                .setAutoCancel(true);
-
-                        return builder.getNotification();
-                    default:
-                        if (!TextUtils.isEmpty(uMessage.text)) {
-                            Intent intent = new Intent();
-                            intent.setAction("com.matches.fitness.news");
-                            intent.putExtra(AppConstant.KEY_MESSAGE, uMessage.text);
-                            sendBroadcast(intent);
-                        }
-                        //默认为0，若填写的builder_id并不存在，也使用默认。
-                        return super.getNotification(context, uMessage);
+                Log.i(TAG, "text:" + uMessage.text + " builder_id:" + uMessage.builder_id);
+                if (!TextUtils.isEmpty(uMessage.text)) {
+                    // 消息体
+                    Intent intent = new Intent();
+                    intent.setAction("com.matches.fitness.news");
+                    intent.putExtra(AppConstant.KEY_MESSAGE, uMessage.text);
+                    sendBroadcast(intent);
                 }
+
+                NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    NotificationChannel channel = new NotificationChannel(BuildConfig.PUSH_CHANNEL_ID, BuildConfig.PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+                    if (manager != null) {
+                        manager.createNotificationChannel(channel);
+                    }
+                    builder = new NotificationCompat.Builder(context, BuildConfig.PUSH_CHANNEL_ID);
+                }
+
+                RemoteViews myNotificationView = new RemoteViews(context.getPackageName(),
+                        R.layout.notification_view);
+                myNotificationView.setTextViewText(R.id.notification_title, uMessage.title);
+                myNotificationView.setTextViewText(R.id.notification_text, uMessage.text);
+                myNotificationView.setTextViewText(R.id.notification_app_name, context.getString(context.getApplicationInfo().labelRes));
+                myNotificationView.setImageViewResource(R.id.notification_small_icon, getSmallIconId(context, uMessage));
+
+                builder.setContent(myNotificationView)
+                        .setSmallIcon(getSmallIconId(context, uMessage))
+                        .setTicker(uMessage.ticker)
+                        .setAutoCancel(true);
+
+                return builder.build();
             }
         };
         mPushAgent.setMessageHandler(umengAdHandler);
@@ -108,6 +108,10 @@ public class MyApp extends Application implements Application.ActivityLifecycleC
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
+    }
+
+    private void createNotification(Context context, UMessage uMessage, UmengAdHandler umengAdHandler) {
+
     }
 
     private static List<Activity> activities = new ArrayList<>();
