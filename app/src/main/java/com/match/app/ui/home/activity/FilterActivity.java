@@ -2,6 +2,9 @@ package com.match.app.ui.home.activity;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -17,6 +20,10 @@ import butterknife.ButterKnife;
 
 public class FilterActivity extends BaseActivity {
 
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.recyclerView1)
     RecyclerView recyclerView1;
     @BindView(R.id.recyclerView2)
@@ -33,14 +40,10 @@ public class FilterActivity extends BaseActivity {
         setContentView(R.layout.activity_filter);
     }
 
-    private void initTitleBar() {
-        initTile("筛选", true);
-    }
-
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTitleBar();
+        initTile();
 
         recyclerView1.setPadding(20, 20, 20, 20);
         recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
@@ -75,6 +78,16 @@ public class FilterActivity extends BaseActivity {
         recyclerView4.setAdapter(mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.itemview_filter, getItemDatas()) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
+            }
+        });
+    }
+
+    private void initTile() {
+        tvTitle.setText("筛选");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

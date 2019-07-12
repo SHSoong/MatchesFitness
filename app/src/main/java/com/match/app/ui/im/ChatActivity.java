@@ -41,6 +41,11 @@ public class ChatActivity extends BaseActivity {
 
     public static final String DATA = "data";
 
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+
     @BindView(R.id.llContent)
     LinearLayout mLlContent;
     @BindView(R.id.rv_chat_list)
@@ -97,7 +102,7 @@ public class ChatActivity extends BaseActivity {
         mSenderId = User.getInstance().getToken();
         mTargetId = conversation.getHisToken();
 
-        initTile(conversation.getHisName(), true);
+        initTile();
         initData(conversation.getHisToken());
 
         softInputShow.observe(this, new Observer<Boolean>() {
@@ -107,6 +112,16 @@ public class ChatActivity extends BaseActivity {
                     showBottomLayout();
                     showBottomLayout = false;
                 }
+            }
+        });
+    }
+
+    private void initTile() {
+        tvTitle.setText(conversation.getHisName());
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.message.entity.User;
@@ -26,6 +27,11 @@ import butterknife.ButterKnife;
  */
 
 public class PasswordResetActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.edt_phone)
     EditText edtPhone;
     @BindView(R.id.edt_identify)
@@ -49,9 +55,19 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile(R.string.reset_password, true);
+        initTile();
         tvGetIdentify.setOnClickListener(this);
         btnCommit.setOnClickListener(this);
+    }
+
+    private void initTile() {
+        tvTitle.setText(getString(R.string.reset_password));
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -60,7 +76,7 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
             case R.id.tv_get_identify:
                 phone = edtPhone.getText().toString().trim();
                 if (TextUtils.isEmpty(phone) || phone.length() != 11 || !phone.startsWith("1")) {
-                    ToastUtils.showToast(mContext, "请输入正确的手机号码!");
+                    ToastUtils.showToast(PasswordResetActivity.this, "请输入正确的手机号码!");
                     edtPhone.findFocus();
                     return;
                 }
@@ -68,7 +84,7 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.btn_commit:
                 if (!isGetCode) {
-                    ToastUtils.showToast(mContext, "请先获取短信验证码!");
+                    ToastUtils.showToast(this, "请先获取短信验证码!");
                     return;
                 }
                 resetPassword();
@@ -83,24 +99,24 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
         String password = edtNewPasswrod.getText().toString().trim();
         String passwordConfirm = edtNewPasswordConfirm.getText().toString().trim();
         if (!phone.equals(this.phone)) {
-            ToastUtils.showToast(mContext, "手机号码不能修改!");
+            ToastUtils.showToast(this, "手机号码不能修改!");
             return;
         }
         if (TextUtils.isEmpty(validte)) {
-            ToastUtils.showToast(mContext, "验证码不能为空！");
+            ToastUtils.showToast(this, "验证码不能为空！");
             edtNewPasswrod.findFocus();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.showToast(mContext, "新密码不能为空");
+            ToastUtils.showToast(this, "新密码不能为空");
             return;
         }
         if (TextUtils.isEmpty(passwordConfirm)) {
-            ToastUtils.showToast(mContext, "确认密码不能为空");
+            ToastUtils.showToast(this, "确认密码不能为空");
             return;
         }
         if (!password.equals(passwordConfirm)) {
-            ToastUtils.showToast(mContext, "两次输入密码不一致");
+            ToastUtils.showToast(this, "两次输入密码不一致");
             return;
         }
         B003Request request = new B003Request();
@@ -119,7 +135,7 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
                 .subscribe(new BaseObserver<B003Response>() {
                     @Override
                     protected void onHandleSuccess(B003Response b003Response) {
-                        ToastUtils.showToast(mContext, "密码重置成功");
+                        ToastUtils.showToast(PasswordResetActivity.this, "密码重置成功");
                         User.getInstance().setLoginName(phone);
                         User.getInstance().save();
                         finish();
@@ -127,7 +143,7 @@ public class PasswordResetActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     protected void onHandleError(String msg) {
-                        ToastUtils.showToast(mContext, msg);
+                        ToastUtils.showToast(PasswordResetActivity.this, msg);
                     }
                 });
     }

@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OtherPersonInfoActivity extends BaseActivity {
+
     public static final String INFO_KEY = "info";
 
     @BindView(R.id.rlLeftBack)
@@ -74,19 +75,7 @@ public class OtherPersonInfoActivity extends BaseActivity {
         tvAge.setText(String.valueOf(DateUtils.getAge(DateUtils.parse(User.getInstance().getBirthday()))));
         ivEdit.setVisibility(View.GONE);
 
-//        Bundle extras = getIntent().getExtras();
-//        person = extras.getParcelable(INFO_KEY);
-//        if (person != null) {
-//            if (person.isFriend()) {
-//                llAdd.setVisibility(View.GONE);
-//                llRecord.setVisibility(View.VISIBLE);
-//            } else {
-//                llAdd.setVisibility(View.VISIBLE);
-//                llRecord.setVisibility(View.GONE);
-//            }
-//        }
-
-        Glide.with(mContext)
+        Glide.with(this)
                 .load("")
                 .apply(new RequestOptions().placeholder(R.mipmap.avatar_bg_icon))
                 .into(arcImageView);
@@ -100,7 +89,7 @@ public class OtherPersonInfoActivity extends BaseActivity {
     private void getData() {
         records = new ArrayList<>();
         gvRecord.setNumColumns(4);
-        adapter = new RecordListAdapter(mContext, records, true);
+        adapter = new RecordListAdapter(this, records, true);
         gvRecord.setAdapter(adapter);
 
         setListViewHeightBasedOnChildren(gvRecord);

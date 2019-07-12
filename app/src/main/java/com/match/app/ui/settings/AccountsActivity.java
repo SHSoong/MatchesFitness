@@ -18,19 +18,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AccountsActivity extends BaseActivity implements AccountAdapter.OnItemClickListener, AccountAdapter.OnItemLongClickListener {
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
+
     @BindView(R.id.rlLeftBack)
     RelativeLayout rlLeftBack;
-
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.accounts_rcy)
     RecyclerView accountsRcy;
-
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
+
     private List<Account> accounts;
     private AccountDao dao;
-
     private AccountAdapter adapter;
 
     @Override
@@ -41,18 +40,27 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile("账号管理", true);
+        initTile();
         getAccount();
-
         accountsRcy.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AccountAdapter(mContext, accounts);
+        adapter = new AccountAdapter(this, accounts);
         accountsRcy.setAdapter(adapter);
         adapter.setItemClickListener(this);
         adapter.setItemLongClickListener(this);
     }
 
+    private void initTile() {
+        tvTitle.setText("账号管理");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void getAccount() {
-        dao = new AccountDao(mContext);
+        dao = new AccountDao(this);
         accounts = dao.queryAll();
         if (accounts != null && !accounts.isEmpty()) {
             for (int i = 0; i < accounts.size(); i++) {
@@ -63,15 +71,6 @@ public class AccountsActivity extends BaseActivity implements AccountAdapter.OnI
                     return;
                 }
             }
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_add:
-
-                break;
         }
     }
 

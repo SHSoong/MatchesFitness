@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,18 +25,24 @@ import butterknife.ButterKnife;
 
 public class SelectDateActivity extends BaseActivity implements CalendarView.OnCalendarSelectListener, CalendarView.OnYearChangeListener {
 
+    @BindView(R.id.tv_month_day)
     TextView mTextMonthDay;
+    @BindView(R.id.tv_year)
     TextView mTextYear;
+    @BindView(R.id.tv_lunar)
     TextView mTextLunar;
+    @BindView(R.id.tv_current_day)
     TextView mTextCurrentDay;
+    @BindView(R.id.calendarView)
     CalendarView mCalendarView;
-    RelativeLayout mRelativeTool;
-    private int mYear;
+    @BindView(R.id.calendarLayout)
     CalendarLayout mCalendarLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
     BaseQuickAdapter mAdapter;
 
+    private int mYear;
     private int sYear;
     private int sMonth;
     private int sDay;
@@ -50,13 +55,22 @@ public class SelectDateActivity extends BaseActivity implements CalendarView.OnC
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        setStatusBarDarkMode();
-        mTextMonthDay = (TextView) findViewById(R.id.tv_month_day);
-        mTextYear = (TextView) findViewById(R.id.tv_year);
-        mTextLunar = (TextView) findViewById(R.id.tv_lunar);
-        mRelativeTool = (RelativeLayout) findViewById(R.id.rl_tool);
-        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        mTextCurrentDay = (TextView) findViewById(R.id.tv_current_day);
+        initView();
+        initData();
+    }
+
+    private void initView() {
+        mCalendarView.setOnCalendarSelectListener(this);
+        mCalendarView.setOnYearChangeListener(this);
+        mTextYear.setText(String.valueOf(mCalendarView.getCurYear()));
+        mYear = mCalendarView.getCurYear();
+        mTextMonthDay.setText(mCalendarView.getCurMonth() + "月" + mCalendarView.getCurDay() + "日");
+        mTextLunar.setText("今日");
+        mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
+        sYear = mCalendarView.getCurYear();
+        sMonth = mCalendarView.getCurMonth();
+        sDay = mCalendarView.getCurDay();
+
         mTextMonthDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,28 +90,11 @@ public class SelectDateActivity extends BaseActivity implements CalendarView.OnC
                 mCalendarView.scrollToCurrent();
             }
         });
-
-        mCalendarLayout = (CalendarLayout) findViewById(R.id.calendarLayout);
-        mCalendarView.setOnCalendarSelectListener(this);
-        mCalendarView.setOnYearChangeListener(this);
-        mTextYear.setText(String.valueOf(mCalendarView.getCurYear()));
-        mYear = mCalendarView.getCurYear();
-        mTextMonthDay.setText(mCalendarView.getCurMonth() + "月" + mCalendarView.getCurDay() + "日");
-        mTextLunar.setText("今日");
-        mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
-        sYear = mCalendarView.getCurYear();
-        sMonth = mCalendarView.getCurMonth();
-        sDay = mCalendarView.getCurDay();
-        initData();
     }
 
-    protected void initData() {
-
-//        LinearLayoutManager manager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(manager);
+    private void initData() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-//        recyclerView.addItemDecoration(new RecyclerItemDecoration(15));
         recyclerView.setAdapter(mAdapter = new BaseQuickAdapter<TimeInterval.Interval, BaseViewHolder>(R.layout.item_list_article) {
             @Override
             protected void convert(BaseViewHolder helper, TimeInterval.Interval item) {
@@ -148,6 +145,5 @@ public class SelectDateActivity extends BaseActivity implements CalendarView.OnC
     public void onYearChange(int year) {
         mTextMonthDay.setText(String.valueOf(year));
     }
-
 
 }

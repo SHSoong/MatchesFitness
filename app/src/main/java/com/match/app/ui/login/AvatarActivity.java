@@ -147,13 +147,13 @@ public class AvatarActivity extends BaseActivity {
                             User.getInstance().save();
 
                             ActivityManager.getInstance().finishAllActivity();
-                            startActivity(new Intent(mContext, MainActivity.class));
+                            startActivity(new Intent(AvatarActivity.this, MainActivity.class));
                         }
                     }
 
                     @Override
                     protected void onHandleError(String msg) {
-                        ToastUtils.showToast(mContext, msg);
+                        ToastUtils.showToast(AvatarActivity.this, msg);
                     }
                 });
     }
@@ -205,7 +205,7 @@ public class AvatarActivity extends BaseActivity {
                                 .centerCrop()
                                 .placeholder(R.color.black)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL);
-                        Glide.with(mContext)
+                        Glide.with(AvatarActivity.this)
                                 .load(file.getPath())
                                 .apply(options)
                                 .into(arcImageView);

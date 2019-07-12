@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -24,6 +26,10 @@ import butterknife.ButterKnife;
 
 public class ConversationListActivity extends BaseActivity {
 
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.ivRight)
     ImageView ivRight;
 
@@ -42,8 +48,7 @@ public class ConversationListActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-
-        initTitleBar();
+        initTile();
         initData();
     }
 
@@ -52,13 +57,19 @@ public class ConversationListActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    private void initTitleBar() {
-        initTile("社交", true);
+    private void initTile() {
+        tvTitle.setText("社交");
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         ivRight.setVisibility(View.VISIBLE);
         ivRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, ContactsListActivity.class));
+                startActivity(new Intent(ConversationListActivity.this, ContactsListActivity.class));
             }
         });
     }
@@ -87,7 +98,7 @@ public class ConversationListActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Conversation conversation = (Conversation) adapter.getItem(position);
-                Intent intent = new Intent(mContext, ChatActivity.class);
+                Intent intent = new Intent(ConversationListActivity.this, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
                 intent.putExtras(bundle);

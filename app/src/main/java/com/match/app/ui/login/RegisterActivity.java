@@ -1,5 +1,6 @@
 package com.match.app.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
@@ -32,7 +34,10 @@ import butterknife.ButterKnife;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
-
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.edt_phone)
     EditText edtPhone;
     @BindView(R.id.edt_validate)
@@ -60,10 +65,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile(R.string.register, true);
+        initTile();
         tvValidate.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         tvAgreement.setOnClickListener(this);
+    }
+
+    private void initTile() {
+        tvTitle.setText(getString(R.string.register));
+        rlLeftBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private int times = 60;
@@ -81,7 +96,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 register();
                 break;
             case R.id.tv_agreement:
-                startActivity(new Intent(mContext, AgreementActivity.class));
+                startActivity(new Intent(this, AgreementActivity.class));
                 break;
         }
     }
@@ -92,10 +107,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private void getValidate() {
         phone = edtPhone.getText().toString().trim();
         if (TextUtils.isEmpty(phone) || phone.length() != 11 || !phone.startsWith("1")) {
-            ToastUtils.showToast(mContext, "请输入正确的手机号码！");
+            ToastUtils.showToast(this, "请输入正确的手机号码！");
             return;
         }
-        ToastUtils.showToast(mContext, "获取成功！");
+        ToastUtils.showToast(this, "获取成功！");
         tvValidate.setClickable(false);
         handler.sendEmptyMessage(0);
         isGetCode = true;
@@ -109,19 +124,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         String validte = edtValidate.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
         if (!isGetCode) {
-            ToastUtils.showToast(mContext, "请先获取短信验证吗");
+            ToastUtils.showToast(this, "请先获取短信验证吗");
             return;
         }
         if (!phone.equals(this.phone)) {
-            ToastUtils.showToast(mContext, "手机号码不能修改!");
+            ToastUtils.showToast(this, "手机号码不能修改!");
             return;
         }
         if (TextUtils.isEmpty(validte)) {
-            ToastUtils.showToast(mContext, "验证码不能为空！");
+            ToastUtils.showToast(this, "验证码不能为空！");
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.showToast(mContext, "密码不能为空");
+            ToastUtils.showToast(this, "密码不能为空");
             return;
         }
 
@@ -131,7 +146,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         request.setPassword(password);
         request.setDeviceType("android");
         callApi(request);
-        startActivity(new Intent(mContext, InfoPrefectActivity.class));
+        startActivity(new Intent(this, InfoPrefectActivity.class));
     }
 
     private void callApi(final B002Request request) {
@@ -146,18 +161,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         User.getInstance().setLoginName(request.getMobile());
                         User.getInstance().setLogin(true);
                         User.getInstance().save();
-                        ToastUtils.showToast(mContext, "注册成功");
-                        startActivity(new Intent(mContext, InfoPrefectActivity.class));
+                        ToastUtils.showToast(RegisterActivity.this, "注册成功");
+                        startActivity(new Intent(RegisterActivity.this, InfoPrefectActivity.class));
                         finish();
                     }
 
                     @Override
                     protected void onHandleError(String msg) {
-                        ToastUtils.showToast(mContext, msg);
+                        ToastUtils.showToast(RegisterActivity.this, msg);
                     }
                 });
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

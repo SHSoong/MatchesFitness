@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.match.app.base.BaseActivity;
@@ -27,7 +28,12 @@ import butterknife.ButterKnife;
  * 注册信息完善界面
  */
 
-public class InfoPrefectActivity extends BaseActivity {
+public class InfoPrefectActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
 
     @BindView(R.id.edt_nickname)
     EditText edtNickName;
@@ -56,7 +62,7 @@ public class InfoPrefectActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile(R.string.personal_info_prefect, false);//不需要返回键
+        initTile();//不需要返回键
 
         tvBirthday.setOnClickListener(this);
         rgSex.check(R.id.rdb_gent);
@@ -80,6 +86,11 @@ public class InfoPrefectActivity extends BaseActivity {
         btnPerfect.setOnClickListener(this);
     }
 
+    private void initTile() {
+        tvTitle.setText(R.string.personal_info_prefect);
+        rlLeftBack.setVisibility(View.GONE);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -88,7 +99,7 @@ public class InfoPrefectActivity extends BaseActivity {
                 int mYear = ca.get(Calendar.YEAR);
                 int mMonth = ca.get(Calendar.MONTH);
                 int mDay = ca.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(InfoPrefectActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -102,11 +113,11 @@ public class InfoPrefectActivity extends BaseActivity {
             case R.id.btn_perfect:
                 String nickName = edtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
-                    ToastUtils.showToast(mContext, "昵称不能为空!");
+                    ToastUtils.showToast(InfoPrefectActivity.this, "昵称不能为空!");
                     return;
                 }
                 if (birthDay == null) {
-                    ToastUtils.showToast(mContext, "请先选择您的出生日期!");
+                    ToastUtils.showToast(InfoPrefectActivity.this, "请先选择您的出生日期!");
                     return;
                 }
                 User.getInstance().setName(nickName);
@@ -121,4 +132,8 @@ public class InfoPrefectActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

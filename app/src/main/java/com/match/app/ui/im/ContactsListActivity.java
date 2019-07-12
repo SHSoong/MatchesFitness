@@ -109,14 +109,14 @@ public class ContactsListActivity extends BaseActivity {
     }
 
     private void initData() {
-        adapter = new ContactListAdapter(mContext, filledData(lists));
+        adapter = new ContactListAdapter(this, filledData(lists));
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Conversation conversation = new Conversation();
-                Intent intent = new Intent(mContext, ChatActivity.class);
+                Intent intent = new Intent(ContactsListActivity.this, ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(ChatActivity.DATA, conversation);
                 intent.putExtras(bundle);

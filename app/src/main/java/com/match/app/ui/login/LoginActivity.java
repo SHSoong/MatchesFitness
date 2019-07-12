@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,10 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
 
+    @BindView(R.id.rlLeftBack)
+    RelativeLayout rlLeftBack;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.img_login)
     ImageView imgLogin;
     @BindView(R.id.edt_phone)
@@ -62,11 +67,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onInit() {
         ButterKnife.bind(this);
-        initTile(R.string.login, false);
+        initTile();
 
         user = User.getInstance();
 
-        Glide.with(mContext)
+        Glide.with(this)
                 .load(user.getLogo())
                 .apply(new RequestOptions().placeholder(R.mipmap.icon_avatar))
                 .into(imgLogin);
@@ -108,27 +113,32 @@ public class LoginActivity extends BaseActivity {
         tvWb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showToast(mContext, "开发中...");
+                ToastUtils.showToast(LoginActivity.this, "开发中...");
             }
         });
         tvWx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showToast(mContext, "开发中...");
+                ToastUtils.showToast(LoginActivity.this, "开发中...");
             }
         });
         tvTw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showToast(mContext, "开发中...");
+                ToastUtils.showToast(LoginActivity.this, "开发中...");
             }
         });
         tvFc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showToast(mContext, "开发中...");
+                ToastUtils.showToast(LoginActivity.this, "开发中...");
             }
         });
+    }
+
+    private void initTile() {
+        tvTitle.setText(getString(R.string.login));
+        rlLeftBack.setVisibility(View.GONE);
     }
 
     private void callApi(B001Request request) {

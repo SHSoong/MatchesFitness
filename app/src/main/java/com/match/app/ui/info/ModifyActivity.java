@@ -129,7 +129,7 @@ public class ModifyActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Person person = (Person) currentAdapter.getItem(i);
-                Intent intent = new Intent(mContext, OtherPersonInfoActivity.class);
+                Intent intent = new Intent(ModifyActivity.this, OtherPersonInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(OtherPersonInfoActivity.INFO_KEY, person);
                 intent.putExtras(bundle);
@@ -140,7 +140,7 @@ public class ModifyActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Person person = (Person) beforeAdapter.getItem(i);
-                Intent intent = new Intent(mContext, OtherPersonInfoActivity.class);
+                Intent intent = new Intent(ModifyActivity.this, OtherPersonInfoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(OtherPersonInfoActivity.INFO_KEY, person);
                 intent.putExtras(bundle);
@@ -243,7 +243,7 @@ public class ModifyActivity extends BaseActivity {
 
                     @Override
                     protected void onHandleError(String msg) {
-                        ToastUtils.showToast(mContext, msg);
+                        ToastUtils.showToast(ModifyActivity.this, msg);
                     }
                 });
     }
@@ -251,14 +251,14 @@ public class ModifyActivity extends BaseActivity {
     private void initAdapter() {
         currents = new ArrayList<>();
         currentRecord.setNumColumns(4);
-        currentAdapter = new RecordListAdapter(mContext, currents);
+        currentAdapter = new RecordListAdapter(ModifyActivity.this, currents);
         currentRecord.setAdapter(currentAdapter);
         setListViewHeightBasedOnChildren(currentRecord, currentAdapter);
         currentAdapter.notifyDataSetChanged();
 
         befores = new ArrayList<>();
         beforeRecord.setNumColumns(4);
-        beforeAdapter = new RecordListAdapter(mContext, befores);
+        beforeAdapter = new RecordListAdapter(ModifyActivity.this, befores);
         beforeRecord.setAdapter(beforeAdapter);
         setListViewHeightBasedOnChildren(beforeRecord, beforeAdapter);
         beforeAdapter.notifyDataSetChanged();
@@ -317,7 +317,7 @@ public class ModifyActivity extends BaseActivity {
                                 .centerCrop()
                                 .placeholder(R.color.black)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL);
-                        Glide.with(mContext)
+                        Glide.with(ModifyActivity.this)
                                 .load(file.getPath())
                                 .apply(options)
                                 .into(arcImageView);
